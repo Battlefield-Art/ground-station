@@ -72,6 +72,7 @@ const DECODER_TYPES = [
     { value: 'gmsk', labelKey: 'decoder_type_gmsk' },
     { value: 'gfsk', labelKey: 'decoder_type_gfsk' },
     { value: 'bpsk', labelKey: 'decoder_type_bpsk' },
+    { value: 'aprs', labelKey: 'decoder_type_aprs' },
     { value: 'sstv', labelKey: 'decoder_type_sstv' },
 ];
 
@@ -1925,13 +1926,12 @@ export default function MonitoredSatelliteDialog() {
                                                                             if (config.framing === 'geoscan' && config.framing_params?.frame_size) {
                                                                                 newParams.bpsk_geoscan_frame_size = config.framing_params.frame_size;
                                                                             }
-                                                                        } else if (decoderType === 'afsk') {
-                                                                            if (config.baudrate) newParams.afsk_baudrate = config.baudrate;
-                                                                            if (config.framing) newParams.afsk_framing = config.framing;
+                                                                        } else if (decoderType === 'aprs') {
+                                                                            if (config.baudrate) newParams.aprs_baudrate = config.baudrate;
                                                                             if (config.deviation !== null && config.deviation !== undefined) {
-                                                                                newParams.afsk_deviation = config.deviation;
+                                                                                newParams.aprs_deviation = config.deviation;
                                                                             }
-                                                                            if (config.af_carrier) newParams.afsk_af_carrier = config.af_carrier;
+                                                                            if (config.af_carrier) newParams.aprs_af_carrier = config.af_carrier;
                                                                         } else if (decoderType === 'lora') {
                                                                             if (config.sf) newParams.lora_sf = config.sf;
                                                                             if (config.bw) newParams.lora_bw = config.bw;

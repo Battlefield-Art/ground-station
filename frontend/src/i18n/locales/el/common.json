@@ -215,6 +215,7 @@
       "decoder_type_gmsk": "GMSK",
       "decoder_type_gfsk": "GFSK",
       "decoder_type_bpsk": "BPSK",
+      "decoder_type_aprs": "APRS",
       "decoder_type_sstv": "SSTV",
       "decoder_parameters_label": "Παραμετροι αποκωδικοποιητη",
       "demodulator_label": "Αποδιαμορφωτης",

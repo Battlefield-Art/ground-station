@@ -302,20 +302,20 @@ const VFOMarkersContainer = ({
         return null;
     }, [decoderOutputs, getDecoderInfoForVFO]);
 
-    // Helper function to get AX.25 packet decoder outputs for a VFO (BPSK/FSK/GMSK/GFSK/AFSK)
+    // Helper function to get AX.25 packet decoder outputs for a VFO.
     const getPacketDecoderOutputsForVFO = useCallback((vfoNumber) => {
         // Find decoder info first (already filtered by current session)
         const decoderInfo = getDecoderInfoForVFO(vfoNumber);
-        if (!decoderInfo || !['bpsk', 'fsk', 'gmsk', 'gfsk', 'afsk'].includes(decoderInfo.decoder_type)) {
+        if (!decoderInfo || !['bpsk', 'fsk', 'gmsk', 'gfsk', 'aprs'].includes(decoderInfo.decoder_type)) {
             return null;
         }
 
         // Filter all outputs for this VFO and session
-        // Note: Match any of bpsk/fsk/gmsk/gfsk/afsk since they're related protocols (all use AX.25)
+        // Match packet decoders that emit the common AX.25 output contract.
         // getDecoderInfoForVFO already ensures session_id matches currentSessionId
         const outputs = decoderOutputs?.filter(
             out => out.session_id === decoderInfo.session_id &&
-                   ['bpsk', 'fsk', 'gmsk', 'gfsk', 'afsk'].includes(out.decoder_type) &&
+                   ['bpsk', 'fsk', 'gmsk', 'gfsk', 'aprs'].includes(out.decoder_type) &&
                    out.vfo === vfoNumber
         );
 
@@ -734,7 +734,7 @@ const VFOMarkersContainer = ({
             // Get morse output text if this VFO has a morse decoder
             const morseText = getMorseOutputForVFO(parseInt(markerIdx));
 
-            // Get packet decoder outputs info if this VFO has a packet decoder (BPSK/FSK/GMSK/GFSK/AFSK)
+            // Get packet decoder output info when this VFO has an AX.25 decoder.
             const packetOutputs = getPacketDecoderOutputsForVFO(parseInt(markerIdx));
             const gnssDetectedSatCount = decoderInfo?.decoder_type === 'gnss'
                 ? getGnssDetectedSatCountForVFO(parseInt(markerIdx))
@@ -831,7 +831,7 @@ const VFOMarkersContainer = ({
                     let secondaryLabelText = '';
                     const decoderType = decoderInfo.decoder_type;
 
-                    if (['bpsk', 'fsk', 'gmsk', 'gfsk', 'afsk'].includes(decoderType)) {
+                    if (['bpsk', 'fsk', 'gmsk', 'gfsk', 'aprs'].includes(decoderType)) {
                         const status = decoderInfo.status || 'processing';
                         const baudrate = decoderInfo.info?.baudrate || 0;
                         const framing = decoderInfo.info?.framing || 'unknown';

@@ -12,6 +12,7 @@
 export const getFramingShort = (framing) => {
     const framingMap = {
         'ax25': 'AX25',
+        'aprs': 'APRS',
         'raw': 'RAW',
         'ccsds': 'CCSDS',
         'custom': 'CUST',
@@ -99,13 +100,12 @@ export const formatDecoderParamsSummary = (vfo) => {
         return `${formatBaudrate(baudrate)} ${getFramingShort(framing)}${differential ? ' DIFF' : ''}`;
     }
 
-    if (decoder === 'afsk') {
-        const baudrate = params.afsk_baudrate ?? 1200;
-        const af_carrier = params.afsk_af_carrier ?? 1700;
-        const deviation = params.afsk_deviation ?? 500;
-        const framing = params.afsk_framing ?? 'ax25';
+    if (decoder === 'aprs') {
+        const baudrate = params.aprs_baudrate ?? 1200;
+        const af_carrier = params.aprs_af_carrier ?? 1700;
+        const deviation = params.aprs_deviation ?? 500;
         const carrierKhz = af_carrier >= 1000 ? `${(af_carrier / 1000).toFixed(1)}k` : `${af_carrier}`;
-        return `${formatBaudrate(baudrate)} ${carrierKhz}Hz ±${deviation} ${getFramingShort(framing)}`;
+        return `${formatBaudrate(baudrate)} ${carrierKhz}Hz ±${deviation} APRS`;
     }
 
     // Default for decoders without parameters

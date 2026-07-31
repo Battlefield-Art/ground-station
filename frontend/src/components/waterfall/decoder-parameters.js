@@ -313,38 +313,32 @@ export const BPSK_PARAMETERS = {
 };
 
 /**
- * AFSK Decoder Parameters
- * AFSK (Audio Frequency Shift Keying) modulates data onto an audio frequency carrier.
- * Used for FM-based packet radio (APRS, amateur satellites with FM transponders).
+ * APRS Decoder Parameters
+ * The decoder consumes raw IQ and performs NBFM and Bell 202 demodulation internally.
  */
-export const AFSK_PARAMETERS = {
-    afsk_baudrate: {
+export const APRS_PARAMETERS = {
+    aprs_baudrate: {
         label: 'Baud Rate',
         description: 'Symbol rate in symbols/second',
         type: 'select',
         default: 1200,
         options: [
-            { value: 300, label: '300 baud', tooltip: 'Low-speed HF packet radio' },
             { value: 1143, label: '1143 baud', tooltip: 'Some satellites' },
             { value: 1200, label: '1200 baud', tooltip: 'Bell 202 (APRS, VHF packet radio)' },
-            { value: 2400, label: '2400 baud', tooltip: 'Medium-speed packet radio' },
-            { value: 2500, label: '2500 baud', tooltip: 'Some satellite links' },
-            { value: 4800, label: '4800 baud', tooltip: 'High-speed VHF packet radio' },
-            { value: 9600, label: '9600 baud', tooltip: 'G3RUH (UHF packet radio)' }
+            { value: 1240, label: '1240 baud', tooltip: 'Some satellite APRS variants' }
         ]
     },
-    afsk_af_carrier: {
+    aprs_af_carrier: {
         label: 'Audio Carrier Frequency',
         description: 'Center frequency of the audio FSK tones',
         type: 'select',
         default: 1700,
         options: [
-            { value: 1200, label: '1200 Hz', tooltip: 'VHF/UHF packet radio' },
             { value: 1700, label: '1700 Hz', tooltip: 'Bell 202 APRS standard' },
-            { value: 2200, label: '2200 Hz', tooltip: 'Alternative carrier frequency' }
+            { value: 1810, label: '1810 Hz', tooltip: 'Some satellite APRS variants' }
         ]
     },
-    afsk_deviation: {
+    aprs_deviation: {
         label: 'Frequency Deviation',
         description: 'Audio frequency shift from carrier',
         type: 'select',
@@ -352,18 +346,7 @@ export const AFSK_PARAMETERS = {
         options: [
             { value: 500, label: '500 Hz', tooltip: 'Standard for 1200 baud (Bell 202)' },
             { value: 565, label: '565 Hz', tooltip: 'Some satellites' },
-            { value: 1000, label: '1000 Hz', tooltip: 'Wide deviation for 1200 baud' },
-            { value: 2400, label: '2400 Hz', tooltip: 'Standard for 9600 baud' },
-            { value: 3000, label: '3000 Hz', tooltip: 'Wide deviation for 9600 baud' }
-        ]
-    },
-    afsk_framing: {
-        label: 'Framing Protocol',
-        description: 'Data framing protocol',
-        type: 'select',
-        default: 'ax25',
-        options: [
-            { value: 'ax25', label: 'AX.25 (G3RUH)', tooltip: 'Amateur packet radio standard with G3RUH scrambler' }
+            { value: 600, label: '600 Hz', tooltip: 'Some satellite APRS variants' }
         ]
     }
 };
@@ -497,6 +480,7 @@ export const DECODER_SUPPORT = {
     lora: false,
     morse: false,
     afsk: false,
+    aprs: true,
     gnss: true
 };
 
@@ -533,7 +517,7 @@ export const DECODER_PARAMETERS = {
     ...GMSK_PARAMETERS,
     ...GFSK_PARAMETERS,
     ...BPSK_PARAMETERS,
-    ...AFSK_PARAMETERS,
+    ...APRS_PARAMETERS,
     ...GNSS_PARAMETERS,
     ...SSTV_PARAMETERS
 };
@@ -614,12 +598,12 @@ export function mapParametersToBackend(decoder, parameters) {
         };
     }
 
-    if (decoder === 'afsk') {
+    if (decoder === 'aprs') {
         return {
-            baudrate: parameters.afsk_baudrate,
-            af_carrier: parameters.afsk_af_carrier,
-            deviation: parameters.afsk_deviation,
-            framing: parameters.afsk_framing
+            baudrate: parameters.aprs_baudrate,
+            af_carrier: parameters.aprs_af_carrier,
+            deviation: parameters.aprs_deviation,
+            framing: 'aprs'
         };
     }
 

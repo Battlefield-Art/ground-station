@@ -28,6 +28,7 @@ import IntegersTab from './telemetry-integers-tab';
 import StringsTab from './telemetry-strings-tab';
 import AnalysisTab from './telemetry-analysis-tab';
 import TelemetryValuesTab from './telemetry-values-tab';
+import APRSTab from './telemetry-aprs-tab.jsx';
 
 function TabPanel({ children, value, index, ...other }) {
     return (
@@ -68,6 +69,7 @@ export default function TelemetryViewerDialog({ open, onClose, file, metadata })
     const telemetry = metadata.telemetry || {};
     const packet = metadata.packet || {};
     const ax25 = metadata.ax25 || {};
+    const isAprs = metadata.decoder?.type === 'aprs';
 
     return (
         <Dialog
@@ -114,7 +116,7 @@ export default function TelemetryViewerDialog({ open, onClose, file, metadata })
                     sx={{ px: 2 }}
                 >
                     <Tab label="Overview" id="telemetry-tab-0" />
-                    <Tab label="Telemetry" id="telemetry-tab-6" />
+                    <Tab label={isAprs ? 'APRS' : 'Telemetry'} id="telemetry-tab-6" />
                     <Tab label="Hex + ASCII" id="telemetry-tab-1" />
                     <Tab label="As Float32" id="telemetry-tab-2" />
                     <Tab label="As Integers" id="telemetry-tab-3" />
@@ -143,7 +145,11 @@ export default function TelemetryViewerDialog({ open, onClose, file, metadata })
 
                 <TabPanel value={activeTab} index={1}>
                     <Box sx={{ px: 3, pb: 2 }}>
-                        <TelemetryValuesTab telemetry={telemetry} />
+                        {isAprs ? (
+                            <APRSTab metadata={metadata} />
+                        ) : (
+                            <TelemetryValuesTab telemetry={telemetry} />
+                        )}
                     </Box>
                 </TabPanel>
 

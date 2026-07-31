@@ -154,7 +154,9 @@ class BaseDecoder:
             # Full scale for complex samples is 1.0, so 0 dBFS = power of 1.0
             power_dbfs = 10 * np.log10(mean_power)
 
-            return power_dbfs
+            # Queue messages are later encoded as JSON by Socket.IO.  NumPy
+            # scalars (notably float32 for complex64 IQ) are not JSON serializable.
+            return float(power_dbfs)
 
         except Exception as e:
             logger.debug(f"Error measuring signal power: {e}")
@@ -186,11 +188,11 @@ class BaseDecoder:
         """
         stats = {}
         if self.current_power_dbfs is not None:
-            stats["signal_power_dbfs"] = round(self.current_power_dbfs, 1)
+            stats["signal_power_dbfs"] = round(float(self.current_power_dbfs), 1)
         if len(self.power_measurements) > 0:
-            stats["signal_power_avg_dbfs"] = round(np.mean(self.power_measurements), 1)
-            stats["signal_power_max_dbfs"] = round(np.max(self.power_measurements), 1)
-            stats["signal_power_min_dbfs"] = round(np.min(self.power_measurements), 1)
+            stats["signal_power_avg_dbfs"] = round(float(np.mean(self.power_measurements)), 1)
+            stats["signal_power_max_dbfs"] = round(float(np.max(self.power_measurements)), 1)
+            stats["signal_power_min_dbfs"] = round(float(np.min(self.power_measurements)), 1)
         return stats
 
     def _on_packet_decoded(

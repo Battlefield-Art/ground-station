@@ -26,6 +26,89 @@ from db.models import Satellites, Transmitters
 from pipeline.registries.decoderregistry import decoder_registry
 from vfos.state import VFOManager
 
+_BACKEND_OVERRIDE_KEYS = {
+    "baudrate",
+    "deviation",
+    "framing",
+    "framing_params",
+    "differential",
+    "af_carrier",
+    "sf",
+    "bw",
+    "cr",
+    "sync_word",
+    "preamble_len",
+    "fldro",
+    "gnss_sample_rate",
+    "gnss_total_channels",
+    "gnss_output_rate_ms",
+    "gnss_doppler_max",
+    "gnss_enable_gps",
+    "gnss_enable_galileo",
+    "gnss_enable_glonass",
+    "gnss_enable_beidou",
+    "gnss_enable_qzss",
+}
+
+
+def map_scheduler_decoder_parameters(decoder_type: str, parameters: Any) -> Dict[str, Any]:
+    """Translate persisted scheduler parameter keys into decoder config overrides."""
+    if not isinstance(parameters, dict):
+        return {}
+
+    decoder_type = str(decoder_type or "").lower()
+    frontend_to_backend: Dict[str, str] = {}
+
+    if decoder_type in {"fsk", "gmsk", "gfsk"}:
+        frontend_to_backend = {
+            f"{decoder_type}_baudrate": "baudrate",
+            f"{decoder_type}_framing": "framing",
+            f"{decoder_type}_deviation": "deviation",
+        }
+    elif decoder_type == "bpsk":
+        frontend_to_backend = {
+            "bpsk_baudrate": "baudrate",
+            "bpsk_framing": "framing",
+            "bpsk_differential": "differential",
+        }
+    elif decoder_type == "aprs":
+        frontend_to_backend = {
+            "aprs_baudrate": "baudrate",
+            "aprs_af_carrier": "af_carrier",
+            "aprs_deviation": "deviation",
+        }
+    elif decoder_type == "lora":
+        frontend_to_backend = {
+            "lora_sf": "sf",
+            "lora_bw": "bw",
+            "lora_cr": "cr",
+            "lora_sync_word": "sync_word",
+            "lora_preamble_len": "preamble_len",
+            "lora_fldro": "fldro",
+        }
+
+    overrides = {
+        backend_key: parameters[frontend_key]
+        for frontend_key, backend_key in frontend_to_backend.items()
+        if frontend_key in parameters
+    }
+
+    # Also accept already-normalized keys for API-created or legacy tasks.
+    for key in _BACKEND_OVERRIDE_KEYS:
+        if key in parameters and key not in overrides:
+            overrides[key] = parameters[key]
+
+    # The scheduler stores GEOSCAN's frame size in a flat UI field, while the
+    # decoder configuration service expects framing-specific values to be nested.
+    geoscan_frame_size_key = f"{decoder_type}_geoscan_frame_size"
+    if (
+        parameters.get(f"{decoder_type}_framing") == "geoscan"
+        and geoscan_frame_size_key in parameters
+    ):
+        overrides["framing_params"] = {"frame_size": parameters[geoscan_frame_size_key]}
+
+    return overrides
+
 
 class DecoderHandler:
     """Handles decoder task configuration and lifecycle for observations."""
@@ -66,6 +149,9 @@ class DecoderHandler:
             # Get decoder configuration
             transmitter_id = task_config.get("transmitter_id", "none")
             decoder_type = task_config.get("decoder_type", "none")
+            decoder_param_overrides = map_scheduler_decoder_parameters(
+                decoder_type, task_config.get("parameters")
+            )
             center_freq = task_config.get("frequency", sdr_config["center_freq"])
             modulation = task_config.get("modulation", "none")
             bandwidth = task_config.get("bandwidth", 40000)
@@ -133,7 +219,7 @@ class DecoderHandler:
                 "output_dir": "data/decoded",
                 "vfo_center_freq": center_freq,
                 "vfo": vfo_number,
-                "decoder_param_overrides": {},  # Use defaults from transmitter
+                "decoder_param_overrides": decoder_param_overrides,
                 "caller": "decoderhandler.py:start_decoder_task",
             }
 

@@ -230,6 +230,8 @@ class SatelliteConfigService:
                     params["framing"] = tx_override["framing"]
                 if "modulation" in tx_override:
                     params["modulation"] = tx_override["modulation"]
+                if "af_carrier" in tx_override:
+                    params["af_carrier"] = tx_override["af_carrier"]
 
                 return params
 
@@ -263,6 +265,8 @@ class SatelliteConfigService:
             # Optional parameters
             if "precoding" in tx:
                 params["precoding"] = tx["precoding"]
+            if "af_carrier" in tx:
+                params["af_carrier"] = tx["af_carrier"]
             if "frame size" in tx:
                 params["frame_size"] = tx["frame size"]
         else:

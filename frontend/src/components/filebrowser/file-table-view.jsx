@@ -42,6 +42,7 @@ import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 import SubjectIcon from '@mui/icons-material/Subject';
 import SatelliteAltIcon from '@mui/icons-material/SatelliteAlt';
+import CellTowerIcon from '@mui/icons-material/CellTower';
 import ImageIcon from '@mui/icons-material/Image';
 import FolderIcon from '@mui/icons-material/Folder';
 import BuildIcon from '@mui/icons-material/Build';
@@ -69,6 +70,8 @@ function getLanguageFlag(langCode) {
 
 function FileTableRow({ item, selectionMode, isSelected, onToggleSelection, onShowDetails, onDownload, onDelete, onProcessingMenu, timezone, t }) {
     const isRecording = item.type === 'recording';
+    const isAprsDecodedFile = item.type === 'decoded'
+        && String(item.decoder_type || '').toLowerCase() === 'aprs';
 
     const formatTime = (isoDate) => {
         const date = new Date(isoDate);
@@ -147,6 +150,9 @@ function FileTableRow({ item, selectionMode, isSelected, onToggleSelection, onSh
             return item.satellite_name;
         }
         if (item.type === 'decoded' && item.satellite_name) {
+            // Old APRS responses used satellite_name for any AX.25 source.
+            // Only NORAD-backed APRS metadata belongs in this column.
+            if (isAprsDecodedFile && !item.satellite_norad_id) return null;
             return item.satellite_name;
         }
         if (item.type === 'audio' && item.satellite_name) {
@@ -253,6 +259,19 @@ function FileTableRow({ item, selectionMode, isSelected, onToggleSelection, onSh
 
         // Decoded chips
         if (item.type === 'decoded') {
+            if (isAprsDecodedFile && item.source_callsign) {
+                chips.push(
+                    <Chip
+                        key="source-callsign"
+                        label={item.source_callsign}
+                        size="small"
+                        variant="outlined"
+                        color="secondary"
+                        icon={<CellTowerIcon />}
+                        sx={{ height: '20px', fontSize: '0.65rem', '& .MuiChip-icon': { fontSize: '0.85rem' } }}
+                    />
+                );
+            }
             if (item.decoder_type) {
                 chips.push(
                     <Chip

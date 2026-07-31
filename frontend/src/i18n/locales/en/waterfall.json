@@ -108,7 +108,7 @@
       "sstv": "SSTV",
       "morse": "Morse",
       "lora": "LoRa",
-      "afsk": "AFSK",
+      "aprs": "APRS",
       "gmsk": "GMSK",
       "gfsk": "GFSK",
       "bpsk": "BPSK"

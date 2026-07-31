@@ -123,7 +123,7 @@ export const DecoderType = {
     LORA: 'lora',
     FSK: 'fsk',
     BPSK: 'bpsk',
-    AFSK: 'afsk',
+    APRS: 'aprs',
 };
 
 /**

@@ -324,21 +324,21 @@ export const DECODERS = {
             return 30000; // fallback to default
         },
     },
-    afsk: {
-        internalName: 'afsk',
-        displayName: 'AFSK',
-        description: 'Audio FSK decoder (APRS, packet radio - requires FM demodulator)',
+    aprs: {
+        internalName: 'aprs',
+        displayName: 'APRS',
+        description: 'APRS Bell 202 decoder (processes raw IQ with integrated FM demodulation)',
         hasStatusDisplay: true,
         hasProgressDisplay: false,
         hasTextOutput: false,
         hasModeDisplay: false,
-        defaultBandwidth: 12500, // 12.5 kHz for AFSK (typical FM channel bandwidth)
+        defaultBandwidth: 12500,
         bandwidthType: 'double-sided',
         showBothEdges: true,
-        allowLeftEdgeDrag: true,
-        allowRightEdgeDrag: true,
+        allowLeftEdgeDrag: false,
+        allowRightEdgeDrag: false,
         bandwidthLabel: (bw) => `±${(bw / 2000).toFixed(1)}kHz`,
-        lockedBandwidth: false, // allows user adjustment (FM carrier bandwidth)
+        lockedBandwidth: true,
     },
 };
 

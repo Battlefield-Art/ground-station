@@ -93,6 +93,7 @@ import logging
 import re
 from typing import Any, Dict, Optional, Tuple
 
+from .aprsparser import APRSParser
 from .ax25parser import AX25Parser
 from .ccsdsparser import CCSDSParser
 from .cspparser import CSPParser
@@ -124,6 +125,7 @@ class TelemetryParser:
         Backward compatibility: string keys (callsign base) for AX.25 still work.
         """
         self.ax25_parser = AX25Parser()
+        self.aprs_parser = APRSParser()
         self.csp_parser = CSPParser()
         self.ccsds_parser = CCSDSParser()
         self.payload_parsers: Dict[Any, Any] = {}  # protocol-aware registry
@@ -216,8 +218,15 @@ class TelemetryParser:
                 "repeaters": ax25_result.get("repeaters"),
             }
             payload = ax25_result["payload"]
+            is_aprs = isinstance(parser_hint, dict) and parser_hint.get("framing") == "aprs"
             payload_parser = self._select_payload_parser_ax25(ax25_result["source"], parser_hint)
-            if payload_parser:
+            if is_aprs:
+                result["telemetry"] = self.aprs_parser.parse(
+                    payload,
+                    destination=ax25_result["destination"],
+                )
+                result["parser"] = "ax25+aprs"
+            elif payload_parser:
                 try:
                     telemetry_data = payload_parser.parse(payload)
                     result["telemetry"] = telemetry_data

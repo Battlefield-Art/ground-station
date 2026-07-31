@@ -68,6 +68,7 @@ import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import RadioIcon from '@mui/icons-material/Radio';
 import StorageIcon from '@mui/icons-material/Storage';
 import SatelliteAltIcon from '@mui/icons-material/SatelliteAlt';
+import CellTowerIcon from '@mui/icons-material/CellTower';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import SelectAllIcon from '@mui/icons-material/SelectAll';
@@ -1111,6 +1112,8 @@ export default function FileBrowserMain() {
                 }}>
                         {displayItems.map((item) => {
                         const isRecording = item.type === 'recording';
+                        const isAprsDecodedFile = item.type === 'decoded'
+                            && String(item.decoder_type || '').toLowerCase() === 'aprs';
                         const key = isRecording ? item.name : (item.type === 'decoded_folder' ? item.foldername : item.filename);
                         const isSelected = selectedItems.includes(key);
 
@@ -1705,13 +1708,25 @@ export default function FileBrowserMain() {
                                                     sx={{ height: '20px', fontSize: '0.65rem', '& .MuiChip-label': { px: 0.75 } }}
                                                 />
                                             )}
-                                            {item.type === 'decoded' && item.satellite_name && (
+                                            {item.type === 'decoded'
+                                                && item.satellite_name
+                                                && (!isAprsDecodedFile || item.satellite_norad_id) && (
                                                 <Chip
                                                     label={item.satellite_name}
                                                     size="small"
                                                     variant="outlined"
                                                     color="secondary"
                                                     icon={<SatelliteAltIcon />}
+                                                    sx={{ height: '20px', fontSize: '0.65rem', '& .MuiChip-label': { px: 0.75 }, '& .MuiChip-icon': { fontSize: '0.85rem' } }}
+                                                />
+                                            )}
+                                            {isAprsDecodedFile && item.source_callsign && (
+                                                <Chip
+                                                    label={item.source_callsign}
+                                                    size="small"
+                                                    variant="outlined"
+                                                    color="secondary"
+                                                    icon={<CellTowerIcon />}
                                                     sx={{ height: '20px', fontSize: '0.65rem', '& .MuiChip-label': { px: 0.75 }, '& .MuiChip-icon': { fontSize: '0.85rem' } }}
                                                 />
                                             )}

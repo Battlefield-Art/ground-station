@@ -12,6 +12,7 @@ from typing import Optional
 
 class FramingType:
     AX25 = "ax25"
+    APRS = "aprs"
     USP = "usp"
     GEOSCAN = "geoscan"
     DOKA = "doka"
@@ -21,7 +22,9 @@ class FramingType:
     AO40_FEC_SHORT = "ao40_fec_short"
 
 
-AX25_FRAMINGS = {FramingType.AX25, FramingType.USP}
+# APRS uses AX.25 UI frames, but its 1200-baud Bell 202 modem does not use
+# the G3RUH scrambler used by the existing generic AX.25 decoder setting.
+AX25_FRAMINGS = {FramingType.AX25, FramingType.APRS, FramingType.USP}
 CSP_FRAMINGS = {FramingType.AX100_ASM, FramingType.AX100_RS}
 CCSDS_FRAMINGS = {FramingType.DOKA}
 PROPRIETARY_FRAMINGS = {FramingType.GEOSCAN}

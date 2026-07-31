@@ -716,7 +716,7 @@ export const useSocketEventHandlers = (socket, enabled = true) => {
         // Run immediately on mount
         checkObservationTiming();
 
-        // Decoder data events (SSTV, AFSK, Morse, GMSK, Transcription, etc.)
+        // Decoder data events (SSTV, APRS, Morse, GMSK, Transcription, etc.)
         socket.on('decoder-data', (data) => {
             // Some backends/bridges can emit an empty decoder payload transiently.
             // Guarding here avoids crashing the app shell on malformed events.

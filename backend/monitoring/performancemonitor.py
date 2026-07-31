@@ -1049,9 +1049,9 @@ class PerformanceMonitor(threading.Thread):
                 decoder_name = vfo_num  # Using vfo_num as decoder name based on the key structure
 
                 # Check if this is an IQ-based decoder by type name (not attribute check)
-                # IQ-based: BPSK, FSK, GFSK, GMSK, SSTVDecoder (with integrated FM demod)
-                # Audio-based: AFSK, Morse
+                # IQ-based: packet decoders plus SSTV/GNSS with integrated demodulation.
                 is_iq_decoder = decoder_type in [
+                    "APRSDecoder",
                     "BPSKDecoder",
                     "FSKDecoder",
                     "GFSKDecoder",

@@ -298,7 +298,7 @@ export const DataDecoderSelector = ({
                 else if (newValue === 'lora') updates.bandwidth = 500000;
                 else if (newValue === 'gnss') updates.bandwidth = 2000000;
                 else if (newValue === 'morse') updates.bandwidth = 2500;
-                else if (newValue === 'afsk') updates.bandwidth = 3300;
+                else if (newValue === 'aprs') updates.bandwidth = 12500;
                 else if (['gmsk', 'gfsk', 'bpsk'].includes(newValue)) {
                     const lockedTransmitterTrackerId = vfo?.lockedTransmitterTrackerId;
                     const lockedTransmitter = vfo?.lockedTransmitterId
@@ -351,7 +351,7 @@ export const DataDecoderSelector = ({
                     { value: 'gmsk', label: t('vfo.decoders_modes.gmsk', 'GMSK') },
                     { value: 'gfsk', label: t('vfo.decoders_modes.gfsk', 'GFSK') },
                     { value: 'bpsk', label: t('vfo.decoders_modes.bpsk', 'BPSK') },
-                    { value: 'afsk', label: t('vfo.decoders_modes.afsk', 'AFSK') },
+                    { value: 'aprs', label: t('vfo.decoders_modes.aprs', 'APRS') },
                     { value: 'gnss', label: t('vfo.decoders_modes.gnss', 'GNSS') }
                 ].map(({ value, label }) => {
                     const supported = isDecoderSupported(value);

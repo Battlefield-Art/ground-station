@@ -47,7 +47,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
  *         {
  *           type: 'decoder',
  *           config: {
- *             decoder_type: string (e.g., 'afsk', 'gmsk', 'sstv'),
+ *             decoder_type: string (e.g., 'aprs', 'gmsk', 'sstv'),
  *             vfo: number | null
  *           }
  *         },

@@ -709,6 +709,7 @@ async def filebrowser_request_routing(sio, cmd, data, logger, sid):
                     decoder_type = None
                     satellite_name = None
                     satellite_norad_id = None
+                    source_callsign = None
                     transmitter_description = None
                     transmitter_mode = None
                     frequency_hz = None
@@ -752,19 +753,27 @@ async def filebrowser_request_routing(sio, cmd, data, logger, sid):
                                 frequency_hz = signal_info.get("frequency_hz")
                                 frequency_mhz = signal_info.get("frequency_mhz")
 
-                                # Fallback: Extract satellite name from AX.25 source callsign if not in metadata
-                                if not satellite_name:
-                                    ax25_info = metadata.get("ax25") or {}
-                                    source_callsign = ax25_info.get("from_callsign", "")
-                                    if source_callsign:
-                                        # Extract base satellite name (e.g., "TVL2-6-1" -> "TEVEL-2-6")
-                                        if source_callsign.startswith("TVL2-"):
-                                            parts = source_callsign.split("-")
-                                            if len(parts) >= 2:
-                                                satellite_name = f"TEVEL-2-{parts[1]}"
-                                        else:
-                                            # For other satellites, use callsign as-is
-                                            satellite_name = source_callsign
+                                # An AX.25 source is the transmitting station. APRS sources
+                                # are commonly terrestrial operators or digipeaters, so do
+                                # not place their callsigns in satellite metadata.
+                                ax25_info = metadata.get("ax25") or {}
+                                source_callsign = ax25_info.get("from_callsign") or None
+
+                                # Preserve the legacy satellite-callsign inference for the
+                                # other packet decoders until their metadata is migrated.
+                                if (
+                                    not satellite_name
+                                    and source_callsign
+                                    and decoder_type != "APRS"
+                                ):
+                                    # Extract base satellite name (e.g., "TVL2-6-1" -> "TEVEL-2-6")
+                                    if source_callsign.startswith("TVL2-"):
+                                        parts = source_callsign.split("-")
+                                        if len(parts) >= 2:
+                                            satellite_name = f"TEVEL-2-{parts[1]}"
+                                    else:
+                                        # For other satellites, use callsign as-is
+                                        satellite_name = source_callsign
                         except Exception as e:
                             logger.warning(f"Failed to parse metadata for {decoded_file.name}: {e}")
 
@@ -793,6 +802,7 @@ async def filebrowser_request_routing(sio, cmd, data, logger, sid):
                             "baudrate": baudrate,
                             "satellite_name": satellite_name,
                             "satellite_norad_id": satellite_norad_id,
+                            "source_callsign": source_callsign,
                             "transmitter_description": transmitter_description,
                             "transmitter_mode": transmitter_mode,
                             "frequency_hz": frequency_hz,

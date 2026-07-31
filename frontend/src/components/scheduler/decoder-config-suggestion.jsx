@@ -30,7 +30,7 @@ import { useSocket } from '../common/socket.jsx';
  * with attribution to Daniel Estévez's gr-satellites project.
  *
  * @param {Object} props
- * @param {string} props.decoderType - The decoder type (gmsk, bpsk, afsk, etc.)
+ * @param {string} props.decoderType - The decoder type (gmsk, bpsk, aprs, etc.)
  * @param {Object} props.satellite - Satellite object with norad_id and name
  * @param {Object} props.transmitter - Transmitter object with baud, mode, description, etc.
  * @param {boolean} props.show - Whether to show the suggestion (when transmitter is selected)
@@ -144,12 +144,12 @@ export const DecoderConfigSuggestion = ({ decoderType, satellite, transmitter, s
             }
         }
 
-        // Deviation (FSK, GMSK, GFSK, AFSK)
+        // Deviation (FSK, GMSK, GFSK, APRS Bell 202 tones)
         if (config.deviation !== null && config.deviation !== undefined) {
             parts.push(`${config.deviation} Hz deviation`);
         }
 
-        // AF Carrier (AFSK specific)
+        // AF carrier (APRS Bell 202 specific)
         if (config.af_carrier) {
             parts.push(`${config.af_carrier} Hz carrier`);
         }

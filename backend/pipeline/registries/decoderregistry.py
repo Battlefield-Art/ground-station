@@ -19,9 +19,9 @@ from typing import List, Optional, Type
 
 # Import decoder classes
 try:
-    from demodulators.afskdecoder import AFSKDecoder
+    from demodulators.aprsdecoder import APRSDecoder
 except Exception:
-    AFSKDecoder = None
+    APRSDecoder = None
 
 try:
     from demodulators.bpskdecoder import BPSKDecoder
@@ -107,17 +107,17 @@ class DecoderRegistry:
         # Define capabilities for each decoder (only when class imports succeeded)
         self._decoders = {}
 
-        if AFSKDecoder is not None:
-            self._decoders["afsk"] = DecoderCapabilities(
-                name="afsk",
-                decoder_class=AFSKDecoder,
-                needs_raw_iq=False,
-                required_demodulator="fm",  # Needs internal FM demodulator
+        if APRSDecoder is not None:
+            self._decoders["aprs"] = DecoderCapabilities(
+                name="aprs",
+                decoder_class=APRSDecoder,
+                needs_raw_iq=True,
+                required_demodulator=None,
                 demodulator_mode=None,
-                default_bandwidth=12500,  # 12.5 kHz for AFSK
+                default_bandwidth=12500,
                 supports_transmitter_config=True,
                 restart_on_params=["baudrate", "af_carrier", "deviation", "framing"],
-                description="Audio Frequency Shift Keying decoder (APRS, packet radio)",
+                description="APRS Bell 202 decoder with integrated FM demodulation from raw IQ",
             )
 
         if SSTVDecoder is not None:

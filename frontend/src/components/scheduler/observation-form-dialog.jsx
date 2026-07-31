@@ -88,6 +88,7 @@ const DECODER_TYPES = [
     { value: 'gmsk', labelKey: 'decoder_type_gmsk' },
     { value: 'gfsk', labelKey: 'decoder_type_gfsk' },
     { value: 'bpsk', labelKey: 'decoder_type_bpsk' },
+    { value: 'aprs', labelKey: 'decoder_type_aprs' },
     { value: 'sstv', labelKey: 'decoder_type_sstv' },
 ];
 
@@ -818,9 +819,9 @@ const ObservationFormDialog = () => {
                 if (params.bpsk_baudrate) paramSummary.push(t('scheduler_dialogs.shared.baud_suffix', { value: params.bpsk_baudrate }));
                 if (params.bpsk_differential) paramSummary.push('DBPSK');
                 if (params.bpsk_framing) paramSummary.push(params.bpsk_framing.toUpperCase());
-            } else if (task.config.decoder_type === 'afsk') {
-                if (params.afsk_baudrate) paramSummary.push(t('scheduler_dialogs.shared.baud_suffix', { value: params.afsk_baudrate }));
-                if (params.afsk_af_carrier) paramSummary.push(t('scheduler_dialogs.shared.carrier_hz_suffix', { value: params.afsk_af_carrier }));
+            } else if (task.config.decoder_type === 'aprs') {
+                if (params.aprs_baudrate) paramSummary.push(t('scheduler_dialogs.shared.baud_suffix', { value: params.aprs_baudrate }));
+                if (params.aprs_af_carrier) paramSummary.push(t('scheduler_dialogs.shared.carrier_hz_suffix', { value: params.aprs_af_carrier }));
             }
 
             const parts = [transmitterName, freqMHz, decoderType, ...paramSummary].filter(Boolean);
@@ -2064,13 +2065,12 @@ const ObservationFormDialog = () => {
                                                                     if (config.framing === 'geoscan' && config.framing_params?.frame_size) {
                                                                         newParams.bpsk_geoscan_frame_size = config.framing_params.frame_size;
                                                                     }
-                                                                } else if (decoderType === 'afsk') {
-                                                                    if (config.baudrate) newParams.afsk_baudrate = config.baudrate;
-                                                                    if (config.framing) newParams.afsk_framing = config.framing;
+                                                                } else if (decoderType === 'aprs') {
+                                                                    if (config.baudrate) newParams.aprs_baudrate = config.baudrate;
                                                                     if (config.deviation !== null && config.deviation !== undefined) {
-                                                                        newParams.afsk_deviation = config.deviation;
+                                                                        newParams.aprs_deviation = config.deviation;
                                                                     }
-                                                                    if (config.af_carrier) newParams.afsk_af_carrier = config.af_carrier;
+                                                                    if (config.af_carrier) newParams.aprs_af_carrier = config.af_carrier;
                                                                 } else if (decoderType === 'lora') {
                                                                     if (config.sf) newParams.lora_sf = config.sf;
                                                                     if (config.bw) newParams.lora_bw = config.bw;

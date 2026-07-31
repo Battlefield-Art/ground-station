@@ -206,8 +206,8 @@ export const canvasDrawingUtils = {
             const secondaryLabelTop = labelTop + labelHeight + 2; // 2px gap below primary label
             const decoderType = decoderInfo.decoder_type;
 
-            // Handle BPSK, FSK, GMSK, GFSK, and AFSK decoders with output info
-            if (decoderType === 'bpsk' || decoderType === 'fsk' || decoderType === 'gmsk' || decoderType === 'gfsk' || decoderType === 'afsk') {
+            // Packet decoders share the same compact status/output label.
+            if (decoderType === 'bpsk' || decoderType === 'fsk' || decoderType === 'gmsk' || decoderType === 'gfsk' || decoderType === 'aprs') {
                 const status = decoderInfo.status || 'processing';
                 const outputCount = bpskOutputs?.count || 0;
                 const baudrate = decoderInfo.info?.baudrate || 0;

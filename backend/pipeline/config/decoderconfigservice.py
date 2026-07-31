@@ -29,7 +29,7 @@ class DecoderConfigService:
     Centralized service for resolving decoder configurations.
 
     Consolidates parameter resolution logic that was previously duplicated
-    across GMSK, BPSK, AFSK, and GFSK decoders.
+    across GMSK, BPSK, APRS, and GFSK decoders.
 
     Resolution priority (highest to lowest):
     1. Manual overrides (passed via overrides parameter)
@@ -65,7 +65,7 @@ class DecoderConfigService:
         Resolve decoder configuration from multiple sources.
 
         Args:
-            decoder_type: Decoder type ('gmsk', 'bpsk', 'afsk', 'gfsk', 'fsk', 'gnss')
+            decoder_type: Decoder type ('gmsk', 'bpsk', 'aprs', 'gfsk', 'fsk', 'gnss')
             satellite: Satellite dict with 'norad_id', 'name', etc.
             transmitter: Transmitter dict with 'baud', 'deviation', 'mode', 'description', etc.
             overrides: Manual parameter overrides (highest priority)
@@ -119,6 +119,15 @@ class DecoderConfigService:
 
         norad_id = satellite.get("norad_id")
         baudrate = self._resolve_baudrate(transmitter, overrides)
+        # APRS is a dedicated Bell 202 decoder. Missing or malformed SatNOGS
+        # baud metadata must not inherit the generic 9600-baud fallback.
+        if decoder_type == "aprs" and "baudrate" not in overrides:
+            try:
+                baudrate = int(transmitter.get("baud") or 1200)
+            except (TypeError, ValueError):
+                baudrate = 1200
+            if baudrate <= 0:
+                baudrate = 1200
         downlink_freq = transmitter.get("downlink_low")
 
         # Try satellite-specific configuration first (highest priority after overrides)
@@ -145,6 +154,11 @@ class DecoderConfigService:
         # Apply manual overrides (highest priority)
         if overrides:
             detected_config = self._apply_overrides(detected_config, overrides)
+
+        if decoder_type == "aprs":
+            # A dedicated APRS decoder never enables the G3RUH descrambler,
+            # even if generic satellite metadata calls the framing AX.25.
+            detected_config.framing = FramingType.APRS
 
         # Populate satellite and transmitter metadata as complete dicts
         detected_config.satellite = satellite if satellite else None
@@ -216,9 +230,16 @@ class DecoderConfigService:
             config_source = "transmitter_metadata" if (mode or description) else "smart_default"
         else:
             # Use framing and deviation from gr-satellites database
-            framing = sat_params.get("framing", FramingType.AX25)
+            framing = (
+                FramingType.APRS
+                if decoder_type == "aprs"
+                else sat_params.get("framing", FramingType.AX25)
+            )
             deviation = sat_params.get("deviation")
             config_source = "satellite_config"
+
+        if decoder_type == "aprs":
+            framing = FramingType.APRS
 
         config = DecoderConfig(
             baudrate=baudrate,
@@ -238,8 +259,10 @@ class DecoderConfigService:
             config.framing_params["frame_size"] = frame_size
 
         # Add decoder-specific parameters
-        if decoder_type == "afsk":
-            config.af_carrier = transmitter.get("af_carrier", 1700)  # APRS default
+        if decoder_type == "aprs":
+            config.af_carrier = int(
+                transmitter.get("af_carrier") or sat_params.get("af_carrier") or 1700
+            )
 
         # Populate satellite and transmitter metadata as complete dicts
         config.satellite = satellite if satellite else None
@@ -255,7 +278,9 @@ class DecoderConfigService:
         description = transmitter.get("description", "").upper()
 
         # Detect framing protocol
-        framing = self._detect_framing(mode, description)
+        framing = (
+            FramingType.APRS if decoder_type == "aprs" else self._detect_framing(mode, description)
+        )
 
         # Detect deviation (FSK modes)
         deviation = self._detect_deviation(decoder_type, transmitter, baudrate)
@@ -278,7 +303,7 @@ class DecoderConfigService:
             config.framing_params["frame_size"] = 66
 
         # Add decoder-specific parameters
-        if decoder_type == "afsk":
+        if decoder_type == "aprs":
             config.af_carrier = self._detect_af_carrier(description, baudrate)
 
         return config
@@ -300,7 +325,7 @@ class DecoderConfigService:
             return str(FramingType.USP)
         elif "DOKA" in description_upper or "CCSDS" in description_upper:
             return str(FramingType.DOKA)
-        elif "G3RUH" in description_upper or "APRS" in description_upper:
+        elif "G3RUH" in description_upper:
             return str(FramingType.AX25)
         elif "AX.25" in description_upper or "AX25" in description_upper:
             return str(FramingType.AX25)
@@ -330,8 +355,8 @@ class DecoderConfigService:
             return None
 
         # Smart defaults based on decoder type and baudrate
-        if decoder_type == "afsk":
-            return 500 if baudrate == 1200 else 2400  # Bell 202 or G3RUH
+        if decoder_type == "aprs":
+            return 500
         elif decoder_type in ["fsk", "gmsk", "gfsk"]:
             # FSK-family decoders REQUIRE deviation (cannot be None)
             # Return smart defaults based on baudrate
@@ -351,13 +376,8 @@ class DecoderConfigService:
         return None
 
     def _detect_af_carrier(self, description: str, baudrate: int) -> int:
-        """Detect audio frequency carrier for AFSK"""
-        if "APRS" in description:
-            return 1700  # Bell 202 APRS
-        elif baudrate == 1200:
-            return 1700  # Likely Bell 202
-        else:
-            return 1200  # Generic packet radio
+        """Detect the Bell 202 audio carrier used inside the FM signal."""
+        return 1700
 
     def _apply_overrides(self, config: DecoderConfig, overrides: Dict) -> DecoderConfig:
         """Apply manual overrides to configuration"""

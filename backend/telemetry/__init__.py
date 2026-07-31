@@ -5,7 +5,8 @@ Generic + pluggable architecture for parsing satellite telemetry.
 Supports AX.25 framing with satellite-specific payload parsers.
 """
 
+from .aprsparser import APRSParser
 from .ax25parser import AX25Parser
 from .parser import TelemetryParser
 
-__all__ = ["TelemetryParser", "AX25Parser"]
+__all__ = ["TelemetryParser", "AX25Parser", "APRSParser"]

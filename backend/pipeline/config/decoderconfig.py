@@ -40,10 +40,10 @@ class DecoderConfig:
     framing: str  # 'ax25', 'usp', 'geoscan', 'doka', etc.
     config_source: str  # 'satellite_config', 'smart_default', 'transmitter_metadata', 'manual'
 
-    # FSK-specific parameters (GMSK, GFSK, AFSK)
+    # FSK/APRS-specific parameters
     deviation: Optional[int] = None  # Frequency deviation in Hz
 
-    # AFSK-specific parameters
+    # APRS Bell 202-specific parameters
     af_carrier: Optional[int] = None  # Audio frequency carrier in Hz (1700 for APRS)
 
     # BPSK-specific parameters
