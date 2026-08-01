@@ -121,6 +121,9 @@ class StateManager:
         self.tracker.rotator_data["minazimuth"] = False
         self.tracker.rotator_data["maxazimuth"] = False
         self.tracker.notified = {}
+        # A 0_450 lane choice belongs to one satellite pass only. Never carry it
+        # across a target change, where the next pass can have opposite geometry.
+        self.tracker.rotator_handler.reset_overlap_lane_plan()
 
         # Notify about change
         self.tracker.queue_out.put(

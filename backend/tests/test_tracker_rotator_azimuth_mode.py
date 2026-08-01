@@ -1,6 +1,7 @@
 # Copyright (c) 2025 Efstratios Goudelis
 
 import time
+from datetime import datetime, timedelta, timezone
 
 import pytest
 
@@ -101,7 +102,7 @@ async def test_tracking_command_uses_overlap_candidate_when_mode_is_0_450():
 
 
 @pytest.mark.asyncio
-async def test_overlap_mode_locks_high_lane_for_cw_trend_near_north():
+async def test_overlap_mode_does_not_switch_to_high_lane_mid_pass():
     tracker = _DummyTracker("0_450")
     tracker.rotator_data["az"] = 42.0
     handler = RotatorHandler(tracker)
@@ -112,12 +113,90 @@ async def test_overlap_mode_locks_high_lane_for_cw_trend_near_north():
 
     handler._issue_rotator_command = _capture_issue
 
-    # Build a stable clockwise (decreasing) trend near north overlap.
+    # This is the issue #30 video path. A late switch to +360 would cost a
+    # nearly full rotation, so live samples must remain on the low lane.
     await handler.control_rotator_position((50.0, 45.0))
     await handler.control_rotator_position((45.0, 45.0))
     await handler.control_rotator_position((40.0, 45.0))
 
-    assert sent == [(50.0, 45.0), (45.0, 45.0), (400.0, 45.0)]
+    assert sent == [(50.0, 45.0), (45.0, 45.0), (40.0, 45.0)]
+    assert tracker.rotator_command_state.get("overlap_lane") is None
+
+
+@pytest.mark.asyncio
+async def test_overlap_mode_prepositions_high_lane_before_decreasing_north_crossing():
+    tracker = _DummyTracker("0_450")
+    tracker.rotator_data["az"] = 42.0
+    handler = RotatorHandler(tracker)
+    sent = []
+
+    async def _capture_issue(target_az, target_el):
+        sent.append((target_az, target_el))
+
+    handler._issue_rotator_command = _capture_issue
+    handler._plan_overlap_lane_for_pass(
+        {
+            "crosses_north": True,
+            "start_azimuth": 50.0,
+            "end_azimuth": 355.0,
+        },
+        current_bearing_az=50.0,
+        current_elevation=5.0,
+    )
+
+    await handler.control_rotator_position((50.0, 5.0))
+    await handler.control_rotator_position((40.0, 5.0))
+
+    assert sent == [(410.0, 5.0), (400.0, 5.0)]
+    assert tracker.rotator_command_state["overlap_lane"] == 1
+
+
+def test_overlap_mode_does_not_plan_high_lane_when_preposition_is_impossible():
+    tracker = _DummyTracker("0_450")
+    handler = RotatorHandler(tracker)
+
+    handler._plan_overlap_lane_for_pass(
+        {
+            "crosses_north": True,
+            "start_azimuth": 132.0,
+            "end_azimuth": 355.0,
+        },
+        current_bearing_az=132.0,
+        current_elevation=5.0,
+    )
+
+    # 132° has no equivalent position in a 0–450° range (492° is invalid).
+    assert tracker.rotator_command_state["overlap_lane"] is None
+
+
+def test_overlap_mode_plans_once_from_the_predicted_current_pass(monkeypatch):
+    tracker = _DummyTracker("0_450")
+    tracker.current_norad_id = 12345
+    handler = RotatorHandler(tracker)
+    calls = []
+    now = datetime.now(timezone.utc)
+
+    def _predicted_passes(**kwargs):
+        calls.append(kwargs)
+        return {
+            "success": True,
+            "data": [
+                {
+                    "event_start": (now - timedelta(minutes=1)).isoformat(),
+                    "event_end": (now + timedelta(minutes=4)).isoformat(),
+                    "crosses_north": True,
+                    "start_azimuth": 50.0,
+                    "end_azimuth": 355.0,
+                }
+            ],
+        }
+
+    monkeypatch.setattr("tracker.rotatorhandler.calculate_next_events", _predicted_passes)
+
+    handler.plan_overlap_lane({"norad_id": 12345}, {"lat": 52.0, "lon": 13.0}, (50.0, 5.0))
+    handler.plan_overlap_lane({"norad_id": 12345}, {"lat": 52.0, "lon": 13.0}, (50.0, 5.0))
+
+    assert len(calls) == 1
     assert tracker.rotator_command_state["overlap_lane"] == 1
 
 

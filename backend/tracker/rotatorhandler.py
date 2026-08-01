@@ -21,9 +21,11 @@ Handles all rotator-related operations including connection, positioning, and li
 import logging
 import math
 import time
+from datetime import datetime, timezone
 
 from common.constants import DictKeys, SocketEvents, TrackingEvents
 from controllers.rotator import RotatorController
+from tracking.passes import calculate_next_events
 
 logger = logging.getLogger("tracker-worker")
 
@@ -43,10 +45,7 @@ class RotatorHandler:
     def _fmt_state_value(value):
         return "none" if value is None else value
 
-    @staticmethod
-    def _signed_angular_delta_deg(current: float, previous: float) -> float:
-        """Signed shortest-path angular delta from previous -> current."""
-        return ((float(current) - float(previous) + 540.0) % 360.0) - 180.0
+    OVERLAP_PREPOSITION_MAX_ELEVATION = 15.0
 
     def _reset_slew_state(self):
         """Reset in-flight rotator command tracking."""
@@ -62,37 +61,96 @@ class RotatorHandler:
         self.tracker.rotator_data["slewing"] = False
 
     def _clear_overlap_lane_state(self):
-        """Clear 0_450 overlap lane/trend state when tracking context changes."""
+        """Clear the per-pass 0_450 overlap plan when tracking context changes."""
         self.tracker.rotator_command_state["overlap_lane"] = None
-        self.tracker.rotator_command_state["overlap_trend_sign"] = 0
-        self.tracker.rotator_command_state["overlap_trend_samples"] = 0
-        self.tracker.rotator_command_state["last_bearing_az"] = None
+        self.tracker.rotator_command_state["overlap_plan_target"] = None
 
-    def _update_overlap_bearing_trend(self, bearing_az: float):
-        """
-        Track short-term azimuth direction near north overlap.
+    def reset_overlap_lane_plan(self):
+        """Discard a planned lane when the tracked target changes."""
+        self._clear_overlap_lane_state()
 
-        We only need a tiny, stable trend signal (CW/CCW) to decide whether
-        we should enter the +360 overlap lane proactively in 0_450 mode.
-        """
+    @staticmethod
+    def _parse_event_time(value):
+        """Parse the UTC timestamp returned by pass prediction, if available."""
+        if not isinstance(value, str):
+            return None
+        try:
+            return datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except ValueError:
+            return None
+
+    def _find_current_pass(self, events):
+        """Return the predicted pass that contains the current UTC time."""
+        now = datetime.now(timezone.utc)
+        for event in events:
+            start = self._parse_event_time(event.get("event_start"))
+            end = self._parse_event_time(event.get("event_end"))
+            if start is not None and end is not None and start <= now <= end:
+                return event
+        return None
+
+    def _plan_overlap_lane_for_pass(self, pass_data, current_bearing_az, current_elevation):
+        """Lock the high lane only when it can be selected before a north crossing."""
         state = self.tracker.rotator_command_state
-        previous_bearing = state.get("last_bearing_az")
-        state["last_bearing_az"] = float(bearing_az) % 360.0
+        state["overlap_lane"] = None
 
-        if not self._is_finite_number(previous_bearing):
+        if not pass_data or float(current_elevation) > self.OVERLAP_PREPOSITION_MAX_ELEVATION:
             return
 
-        delta = self._signed_angular_delta_deg(float(bearing_az), float(previous_bearing))
-        if abs(delta) < 0.5:
+        candidates = self._get_overlap_candidates_for_bearing(current_bearing_az)
+        if len(candidates) < 2:
+            # A bearing outside the overlap has no +360 equivalent. Switching later
+            # would reproduce the full-circle mid-pass rotation shown in issue #30.
             return
 
-        sign = 1 if delta > 0 else -1
-        prev_sign = int(state.get("overlap_trend_sign") or 0)
-        prev_samples = int(state.get("overlap_trend_samples") or 0)
-        samples = min(prev_samples + 1, 8) if sign == prev_sign else 1
+        try:
+            pass_start = float(pass_data["start_azimuth"])
+            pass_end = float(pass_data["end_azimuth"])
+        except (KeyError, TypeError, ValueError):
+            return
 
-        state["overlap_trend_sign"] = sign
-        state["overlap_trend_samples"] = samples
+        # A decreasing north crossing needs the +360 lane before the pass reaches
+        # north. Increasing crossings naturally enter that lane from 360 degrees.
+        crossing_delta = self._angular_distance_deg(pass_start, pass_end)
+        moves_toward_decreasing_north = (
+            bool(pass_data.get("crosses_north"))
+            and ((pass_end - pass_start + 540.0) % 360.0 - 180.0) < -0.5
+            and crossing_delta > 0.5
+        )
+        if moves_toward_decreasing_north:
+            state["overlap_lane"] = 1
+
+    def plan_overlap_lane(self, satellite, location, skypoint):
+        """Build one 0_450 lane plan per tracked satellite pass.
+
+        This deliberately predicts the entire pass once instead of changing lanes
+        from a few live azimuth samples. A lane change after tracking has begun is
+        mechanically expensive and can lose most of a pass.
+        """
+        if self._get_azimuth_mode() != "0_450":
+            return
+
+        state = self.tracker.rotator_command_state
+        target_key = str(getattr(self.tracker, "current_norad_id", ""))
+        if state.get("overlap_plan_target") == target_key:
+            return
+        state["overlap_plan_target"] = target_key
+        state["overlap_lane"] = None
+
+        try:
+            result = calculate_next_events(
+                satellite_data=satellite,
+                home_location={"lat": float(location["lat"]), "lon": float(location["lon"])},
+                hours=1.0,
+                above_el=0,
+            )
+            events = result.get("data") if result.get("success") else []
+            current_pass = self._find_current_pass(events or [])
+            self._plan_overlap_lane_for_pass(current_pass, skypoint[0], skypoint[1])
+        except Exception as error:
+            # Prediction must never block normal low-lane tracking when ephemeris
+            # data are temporarily unavailable.
+            logger.warning("Could not plan 0_450 overlap lane: %s", error)
 
     def _target_within_tolerance(self, current_az, current_el, target_az, target_el) -> bool:
         az_tol = float(self.tracker.az_tolerance)
@@ -175,7 +233,6 @@ class RotatorHandler:
         if len(candidates) == 1:
             return chosen
 
-        base = float(bearing_az) % 360.0
         high_candidate = float(max(candidates))
         low_candidate = float(min(candidates))
         high_lane_available = high_candidate > 360.0
@@ -189,21 +246,6 @@ class RotatorHandler:
         # When we already operate on the high lane, keep it stable through
         # overlap-bearing ambiguity to avoid flip-flopping near north.
         if high_lane_available and reference is not None and float(reference) >= 360.0:
-            state["overlap_lane"] = 1
-            return high_candidate
-
-        # If short-term motion is confidently CW near north, proactively pick
-        # the overlap lane so the pass can continue through 0° without a late
-        # full-circle recovery move.
-        overlap_width = max(0.0, maxaz - 360.0)
-        switch_window = max(20.0, min(70.0, overlap_width * 0.75 if overlap_width else 45.0))
-        trend_sign = int(state.get("overlap_trend_sign") or 0)
-        trend_samples = int(state.get("overlap_trend_samples") or 0)
-        near_north_overlap = 0.0 <= base <= switch_window
-        should_lock_high_lane = bool(
-            high_lane_available and near_north_overlap and trend_sign < 0 and trend_samples >= 2
-        )
-        if should_lock_high_lane:
             state["overlap_lane"] = 1
             return high_candidate
 
@@ -673,7 +715,6 @@ class RotatorHandler:
 
             target_az: float
             if mode == "0_450":
-                self._update_overlap_bearing_trend(sky_az)
                 resolved_target_az = self._resolve_overlap_target_azimuth(
                     bearing_az=sky_az,
                     current_az=current_az,

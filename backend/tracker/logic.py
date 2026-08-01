@@ -874,6 +874,13 @@ class SatelliteTracker:
                 self.rotator_handler.check_position_limits(skypoint, satellite_name)
 
                 if target_type == "satellite" and satellite_tles:
+                    # Select the 0_450 lane from the pass geometry before issuing
+                    # movement commands. The handler caches one decision per target.
+                    self.rotator_handler.plan_overlap_lane(
+                        self.input_target_ephemeris or {}, location, skypoint
+                    )
+
+                if target_type == "satellite" and satellite_tles:
                     # Handle transmitter tracking
                     await self.rig_handler.handle_transmitter_tracking(satellite_tles, location)
 
