@@ -19,7 +19,6 @@
     "distance_los": "Entfernung bei LOS",
     "distance_peak": "Entfernung am Höchstpunkt",
     "max_el": "Max. Elevation",
-    "automatic_observation": "Auto",
     "automatic_observation_tooltip": "Dieser Überflug wird automatisch beobachtet",
     "geo_stat": "GEO Stat",
     "geo_sync": "GEO Sync",

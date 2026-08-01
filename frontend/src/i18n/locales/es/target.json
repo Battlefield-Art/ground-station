@@ -19,7 +19,6 @@
     "distance_los": "Distancia en LOS",
     "distance_peak": "Distancia en el pico",
     "max_el": "El máx",
-    "automatic_observation": "Auto",
     "automatic_observation_tooltip": "Este paso se observará automáticamente",
     "geo_stat": "GEO Est",
     "geo_sync": "GEO Sinc",

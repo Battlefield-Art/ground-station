@@ -19,7 +19,6 @@
     "distance_los": "Distanza a LOS",
     "distance_peak": "Distanza al massimo",
     "max_el": "El Max",
-    "automatic_observation": "Auto",
     "automatic_observation_tooltip": "Questo passaggio verrà osservato automaticamente",
     "geo_stat": "GEO Stat",
     "geo_sync": "GEO Sync",

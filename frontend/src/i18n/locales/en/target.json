@@ -25,7 +25,6 @@
     "distance_los": "Distance at LOS",
     "distance_peak": "Distance at peak",
     "max_el": "Max El",
-    "automatic_observation": "Auto",
     "automatic_observation_tooltip": "This pass will be observed automatically",
     "pass_types": "Pass Types",
     "pass_tag_labels": {

@@ -283,14 +283,13 @@ const PassStatusCell = React.memo(function PassStatusCell({status, isScheduledFo
             />
             {isScheduledForAutomaticObservation && (
                 <Tooltip title={targetT('next_passes.automatic_observation_tooltip')}>
-                    <Chip
-                        icon={<AutoModeIcon sx={{fontSize: '0.85rem'}}/>}
-                        size="small"
-                        label={targetT('next_passes.automatic_observation')}
-                        color="secondary"
-                        variant="outlined"
-                        sx={{fontWeight: 700}}
-                    />
+                    <Box
+                        component="span"
+                        aria-label={targetT('next_passes.automatic_observation_tooltip')}
+                        sx={{display: 'inline-flex', alignItems: 'center', lineHeight: 0}}
+                    >
+                        <AutoModeIcon sx={{fontSize: '1rem', color: 'text.secondary'}}/>
+                    </Box>
                 </Tooltip>
             )}
         </Box>
@@ -398,7 +397,7 @@ const MemoizedStyledDataGrid = React.memo(function MemoizedStyledDataGrid({
     const columns = [
         {
             field: 'status',
-            minWidth: 190,
+            minWidth: 110,
             headerName: 'Status',
             align: 'center',
             headerAlign: 'center',
