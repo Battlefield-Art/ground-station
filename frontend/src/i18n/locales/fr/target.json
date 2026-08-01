@@ -19,6 +19,8 @@
     "distance_los": "Distance à LOS",
     "distance_peak": "Distance au pic",
     "max_el": "Élévation max",
+    "automatic_observation": "Auto",
+    "automatic_observation_tooltip": "Ce passage sera observé automatiquement",
     "geo_stat": "GEO Stat",
     "geo_sync": "GEO Sync",
     "no_satellite_selected": "Veuillez sélectionner un satellite pour voir les passages"

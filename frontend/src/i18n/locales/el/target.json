@@ -25,6 +25,8 @@
     "distance_los": "Απόσταση στο LOS",
     "distance_peak": "Απόσταση στην κορυφή",
     "max_el": "Μέγ. Υψ.",
+    "automatic_observation": "Αυτόματα",
+    "automatic_observation_tooltip": "Αυτή η διέλευση θα παρατηρηθεί αυτόματα",
     "pass_types": "Τύποι διέλευσης",
     "pass_tag_labels": {
       "north_crossing": "Διέλευση από βορρά",

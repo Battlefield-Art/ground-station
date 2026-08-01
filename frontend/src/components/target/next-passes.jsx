@@ -40,6 +40,7 @@ import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import ArrowUpwardRoundedIcon from '@mui/icons-material/ArrowUpwardRounded';
+import AutoModeIcon from '@mui/icons-material/AutoMode';
 import {
     fetchNextPasses,
     updateSatellitePassesWithElevationCurves,
@@ -60,6 +61,7 @@ import {
     normalizeTargetType,
     resolveTargetDisplayName,
 } from './celestial-target-utils.js';
+import {isPassScheduledForAutomaticObservation} from './passobservationutils.js';
 
 const getPassStatus = (row, now = new Date()) => {
     const startDate = new Date(row?.event_start);
@@ -248,8 +250,9 @@ const DurationFormatter = React.memo(function DurationFormatter({params, event_s
     }
 });
 
-const PassStatusCell = React.memo(function PassStatusCell({status}) {
+const PassStatusCell = React.memo(function PassStatusCell({status, isScheduledForAutomaticObservation}) {
     const { t } = useTranslation('earthview');
+    const { t: targetT } = useTranslation('target');
     const statusConfig = {
         live: {
             label: t('passes_table.status_visible'),
@@ -269,14 +272,28 @@ const PassStatusCell = React.memo(function PassStatusCell({status}) {
     };
     const config = statusConfig[status] || statusConfig.upcoming;
     return (
-        <Chip
-            icon={config.icon}
-            size="small"
-            label={config.label}
-            color={config.color}
-            variant={status === 'upcoming' ? 'outlined' : 'filled'}
-            sx={{ fontWeight: 700, minWidth: 85 }}
-        />
+        <Box sx={{display: 'inline-flex', alignItems: 'center', gap: 0.5}}>
+            <Chip
+                icon={config.icon}
+                size="small"
+                label={config.label}
+                color={config.color}
+                variant={status === 'upcoming' ? 'outlined' : 'filled'}
+                sx={{fontWeight: 700, minWidth: 85}}
+            />
+            {isScheduledForAutomaticObservation && (
+                <Tooltip title={targetT('next_passes.automatic_observation_tooltip')}>
+                    <Chip
+                        icon={<AutoModeIcon sx={{fontSize: '0.85rem'}}/>}
+                        size="small"
+                        label={targetT('next_passes.automatic_observation')}
+                        color="secondary"
+                        variant="outlined"
+                        sx={{fontWeight: 700}}
+                    />
+                </Tooltip>
+            )}
+        </Box>
     );
 });
 
@@ -349,7 +366,9 @@ const MemoizedStyledDataGrid = React.memo(function MemoizedStyledDataGrid({
     pageSize = 15,
     onPageSizeChange,
     sortModel,
-    onSortModelChange
+    onSortModelChange,
+    scheduledObservations,
+    satelliteId,
 }) {
     const apiRef = useGridApiRef();
     const { t, i18n } = useTranslation('target');
@@ -361,6 +380,11 @@ const MemoizedStyledDataGrid = React.memo(function MemoizedStyledDataGrid({
     const [nowMs, setNowMs] = useState(() => Date.now());
     const nowMsRef = useRef(nowMs);
     nowMsRef.current = nowMs;
+    const automaticallyObservedPassKeys = useMemo(() => new Set(
+        satellitePasses
+            .filter((pass) => isPassScheduledForAutomaticObservation(pass, scheduledObservations, satelliteId))
+            .map(getPassCurveKey),
+    ), [satelliteId, satellitePasses, scheduledObservations]);
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -374,14 +398,19 @@ const MemoizedStyledDataGrid = React.memo(function MemoizedStyledDataGrid({
     const columns = [
         {
             field: 'status',
-            minWidth: 100,
+            minWidth: 190,
             headerName: 'Status',
             align: 'center',
             headerAlign: 'center',
             flex: 1,
             valueGetter: (_value, row) => getPassStatus(row, new Date(nowMsRef.current)),
             sortComparator: (v1, v2) => getPassStatusPriority(v1) - getPassStatusPriority(v2),
-            renderCell: (params) => <PassStatusCell status={params.value} />
+            renderCell: (params) => (
+                <PassStatusCell
+                    status={params.value}
+                    isScheduledForAutomaticObservation={automaticallyObservedPassKeys.has(getPassCurveKey(params.row))}
+                />
+            )
         },
         {
             field: 'event_start',
@@ -606,6 +635,7 @@ const NextPassesIsland = React.memo(function NextPassesIsland() {
     const isCompactHeader = useMediaQuery(theme.breakpoints.down('lg'));
     const isTightHeader = useMediaQuery(theme.breakpoints.down('md'));
     const trackerInstances = useSelector((state) => state.trackerInstances?.instances || []);
+    const scheduledObservations = useSelector((state) => state.scheduler?.observations || []);
     const trackingState = useSelector((state) => state.targetSatTrack?.trackingState || {});
     const satelliteDetails = useSelector((state) => state.targetSatTrack?.satelliteData?.details || {});
     const celestialState = useSelector((state) => state.celestial || {});
@@ -1129,6 +1159,8 @@ const NextPassesIsland = React.memo(function NextPassesIsland() {
                             onPageSizeChange={handlePageSizeChange}
                             sortModel={passesTableSortModel}
                             onSortModelChange={handleSortModelChange}
+                            scheduledObservations={scheduledObservations}
+                            satelliteId={satelliteId}
                         />
                     )}
                 </div>

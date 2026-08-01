@@ -19,6 +19,8 @@
     "distance_los": "Afstand bij LOS",
     "distance_peak": "Afstand op hoogtepunt",
     "max_el": "Max El",
+    "automatic_observation": "Auto",
+    "automatic_observation_tooltip": "Deze passage wordt automatisch waargenomen",
     "geo_stat": "GEO Stat",
     "geo_sync": "GEO Sync",
     "no_satellite_selected": "Selecteer een satelliet om passages te bekijken"
