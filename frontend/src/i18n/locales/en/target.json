@@ -29,7 +29,7 @@
     "pass_types": "Pass Types",
     "pass_tag_labels": {
       "north_crossing": "N-cross",
-      "south_crossing": "South crossing",
+      "south_crossing": "S-cross",
       "direction_cw": "CW",
       "direction_ccw": "CCW",
       "direction_mixed": "Mixed",

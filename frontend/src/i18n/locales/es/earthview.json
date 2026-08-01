@@ -44,6 +44,7 @@
     "status_upcoming": "Próximo",
     "status_passed": "Finalizado",
     "status_dead": "Inactivo",
+    "automatic_observation_tooltip": "Este paso se observará automáticamente",
     "no_value": "sin valor",
     "no_data": "Sin datos",
     "no_passes": "No se detectaron pases para las próximas {{hours}} horas"

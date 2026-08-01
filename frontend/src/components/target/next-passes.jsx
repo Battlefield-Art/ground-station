@@ -61,7 +61,7 @@ import {
     normalizeTargetType,
     resolveTargetDisplayName,
 } from './celestial-target-utils.js';
-import {isPassScheduledForAutomaticObservation} from './passobservationutils.js';
+import {isPassScheduledForAutomaticObservation} from '../common/passobservationutils.js';
 
 const getPassStatus = (row, now = new Date()) => {
     const startDate = new Date(row?.event_start);

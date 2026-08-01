@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { isPassScheduledForAutomaticObservation } from '../passobservationutils';
+import { isPassScheduledForAutomaticObservation } from '../../common/passobservationutils';
 
 const pass = {
     norad_id: 25544,

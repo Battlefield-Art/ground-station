@@ -60,7 +60,7 @@
     "pass_types": "Pass Types",
     "pass_tag_labels": {
       "north_crossing": "N-cross",
-      "south_crossing": "South crossing",
+      "south_crossing": "S-cross",
       "direction_cw": "CW",
       "direction_ccw": "CCW",
       "direction_mixed": "Mixed",
@@ -86,6 +86,7 @@
     "status_upcoming": "Upcoming",
     "status_passed": "Passed",
     "status_dead": "Dead",
+    "automatic_observation_tooltip": "This pass will be observed automatically",
     "context_menu": {
       "copy_pass_window": "Copy Pass Window",
       "copy_pass_summary": "Copy Pass Summary"

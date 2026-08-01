@@ -41,6 +41,7 @@ import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import BlockIcon from '@mui/icons-material/Block';
 import TrackChangesIcon from '@mui/icons-material/TrackChanges';
+import AutoModeIcon from '@mui/icons-material/AutoMode';
 import {useDispatch, useSelector} from "react-redux";
 import {
     fetchNextPassesForGroup,
@@ -77,6 +78,7 @@ import { useUserTimeSettings } from '../../hooks/useUserTimeSettings.jsx';
 import TargetNumberIcon from '../common/target-number-icon.jsx';
 import { setRotator, setTrackerId, setTrackingStateInBackend } from "../target/target-slice.jsx";
 import { useTargetRotatorSelectionDialog } from "../target/use-target-rotator-selection-dialog.jsx";
+import {isPassScheduledForAutomaticObservation} from '../common/passobservationutils.js';
 import SatelliteEditDialog from "../satellites/satellite-edit-dialog.jsx";
 import TransmittersDialog from "../satellites/transmitters-dialog.jsx";
 import { fetchSatellite } from "../satellites/satellite-slice.jsx";
@@ -414,7 +416,12 @@ const DurationFormatter = React.memo(function DurationFormatter({params, event_s
     }
 });
 
-const PassStatusCell = React.memo(function PassStatusCell({status, isTracked = false, targetNumber = null}) {
+const PassStatusCell = React.memo(function PassStatusCell({
+    status,
+    isTracked = false,
+    isScheduledForAutomaticObservation = false,
+    targetNumber = null,
+}) {
     const { t } = useTranslation('earthview');
     const markerSize = 17;
     const statusConfig = {
@@ -452,6 +459,17 @@ const PassStatusCell = React.memo(function PassStatusCell({status, isTracked = f
                 variant={status === 'upcoming' ? 'outlined' : 'filled'}
                 sx={{ fontWeight: 700, minWidth: 85 }}
             />
+            {isScheduledForAutomaticObservation && (
+                <Tooltip title={t('passes_table.automatic_observation_tooltip')}>
+                    <Box
+                        component="span"
+                        aria-label={t('passes_table.automatic_observation_tooltip')}
+                        sx={{display: 'inline-flex', alignItems: 'center', lineHeight: 0}}
+                    >
+                        <AutoModeIcon sx={{fontSize: '1rem', color: 'text.secondary'}}/>
+                    </Box>
+                </Tooltip>
+            )}
             <Box sx={{ minWidth: markerSize + 6, display: 'inline-flex', justifyContent: 'center', alignItems: 'center', flexShrink: 0 }}>
                 {isTracked && (
                     <Tooltip title={t('passes_table.tracked_tooltip', { defaultValue: 'Current target satellite' })}>
@@ -692,6 +710,7 @@ const MemoizedStyledDataGrid = React.memo(function MemoizedStyledDataGrid({
     quickFilterPreset,
     trackedSatelliteNoradIds,
     targetNumberByNorad,
+    scheduledObservations,
     onRowClick,
     onRowDoubleClick,
     onRowContextMenu,
@@ -781,6 +800,7 @@ const MemoizedStyledDataGrid = React.memo(function MemoizedStyledDataGrid({
                 <PassStatusCell
                     status={params.value}
                     isTracked={isPassTracked(params.row, trackedSatelliteNoradIds)}
+                    isScheduledForAutomaticObservation={isPassScheduledForAutomaticObservation(params.row, scheduledObservations)}
                     targetNumber={targetNumberByNorad?.[String(params.row.norad_id)] ?? null}
                 />
             )
@@ -983,7 +1003,7 @@ const MemoizedStyledDataGrid = React.memo(function MemoizedStyledDataGrid({
             },
             hide: true,
         },
-    ], [t, selectedSatellitePositionsRef, trackedSatelliteNoradIds, targetNumberByNorad]);
+    ], [t, selectedSatellitePositionsRef, trackedSatelliteNoradIds, targetNumberByNorad, scheduledObservations]);
 
     const effectiveColumnVisibility = useMemo(() => {
         const base = {
@@ -1126,6 +1146,7 @@ const MemoizedStyledDataGrid = React.memo(function MemoizedStyledDataGrid({
         prevProps.quickFilterPreset === nextProps.quickFilterPreset &&
         prevProps.trackedSatelliteNoradIds === nextProps.trackedSatelliteNoradIds &&
         prevProps.targetNumberByNorad === nextProps.targetNumberByNorad &&
+        prevProps.scheduledObservations === nextProps.scheduledObservations &&
         prevProps.passesLoading === nextProps.passesLoading &&
         prevProps.orbitProjectionDuration === nextProps.orbitProjectionDuration &&
         prevProps.pageSize === nextProps.pageSize &&
@@ -1166,6 +1187,7 @@ const NextPassesGroupIsland = React.memo(function NextPassesGroupIsland() {
         selectedSatellites
     } = useSelector(state => state.earthViewTrack);
     const trackerInstances = useSelector((state) => state.trackerInstances?.instances || []);
+    const scheduledObservations = useSelector((state) => state.scheduler?.observations || []);
     const trackingState = useSelector((state) => state.targetSatTrack?.trackingState || {});
     const trackerViews = useSelector((state) => state.targetSatTrack?.trackerViews || {});
     const { requestRotatorForTarget, dialog: rotatorSelectionDialog } = useTargetRotatorSelectionDialog();
@@ -2005,6 +2027,7 @@ const NextPassesGroupIsland = React.memo(function NextPassesGroupIsland() {
                         quickFilterPreset={quickFilterPreset}
                         trackedSatelliteNoradIds={trackedSatelliteNoradIds}
                         targetNumberByNorad={targetNumberByNorad}
+                        scheduledObservations={scheduledObservations}
                         onRowClick={handleOnRowClick}
                         onRowDoubleClick={handleOnRowDoubleClick}
                         onRowContextMenu={handlePassRowContextMenu}

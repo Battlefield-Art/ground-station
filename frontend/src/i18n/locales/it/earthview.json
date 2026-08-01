@@ -44,6 +44,7 @@
     "status_upcoming": "In arrivo",
     "status_passed": "Terminato",
     "status_dead": "Inattivo",
+    "automatic_observation_tooltip": "Questo passaggio verrà osservato automaticamente",
     "no_value": "nessun valore",
     "no_data": "Nessun dato",
     "no_passes": "Nessun passaggio rilevato per le prossime {{hours}} ore"

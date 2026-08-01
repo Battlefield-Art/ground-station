@@ -44,6 +44,7 @@
     "status_upcoming": "Aankomend",
     "status_passed": "Voorbij",
     "status_dead": "Inactief",
+    "automatic_observation_tooltip": "Deze passage wordt automatisch waargenomen",
     "no_value": "geen waarde",
     "no_data": "Geen gegevens",
     "no_passes": "Geen overvluchten gedetecteerd voor de komende {{hours}} uur"

@@ -44,6 +44,7 @@
     "status_upcoming": "Bevorstehend",
     "status_passed": "Vorbei",
     "status_dead": "Inaktiv",
+    "automatic_observation_tooltip": "Dieser Überflug wird automatisch beobachtet",
     "no_value": "kein Wert",
     "no_data": "Keine Daten",
     "no_passes": "Keine Überflüge für die nächsten {{hours}} Stunden erkannt"

@@ -74,6 +74,7 @@
     "status_upcoming": "Επερχόμενη",
     "status_passed": "Ολοκληρώθηκε",
     "status_dead": "Ανενεργός",
+    "automatic_observation_tooltip": "Αυτή η διέλευση θα παρατηρηθεί αυτόματα",
     "context_menu": {
       "copy_pass_window": "Αντιγραφή παραθύρου διέλευσης",
       "copy_pass_summary": "Αντιγραφή σύνοψης διέλευσης"
