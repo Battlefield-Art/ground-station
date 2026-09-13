@@ -32,7 +32,10 @@
       "copy_norad": "复制 NORAD 编号",
       "copy_summary": "复制卫星摘要",
       "edit_transmitters_title": "编辑发射机：{{name}}"
-    }
+    },
+    "below_horizon": "地平线以下",
+    "visibility": "可见性",
+    "visible": "可见"
   },
   "satellites_table_settings": {
     "title": "卫星表格设置",
@@ -115,7 +118,8 @@
     "context_menu": {
       "copy_pass_window": "复制过境时间窗",
       "copy_pass_summary": "复制过境摘要"
-    }
+    },
+    "tracked_tooltip": "当前目标卫星"
   },
   "passes_table_settings": {
     "title": "过境表格设置",
@@ -186,7 +190,9 @@
     "go_home": "返回首页",
     "go_to_center": "移至地图中心",
     "go_fullscreen": "全屏",
-    "map_settings": "地图设置"
+    "map_settings": "地图设置",
+    "zoom_in": "放大",
+    "zoom_out": "缩小"
   },
   "weather_errors": {
     "fetch_failed": "无法获取天气数据",

@@ -84,7 +84,14 @@
     "rotator_tracking": "旋转器：跟踪中（方位：{{az}}°，仰角：{{el}}°）",
     "rotator_slewing": "旋转器：转动中（方位：{{az}}°，仰角：{{el}}°）",
     "rotator_stopped": "旋转器：已停止（方位：{{az}}°，仰角：{{el}}°）",
-    "rotator_connected": "旋转器：已连接（方位：{{az}}°，仰角：{{el}}°）"
+    "rotator_connected": "旋转器：已连接（方位：{{az}}°，仰角：{{el}}°）",
+    "no_targets_configured": "未配置目标",
+    "rig_fleet_summary": "电台组：{{active}} 个活动、{{attention}} 个需处理、{{disconnected}} 个已断开",
+    "rotator_fleet_summary": "旋转器组：{{active}} 个活动、{{attention}} 个需处理、{{disconnected}} 个已断开",
+    "warning_below_horizon": "地平线以下",
+    "warning_below_min_elevation": "低于最低仰角",
+    "warning_out_of_bounds": "超出范围",
+    "warning_parked": "已停放"
   },
   "orbital_sync_popover": {
     "syncing": "同步中：{{progress}}%",
@@ -102,5 +109,14 @@
     "transmitters": "发射机：{{count}}",
     "groups": "分组：{{count}}",
     "errors": "错误（{{count}}）"
+  },
+  "auth": {
+    "logout": "退出登录",
+    "logout_confirm_message": "确定要退出登录吗？",
+    "logout_confirm_skip": "不再显示此提示",
+    "logout_confirm_title": "确认退出"
+  },
+  "common": {
+    "cancel": "取消"
   }
 }

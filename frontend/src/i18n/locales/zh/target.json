@@ -1,13 +1,21 @@
 {
   "map_settings": {
     "title": "地图设置",
-    "close": "关闭"
+    "close": "关闭",
+    "apply": "应用",
+    "reset_defaults": "恢复默认",
+    "save_failed": "保存失败",
+    "saved": "已保存",
+    "saving": "保存中…"
   },
   "map_controls": {
     "map_settings": "地图设置",
     "go_home": "返回首页",
     "go_to_center": "移至地图中心",
-    "go_fullscreen": "全屏"
+    "go_fullscreen": "全屏",
+    "exit_fullscreen": "退出全屏",
+    "zoom_in": "放大",
+    "zoom_out": "缩小"
   },
   "next_passes": {
     "title": "{{name}} 未来 {{hours}} 小时内的过境",
@@ -242,6 +250,23 @@
     "sky_interaction_description": "控制星空视图内的指针交互。"
   },
   "target_retarget_dialog": {
-    "title": "重设目标时段或新建目标"
+    "title": "重设目标时段或新建目标",
+    "cancel": "取消",
+    "confirm_create": "创建新目标",
+    "confirm_retarget": "改指所选时段",
+    "no_rig": "无电台控制",
+    "no_rotator": "无旋转器控制",
+    "no_slots": "没有可改指的活动目标时段。",
+    "no_target": "未选择目标",
+    "option_new_title": "创建新目标时段",
+    "or": "或",
+    "submit_failed": "应用目标选择失败。",
+    "submitting": "应用中…",
+    "subtitle": "选择改指当前时段，或新建一个",
+    "this_target": "此目标"
+  },
+  "target_search": {
+    "retarget_hint": "搜索卫星、任务或天体。选中结果会立即改指当前目标。",
+    "search_label": "搜索卫星、任务或天体"
   }
 }

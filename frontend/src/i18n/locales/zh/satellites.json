@@ -64,7 +64,13 @@
     "deleted_success": "卫星删除成功",
     "failed_add": "添加卫星失败",
     "failed_update": "更新卫星失败",
-    "failed_delete": "删除卫星失败"
+    "failed_delete": "删除卫星失败",
+    "catalog_stats_summary": "当前数据库统计：{{satellites}} 颗卫星、{{groups}} 个分组（{{userGroups}} 个用户分组、{{systemGroups}} 个系统分组）、{{transmitters}} 台卫星发射机。",
+    "omm_payload": "OMM 载荷（JSON 对象）",
+    "orbit_epoch": "轨道历元（ISO 8601）",
+    "orbit_model_kind": "轨道模型",
+    "tab_general": "常规",
+    "tab_orbital": "轨道"
   },
   "orbital_sources": {
     "title": "轨道数据源",
@@ -177,7 +183,12 @@
     "http_status": "HTTP 状态",
     "close": "关闭",
     "suspended": "已暂停",
-    "suspended_reason": "该数据源需经人工复核后才能同步。"
+    "suspended_reason": "该数据源需经人工复核后才能同步。",
+    "tabs": {
+      "aria": "轨道数据源标签页",
+      "sources": "数据源",
+      "sync_now": "立即同步"
+    }
   },
   "groups": {
     "title": "卫星分组",
@@ -262,7 +273,15 @@
       "subtitle": "从卫星数据源获取轨道数据",
       "button": "同步",
       "last_update": "上次更新：{{date}}",
-      "cancel_button": "取消"
+      "cancel_button": "取消",
+      "next_scheduled_sync": "下次计划同步：{{when}}",
+      "next_scheduled_sync_exact": "下次计划同步：{{date}}",
+      "next_scheduled_sync_unknown": "下次计划同步：不可用",
+      "status": "状态",
+      "status_completed": "已完成",
+      "status_failed": "需要处理",
+      "status_idle": "空闲",
+      "status_running": "运行中"
     },
     "progress": {
       "title": "同步进度"
@@ -270,7 +289,8 @@
     "terminal": {
       "ready": "准备同步。点击按钮开始。",
       "complete": "同步完成！",
-      "syncing": "正在同步卫星数据..."
+      "syncing": "正在同步卫星数据...",
+      "output_label": "输出："
     },
     "errors": {
       "title_singular": "发生 {{count}} 个错误",

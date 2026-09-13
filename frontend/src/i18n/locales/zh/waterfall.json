@@ -62,7 +62,16 @@
     "enable_tuner_agc": "启用调谐器 AGC",
     "enable_agc": "启用 AGC",
     "enable_rtl_agc": "启用 RTL AGC",
-    "refresh_params": "刷新 SDR 参数"
+    "refresh_params": "刷新 SDR 参数",
+    "antenna_required": "开始接收前请先选择天线",
+    "gain_required": "开始接收前请先选择增益",
+    "in_use_badge": "使用中",
+    "loading_recordings": "正在加载录制文件…",
+    "no_playback_recording_selected": "[未选择录制文件]",
+    "no_playback_recordings": "未找到 IQ 录制文件",
+    "playback_recording": "IQ 录制",
+    "sample_rate_required": "开始接收前请先选择采样率",
+    "unknown_date": "未知日期"
   },
   "fft": {
     "title": "FFT",
@@ -71,7 +80,19 @@
     "fft_averaging": "FFT 平均",
     "averaging_none": "无",
     "averaging_samples": "{{count}} 个样本",
-    "color_map": "颜色映射"
+    "color_map": "颜色映射",
+    "bandscope_smoothing": "Bandscope 平滑",
+    "fft_overlap": "FFT 重叠",
+    "overlap_25": "开启（25%）",
+    "overlap_75": "开启（75%）",
+    "overlap_depth": "重叠深度",
+    "overlap_depth_segments": "16 段",
+    "overlap_off": "关闭",
+    "overlap_on_50": "开启（50%）",
+    "smoothing_high": "高",
+    "smoothing_low": "低",
+    "smoothing_medium": "中",
+    "smoothing_off": "关闭"
   },
   "vfo": {
     "title": "VFO 控制",

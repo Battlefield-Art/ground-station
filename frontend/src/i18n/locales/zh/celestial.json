@@ -302,7 +302,8 @@
       "peak_azimuth": "最高方位角",
       "cache": "缓存",
       "stale": "过期",
-      "source": "来源"
+      "source": "来源",
+      "current_elevation": "当前仰角"
     },
     "summary": {
       "start": "开始",

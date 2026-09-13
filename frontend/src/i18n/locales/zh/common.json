@@ -157,7 +157,30 @@
     "auto_switch_planetarium_visibility_desc": "对于卫星目标：在地平线以上使用天象仪视图，在地平线以下切换回地球视图。",
     "footprint_color": "足迹颜色",
     "past_orbit_color": "历史轨道线颜色",
-    "future_orbit_color": "未来轨道线颜色"
+    "future_orbit_color": "未来轨道线颜色",
+    "apply": "应用",
+    "coordinate_grid_desc": "叠加经纬度网格线。",
+    "day_night_separator_desc": "绘制昼夜分界叠加层。",
+    "future_orbit_path_desc": "绘制当前时间之后的预测轨道路径。",
+    "lock_on_target": "地图锁定到所选目标",
+    "lock_on_target_desc": "跟踪更新时保持当前目标居中。",
+    "map_engine": "地图引擎",
+    "past_orbit_path_desc": "绘制当前时间之前的卫星已走轨迹。",
+    "projection_note": "切换地图引擎或投影会重建地图画布，并可能使视图重新居中。",
+    "reset_defaults": "恢复默认",
+    "satellite_coverage_desc": "显示被跟踪卫星当前的地面覆盖范围。",
+    "satellite_tooltip_desc": "显示卫星名称与遥测提示标签。",
+    "save_failed": "保存失败",
+    "saved": "已保存",
+    "saving": "保存中…",
+    "section_base_map": "底图",
+    "section_base_map_desc": "选择底图与投影。",
+    "section_orbital_paths": "轨道路径",
+    "section_satellite_overlays": "卫星叠加层",
+    "section_visual_styling": "视觉样式",
+    "section_visual_styling_desc": "只有已启用的叠加层才会显示其颜色控件。",
+    "show_moon_desc": "在地图上显示月下点标记。",
+    "show_sun_desc": "在地图上显示日下点标记。"
   },
   "unknown": "未知",
   "not_available": "不适用",
@@ -487,5 +510,9 @@
     "retry": "重试",
     "switch_to_leaflet": "切换到 Leaflet",
     "switch_to_maplibre": "切换到 MapLibre"
+  },
+  "common": {
+    "disconnected": "已断开",
+    "not_available": "不适用"
   }
 }
