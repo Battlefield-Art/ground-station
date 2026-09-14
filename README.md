@@ -11,6 +11,7 @@ single web interface.
 
 ## Recent Releases
 
+* **v0.8.8 (2026-09-14):** Added complete Simplified Chinese localization across all interface namespaces, including previously inline fallback text; the new language is available under **account menu → Preferences → Regional & Language → Language**.
 * **v0.8.7 (2026-09-12):** Added station-coordinate timezone detection with a manual setup override and station-based defaults for additional accounts; added recoverable map-load error handling; improved manual rotator control, stop recovery, and tracker command feedback; and added the station name and version to the browser title. Existing timezone preferences are preserved when upgrading from v0.8.6 or earlier; users with an incorrect clock can select their timezone under **account menu → Preferences → Regional & Language → Timezone**. Daylight saving time is handled automatically.
 * **v0.8.6 (2026-09-06):** Added MiriSDR support through SoapyMiri; kept dashboard grid resize handles visible while editing; centralized observation-status notification placement; and made setup-wizard tests more reliable after post-login socket hydration.
 * **v0.8.5 (2026-09-02):** Improved station-location setup by preserving zero altitude, adding validated manual altitude entry, and making setup-wizard finalization more reliable; consolidated satellite alternative names, retired the legacy transmitter-links column, and refined satellite table, pass, and map tooltip presentation.
@@ -20,7 +21,6 @@ single web interface.
 * **v0.7.17 (2026-07-16):** Added east-west pass direction classification with updated pass/elevation labels, improved rotator overlap tracking for `0_450` mode with a high-lane lock, introduced custom waterfall colormap selection with better progress tracking, and refined EarthView selector behavior for very large groups.
 * **v0.7.16 (2026-07-09):** Added pass geometry classification with extended azimuth mode support in pass/rotator flows, improved satellite transmitters table performance and column handling, and removed the legacy pass-direction column logic.
 * **v0.7.15 (2026-07-09):** Added SDR takeover confirmation dialogs with structured conflict/session details and forced-takeover handling across frontend/backend streaming flows, and introduced satellite catalog statistics retrieval with frontend UI integration.
-* **v0.7.14 (2026-07-07):** Optimized celestial offscreen label rendering and viewport/selection handling, improved dialog theming consistency, added a center-frequency marker line in the waterfall viewer, and introduced Redux-based Earth View navigation status overlays with corrected loading-state defaults.
 
 ## Screenshots
 
