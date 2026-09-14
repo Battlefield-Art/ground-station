@@ -484,6 +484,12 @@ Ground Station includes an automated observation system for scheduled satellite 
 
 For development setup, build steps, and testing, see `DEVELOPMENT.md`.
 
+## Security
+
+Ground Station is intended for hobby use on a trusted private network with trusted
+administrators. Before reporting a vulnerability, read the project's [security policy](SECURITY.md)
+for its supported versions, trust boundaries, and reporting process.
+
 ## Application Configuration
 
 Ground Station backend runtime options are stored in `backend/data/configs/app_config.json` and are editable in the UI at `Settings -> Settings`.
