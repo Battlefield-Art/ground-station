@@ -1,0 +1,485 @@
+{
+  "common": {
+    "body": "天体",
+    "mission": "任务",
+    "error": "错误",
+    "stale": "过期",
+    "ok": "确定",
+    "yes": "是",
+    "no": "否",
+    "unknown": "未知",
+    "never": "从未",
+    "loading": "加载中…"
+  },
+  "units": {
+    "deg": "°",
+    "au": "AU",
+    "km_per_s": "km/s",
+    "min": "分钟"
+  },
+  "errors": {
+    "unknown_error": "未知错误"
+  },
+  "statusbar": {
+    "planets": "行星",
+    "moons": "卫星",
+    "tracked": "已跟踪"
+  },
+  "toolbar": {
+    "fit_all": "适应全部",
+    "zoom_in": "放大",
+    "zoom_out": "缩小",
+    "reset_zoom": "重置缩放",
+    "center_on_sun": "以太阳为中心",
+    "refresh_scene": "刷新天体场景",
+    "layout_options": "布局选项",
+    "table_settings": "表格设置",
+    "go_fullscreen": "进入全屏",
+    "exit_fullscreen": "退出全屏"
+  },
+  "main_layout": {
+    "planetarium_title": "星空视图",
+    "solar_system_layout_title": "太阳系布局",
+    "monitored_title": "监控天体",
+    "loading": "加载中…",
+    "loading_planetarium_vectors": "正在加载星空视图矢量…",
+    "loading_solar_vectors": "正在加载太阳系矢量…",
+    "updating": "正在更新…"
+  },
+  "layout_options": {
+    "title": "太阳系布局选项",
+    "apply": "应用",
+    "reset_defaults": "恢复默认",
+    "view_mode": {
+      "title": "视图模式",
+      "subtitle": "选择该面板使用的主要天体可视化方式。",
+      "label": "视图",
+      "solar_system": "太阳系",
+      "planetarium": "星空视图"
+    },
+    "map_interaction": {
+      "title": "地图交互",
+      "solar_subtitle": "在太阳系地图上启用手势平移与缩放。",
+      "planetarium_subtitle": "在星空视图视口中启用手势平移与缩放。"
+    },
+    "sections": {
+      "solar_scene_elements": {
+        "title": "场景元素",
+        "subtitle": "主要太阳系图层与标签。"
+      },
+      "solar_tracked_targets": {
+        "title": "跟踪目标",
+        "subtitle": "被跟踪天体及其轨道/标签叠加层。"
+      },
+      "solar_astronomy_background": {
+        "title": "天文背景",
+        "subtitle": "地图下方的参考图层。"
+      },
+      "solar_guides_and_metadata": {
+        "title": "参考线与元数据",
+        "subtitle": "上下文标记、标签与场景元数据。"
+      },
+      "planetarium_sky_layers": {
+        "title": "星空图层",
+        "subtitle": "星空视图视口的主要叠加层。"
+      },
+      "planetarium_target_overlays": {
+        "title": "目标叠加层",
+        "subtitle": "行星与目标的跟踪叠加层及标签。"
+      }
+    },
+    "options": {
+      "enable_map_dragging": {
+        "label": "启用地图拖动",
+        "description": "允许在地图上按住拖动来平移。关闭后请使用控件操作。"
+      },
+      "enable_map_zooming": {
+        "label": "启用地图缩放",
+        "description": "允许滚轮和双指缩放手势。关闭后请使用缩放按钮。"
+      },
+      "show_grid": {
+        "label": "显示网格",
+        "description": "显示参考网格，便于快速判断方位。"
+      },
+      "show_planets": {
+        "label": "显示行星",
+        "description": "在视口中渲染行星及太阳系主要天体。"
+      },
+      "show_planet_labels": {
+        "label": "显示行星标签",
+        "description": "在可见行星旁显示天体名称。"
+      },
+      "show_planet_labels_for_planetarium": {
+        "description": "显示行星类天体的标签。"
+      },
+      "show_planet_orbits": {
+        "label": "显示行星轨道",
+        "description": "绘制行星运动的轨道环/轨迹以提供空间参照。"
+      },
+      "show_tracked_objects": {
+        "label": "显示跟踪对象",
+        "description": "显示当前跟踪的任务/天体标记。"
+      },
+      "show_tracked_orbits": {
+        "label": "显示跟踪轨道",
+        "description": "叠加跟踪目标的采样轨迹路径。"
+      },
+      "show_tracked_labels": {
+        "label": "显示跟踪标签",
+        "description": "显示跟踪目标的标签与遥测信息。"
+      },
+      "show_bright_star_field": {
+        "label": "显示亮星场",
+        "description": "渲染来自亮星表的黄道矢量投影。"
+      },
+      "show_asteroid_zones": {
+        "label": "显示小行星带区域",
+        "description": "显示主要小行星带区域的叠加层。"
+      },
+      "show_asteroid_zone_labels": {
+        "label": "显示小行星带标签",
+        "description": "为小行星带区域标注名称。"
+      },
+      "show_resonance_markers": {
+        "label": "显示共振标记",
+        "description": "渲染主要轨道共振参考标记。"
+      },
+      "show_epoch_label": {
+        "label": "显示历元标签",
+        "description": "显示用于当前位置计算的场景时间戳。"
+      },
+      "show_scale_label": {
+        "label": "显示比例标签",
+        "description": "显示当前视口的距离比例参照。"
+      },
+      "show_gesture_hint": {
+        "label": "显示手势提示",
+        "description": "显示地图交互控件的简短操作提示。"
+      },
+      "show_sky_grid": {
+        "label": "显示天球网格",
+        "description": "绘制方位角/仰角参考线。"
+      },
+      "show_horizon_compass": {
+        "label": "显示地平罗盘",
+        "description": "绘制带东南西北刻度的地平线。"
+      },
+      "show_star_field": {
+        "label": "显示星场",
+        "description": "渲染已加载星表中的亮星。"
+      },
+      "show_star_names": {
+        "label": "显示恒星名称",
+        "description": "在缩放允许时标注有名称的亮星。"
+      },
+      "show_constellation_labels": {
+        "label": "显示星座标签",
+        "description": "在星空背景中渲染星座名称。"
+      },
+      "show_pass_curves": {
+        "label": "显示过境曲线",
+        "description": "为可见目标绘制预测的过境弧线。"
+      },
+      "show_target_labels": {
+        "label": "显示目标标签",
+        "description": "显示跟踪目标的标签。"
+      },
+      "show_rotator_crosshair": {
+        "label": "显示旋转器十字线",
+        "description": "在可用时渲染旋转器实时十字线。"
+      },
+      "show_hud_labels": {
+        "label": "显示 HUD 标签",
+        "description": "显示视口以及观测者/时间戳读数。"
+      }
+    }
+  },
+  "topbar": {
+    "projection": {
+      "past": "过去",
+      "future": "未来"
+    },
+    "actions": {
+      "manage": "管理",
+      "refresh": "刷新",
+      "refresh_all": "全部刷新",
+      "enable_target": "启用目标",
+      "disable_target": "禁用目标",
+      "clear_color": "清除"
+    },
+    "dialogs": {
+      "add_title": "添加监控天体目标",
+      "manage_title": "管理监控天体目标",
+      "delete_title": "删除监控目标",
+      "edit_title": "编辑监控天体目标"
+    },
+    "fields": {
+      "target_type": "目标类型",
+      "mission_spacecraft": "任务 / 航天器",
+      "solar_body": "太阳系天体",
+      "target": "目标",
+      "target_placeholder": "输入命令或从目录中选择",
+      "target_body": "目标天体",
+      "horizons_command": "Horizons 命令",
+      "display_name": "显示名称",
+      "color": "颜色",
+      "color_placeholder": "#06D6A0",
+      "pick_color": "选择颜色"
+    },
+    "helper": {
+      "using_static_catalog": "正在使用静态目录条目。",
+      "using_exact_command": "正在使用精确的 Horizons 命令。",
+      "selected_mission_not_active": "所选任务未处于活动状态；Horizons 数据可能受限。",
+      "loading_spacecraft_catalog": "正在加载航天器目录…",
+      "loading_body_catalog": "正在加载天体目录…"
+    },
+    "labels": {
+      "already_monitored": "已在监控中",
+      "static_body": "静态天体"
+    },
+    "table": {
+      "type": "类型",
+      "mission": "任务",
+      "last_refresh": "上次刷新"
+    },
+    "delete": {
+      "confirm": "确定要删除该监控目标吗？",
+      "unknown_target": "未知目标"
+    },
+    "empty": {
+      "no_targets": "尚无监控的天体目标。"
+    },
+    "errors": {
+      "failed_load_spacecraft_catalog": "加载航天器目录失败。",
+      "failed_load_body_catalog": "加载天体目录失败。",
+      "socket_unavailable": "Socket 连接不可用。",
+      "display_name_command_required": "显示名称和命令为必填项。",
+      "command_already_monitored": "该命令已在监控列表中。",
+      "select_body_target": "请选择目标天体。",
+      "body_already_monitored": "该天体已在监控列表中。",
+      "display_name_required": "显示名称为必填项。",
+      "command_required_for_mission": "任务类目标必须填写命令。",
+      "body_required_for_body_target": "天体类目标必须填写目标天体。",
+      "invalid_hex_color": "颜色必须是有效的十六进制值，例如 #1A2B3C。",
+      "failed_update_target": "更新监控目标失败。"
+    },
+    "feedback": {
+      "added_mission": "已添加“{{name}}”，使用命令“{{command}}”。",
+      "added_body": "已添加天体目标“{{name}}”。"
+    },
+    "mission_status": {
+      "active": "活动",
+      "completed": "已完成",
+      "failed": "失败"
+    },
+    "fallback": {
+      "target": "目标"
+    }
+  },
+  "passes": {
+    "title": "天体过境",
+    "count_label_single": "次过境",
+    "count_label_plural": "次过境",
+    "table_settings": "表格设置",
+    "refresh": "刷新过境",
+    "timeline_default_target_name": "天体目标",
+    "status": {
+      "visible": "可见",
+      "passed": "已过境",
+      "upcoming": "即将过境"
+    },
+    "columns": {
+      "status": "状态",
+      "name": "名称",
+      "type": "类型",
+      "peak_elevation": "最高仰角",
+      "progress": "进度",
+      "duration": "持续时间",
+      "start": "开始",
+      "end": "结束",
+      "start_azimuth": "起始方位角",
+      "end_azimuth": "结束方位角",
+      "peak_azimuth": "最高方位角",
+      "cache": "缓存",
+      "stale": "过期",
+      "source": "来源",
+      "current_elevation": "当前仰角"
+    },
+    "summary": {
+      "start": "开始",
+      "end": "结束"
+    },
+    "quick_filters": {
+      "all_tooltip": "全部过境（Alt+1）",
+      "all_aria": "全部过境",
+      "all_short": "全部",
+      "live_tooltip": "实时过境（Alt+2）",
+      "live_aria": "实时过境",
+      "live_short": "实时",
+      "next_30_tooltip": "实时或未来 30 分钟（Alt+3）",
+      "next_30_aria": "未来 30 分钟",
+      "next_30_short": "未来30分",
+      "highest_elevation_tooltip": "按最高仰角优先排序（Alt+4）",
+      "highest_elevation_aria": "按最高仰角优先排序",
+      "high_el_short": "高仰角"
+    },
+    "settings": {
+      "title": "天体过境表格设置",
+      "rows_per_page": "每页行数",
+      "reset_values": "重置数值",
+      "close": "关闭",
+      "categories": {
+        "basic": "基本",
+        "time": "时间",
+        "metrics": "指标",
+        "source": "来源"
+      }
+    }
+  },
+  "monitored": {
+    "no_color": "无颜色",
+    "columns": {
+      "name": "名称",
+      "type": "类型",
+      "target_id": "目标 ID",
+      "source": "来源",
+      "source_mode": "来源模式",
+      "elevation": "仰角（度）",
+      "azimuth": "方位角（度）",
+      "distance_from_sun_au": "距太阳距离（AU）",
+      "speed_km_s": "速度（km/s）",
+      "light_time_min": "光行时（分钟）",
+      "last_refresh": "上次刷新",
+      "refresh_age": "刷新时长",
+      "projection_span": "投影跨度",
+      "cache": "缓存",
+      "stale": "过期",
+      "samples": "采样数",
+      "last_error": "最近错误"
+    },
+    "settings": {
+      "title": "监控天体表格设置",
+      "rows_per_page": "每页行数",
+      "reset_values": "重置数值",
+      "close": "关闭",
+      "categories": {
+        "identity": "标识",
+        "state": "状态",
+        "metrics": "指标",
+        "projection": "投影"
+      }
+    },
+    "summary": {
+      "source": "来源",
+      "mode": "模式"
+    }
+  },
+  "info": {
+    "title": "天体信息",
+    "empty_hint": "请从“监控天体”或“天体过境”中选择一个天体或任务。",
+    "edit_transmitters": "编辑发射机",
+    "no_upcoming_pass": "无即将到来的过境",
+    "status": {
+      "visible": "可见",
+      "below_horizon": "地平线以下"
+    },
+    "sections": {
+      "pass_window": "过境时间窗",
+      "data_source": "数据源"
+    },
+    "metrics": {
+      "target_type": "目标类型",
+      "body_id": "天体 ID",
+      "mission_command": "任务命令",
+      "elevation": "仰角",
+      "azimuth": "方位角",
+      "distance_from_sun_au": "距太阳距离",
+      "distance_from_sun_km": "距太阳距离（km）",
+      "speed": "速度",
+      "light_time": "光行时",
+      "total_passes": "过境总数",
+      "active_pass": "当前过境",
+      "active_since": "起始于",
+      "next_start": "下次开始",
+      "ends": "结束",
+      "next_peak": "下次最高点",
+      "source": "来源",
+      "cache": "缓存",
+      "stale": "过期",
+      "last_refresh": "上次刷新"
+    }
+  },
+  "context": {
+    "copy_body_id": "复制天体 ID",
+    "copy_mission_command": "复制任务命令",
+    "copy_target_key": "复制目标键",
+    "copy_target_summary": "复制目标摘要",
+    "copy_pass_summary": "复制过境摘要"
+  },
+  "time": {
+    "relative": {
+      "in_less_than_minute": "<1 分钟后",
+      "less_than_minute_ago": "<1 分钟前",
+      "in_minutes": "{{count}} 分钟后",
+      "minutes_ago": "{{count}} 分钟前",
+      "in_hours": "{{count}} 小时后",
+      "hours_ago": "{{count}} 小时前",
+      "in_days": "{{count}} 天后",
+      "days_ago": "{{count}} 天前"
+    },
+    "duration": {
+      "minutes_seconds": "{{minutes}} 分 {{seconds}} 秒"
+    },
+    "age": {
+      "seconds": "{{count}} 秒",
+      "minutes": "{{count}} 分",
+      "hours": "{{count}} 小时",
+      "days": "{{count}} 天"
+    },
+    "projection_span": "{{past}} 小时 / {{future}} 小时 @ {{step}} 分"
+  },
+  "canvas": {
+    "solar": {
+      "anchor_sun": "太阳",
+      "anchor_earth": "地球",
+      "anchor_galactic_center": "银心",
+      "anchor_galactic_center_short": "银心",
+      "no_epoch": "无历元",
+      "epoch": "历元：{{timestamp}}",
+      "scale": "比例：{{value}} / 格",
+      "touch_pan": "双指平移",
+      "touch_pan_zoom": "双指平移/缩放",
+      "touch_pinch_zoom": "双指捏合缩放",
+      "mouse_drag": "拖拽",
+      "mouse_wheel": "滚轮",
+      "mouse_drag_plus_wheel": "拖拽 + 滚轮",
+      "gesture_hint": "触控：{{touch}} | 鼠标：{{mouse}}",
+      "gesture_disabled": "地图手势已禁用；请使用工具栏控件。"
+    },
+    "planetarium": {
+      "aria_label": "星空图",
+      "configure_location": "请先配置地面站位置以渲染本地星空。",
+      "fallback_target": "目标",
+      "target_below_horizon": "目标位于地平线以下",
+      "hud_view_label": "方位 {{az}} / 仰角 {{el}} / 视场 {{fov}}",
+      "cardinal": {
+        "north": "北",
+        "east": "东",
+        "south": "南",
+        "west": "西"
+      }
+    },
+    "moon_phase": {
+      "new_moon": "新月",
+      "waxing_crescent": "蛾眉月",
+      "first_quarter": "上弦月",
+      "waxing_gibbous": "盈凸月",
+      "full_moon": "满月",
+      "waning_gibbous": "亏凸月",
+      "last_quarter": "下弦月",
+      "waning_crescent": "残月",
+      "fallback": "月相",
+      "description": "{{label}}，光照 {{percent}}%"
+    }
+  }
+}

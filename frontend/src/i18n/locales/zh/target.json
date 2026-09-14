@@ -1,0 +1,272 @@
+{
+  "map_settings": {
+    "title": "地图设置",
+    "close": "关闭",
+    "apply": "应用",
+    "reset_defaults": "恢复默认",
+    "save_failed": "保存失败",
+    "saved": "已保存",
+    "saving": "保存中…"
+  },
+  "map_controls": {
+    "map_settings": "地图设置",
+    "go_home": "返回首页",
+    "go_to_center": "移至地图中心",
+    "go_fullscreen": "全屏",
+    "exit_fullscreen": "退出全屏",
+    "zoom_in": "放大",
+    "zoom_out": "缩小"
+  },
+  "next_passes": {
+    "title": "{{name}} 未来 {{hours}} 小时内的过境",
+    "start": "开始",
+    "end": "结束",
+    "duration": "持续时间",
+    "progress": "进度",
+    "distance_aos": "AOS 距离",
+    "distance_los": "LOS 距离",
+    "distance_peak": "最高点距离",
+    "max_el": "最高仰角",
+    "geo_stat": "地球静止状态",
+    "geo_sync": "同步轨道状态",
+    "no_satellite_selected": "请选择一颗卫星以查看过境",
+    "direction": "方向",
+    "direction_values": {
+      "cw": "顺时针",
+      "ccw": "逆时针",
+      "mixed": "混合"
+    },
+    "automatic_observation_tooltip": "该次过境将被自动观测",
+    "pass_types": "过境类型",
+    "pass_tag_labels": {
+      "north_crossing": "北向穿越",
+      "south_crossing": "南向穿越",
+      "direction_cw": "顺时针",
+      "direction_ccw": "逆时针",
+      "direction_mixed": "混合",
+      "direction_e_to_w": "东→西",
+      "direction_w_to_e": "西→东",
+      "elevation_low": "低仰角",
+      "elevation_medium": "中仰角",
+      "elevation_high": "高仰角",
+      "elevation_overhead": "过顶"
+    },
+    "pass_tag_tooltips": {
+      "north_crossing": "该次过境经过正北（方位角 0°）。",
+      "south_crossing": "该次过境经过正南（方位角 180°）。",
+      "direction_cw": "卫星在天球上顺时针移动。",
+      "direction_ccw": "卫星在天球上逆时针移动。",
+      "direction_mixed": "卫星在过境过程中改变移动方向。",
+      "direction_e_to_w": "卫星自东向西移动。",
+      "direction_w_to_e": "卫星自西向东移动。",
+      "elevation_low": "最大仰角低于 30°。",
+      "elevation_medium": "最大仰角在 30° 到 60° 之间。",
+      "elevation_high": "最大仰角在 60° 到 80° 之间。",
+      "elevation_overhead": "最大仰角达到 80° 或更高。"
+    },
+    "transmitter_links": "链接",
+    "transmitter_link_tooltips": {
+      "same_band": "{{count}} 台发射机，{{band}} 上下行",
+      "split_band": "{{count}} 台发射机，上行 {{uplinkBand}}、下行 {{downlinkBand}}",
+      "uplink_only": "{{count}} 台发射机，仅上行 {{uplinkBand}}",
+      "downlink_only": "{{count}} 台发射机，仅下行 {{downlinkBand}}",
+      "unknown": "{{count}} 台发射机，未列出上/下行频段",
+      "details": "详情：{{descriptions}}"
+    },
+    "no_data": "无数据"
+  },
+  "passes_table_settings": {
+    "title": "过境表格设置",
+    "description": "选择要在过境表格中显示的列",
+    "rows_per_page": "每页行数",
+    "category_time": "时间信息",
+    "category_basic": "基本信息",
+    "category_distance": "距离信息",
+    "category_orbital": "轨道信息",
+    "always_visible": "始终显示",
+    "close": "关闭"
+  },
+  "pass_timeline": {
+    "title": "{{name}} 的过境时间线 - 未来 {{hours}} 小时"
+  },
+  "timeline": {
+    "zoomIn": "放大",
+    "zoomOut": "缩小",
+    "resetZoom": "重置缩放",
+    "sunrise": "日出",
+    "sunset": "日落",
+    "now": "现在",
+    "noPassesAvailable": "无可用卫星过境",
+    "noPassesForSelected": "所选 {{hours}} 小时内无过境",
+    "active": "活跃",
+    "start": "开始",
+    "end": "结束",
+    "duration": "持续时间",
+    "maxElevation": "最高仰角",
+    "minDistance": "最小距离"
+  },
+  "rig_control": {
+    "title": "电台控制",
+    "connected": "已连接",
+    "not_connected": "未连接",
+    "unknown": "未知",
+    "failed_start_tracking": "启动跟踪失败",
+    "on_rig": "电台：",
+    "doppler_shift": "多普勒频移：",
+    "transmitted": "发射：",
+    "observed": "观测：",
+    "connect": "连接",
+    "disconnect": "断开",
+    "track_radio": "跟踪电台",
+    "stop": "停止"
+  },
+  "rotator_control": {
+    "title": "旋转器控制",
+    "failed_start_tracking": "使用旋转器启动跟踪失败",
+    "az": "方位：",
+    "el": "仰角：",
+    "ccw": "⟲ 逆时针",
+    "cw": "顺时针 ⟳",
+    "up": "↑ 向上",
+    "down": "向下 ↓",
+    "connect": "连接",
+    "disconnect": "断开",
+    "park": "停放",
+    "track": "跟踪",
+    "stop": "停止",
+    "manual_control": "手动控制",
+    "manual_help": "输入位置或使用旋钮，然后按“移动”。必须先停止自动跟踪。",
+    "manual_azimuth": "方位角（{{min}}°–{{max}}°）",
+    "manual_elevation": "仰角（{{min}}°–{{max}}°）",
+    "move": "移动",
+    "close": "关闭"
+  },
+  "satellite_search": {
+    "search_label": "搜索卫星（按名称或 NORAD ID）"
+  },
+  "satellite_dropdown": {
+    "label": "卫星"
+  },
+  "satellite_info": {
+    "title": "卫星信息",
+    "sections": {
+      "position_data": "位置数据",
+      "orbital_data": "轨道数据",
+      "metadata": "元数据"
+    },
+    "labels": {
+      "latitude": "纬度",
+      "longitude": "经度",
+      "azimuth": "方位角",
+      "elevation": "仰角",
+      "altitude": "高度",
+      "velocity": "速度",
+      "geostationary": "地球静止轨道",
+      "launch_date": "发射日期",
+      "added_to_db": "添加到数据库",
+      "countries": "国家",
+      "alternative_name": "备用名称",
+      "satellite_id": "卫星 ID"
+    },
+    "values": {
+      "yes": "是",
+      "no": "否",
+      "na": "N/A"
+    }
+  },
+  "errors": {
+    "failed_get_tracking_state": "获取跟踪状态失败"
+  },
+  "group_dropdown": {
+    "label": "分组",
+    "user_groups": "用户定义的卫星分组",
+    "tle_groups": "轨道数据源分组",
+    "none_created": "未创建"
+  },
+  "rig_control_labels": {
+    "rig_label": "电台",
+    "vfo_label": "VFO",
+    "transmitter_label": "发射机",
+    "no_rig_control": "[无电台控制]",
+    "select_rig": "选择电台",
+    "select_sdr": "选择 SDR",
+    "no_vfo_control": "[无 VFO 控制]",
+    "select_vfo": "选择 VFO",
+    "no_frequency_control": "[无频率控制]",
+    "select_transmitter": "选择发射机",
+    "no_transmitters": "此卫星无可用发射机"
+  },
+  "rotator_control_labels": {
+    "rotator_label": "旋转器",
+    "none": "无",
+    "rotators": "旋转器",
+    "no_rotator_control": "[无旋转器控制]",
+    "select_rotator": "选择旋转器"
+  },
+  "satellite_selector": {
+    "title": "选择卫星",
+    "stop_tracking": "停止跟踪"
+  },
+  "satellite_map": {
+    "title": "目标跟踪"
+  },
+  "satellite_transmitters": {
+    "title": "发射机",
+    "count": "数量",
+    "sections": {
+      "communication_overview": "通信概览",
+      "transmitter_details": "发射机详情"
+    },
+    "labels": {
+      "total": "总计",
+      "active": "活跃",
+      "inactive": "非活跃",
+      "frequency_bands": "频段",
+      "downlink": "下行",
+      "mode": "模式",
+      "baud": "波特率",
+      "band": "波段"
+    },
+    "messages": {
+      "frequency_violation": "⚠️ 频率违规",
+      "no_transmitters": "无可用发射机",
+      "no_transmitters_desc": "此卫星没有注册任何发射机。"
+    }
+  },
+  "view_picker": {
+    "label": "视图",
+    "map": "2D 地图",
+    "globe": "地球仪",
+    "sky": "星空",
+    "automatic": "按可见性自动",
+    "solar_system": "太阳系"
+  },
+  "view_settings": {
+    "customize_title": "自定义当前视图",
+    "interaction_title": "交互",
+    "interaction_description": "控制当前视图内的指针直接交互。",
+    "map_preferences": "地图偏好",
+    "map_preferences_description": "选择底图并控制地图的直接交互。",
+    "sky_interaction_description": "控制星空视图内的指针交互。"
+  },
+  "target_retarget_dialog": {
+    "title": "重设目标时段或新建目标",
+    "cancel": "取消",
+    "confirm_create": "创建新目标",
+    "confirm_retarget": "改指所选时段",
+    "no_rig": "无电台控制",
+    "no_rotator": "无旋转器控制",
+    "no_slots": "没有可改指的活动目标时段。",
+    "no_target": "未选择目标",
+    "option_new_title": "创建新目标时段",
+    "or": "或",
+    "submit_failed": "应用目标选择失败。",
+    "submitting": "应用中…",
+    "subtitle": "选择改指当前时段，或新建一个",
+    "this_target": "此目标"
+  },
+  "target_search": {
+    "retarget_hint": "搜索卫星、任务或天体。选中结果会立即改指当前目标。",
+    "search_label": "搜索卫星、任务或天体"
+  }
+}
