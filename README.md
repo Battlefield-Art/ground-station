@@ -627,6 +627,13 @@ for device-specific udev rules, USB passthrough, and verification steps.
 
 We welcome contributions! Please see the [CONTRIBUTING.md](CONTRIBUTING.md) file for details on how to get started.
 
+## Sponsorship
+
+Sponsorship through [GitHub Sponsors](https://github.com/sponsors/sgoudelis) is voluntary support for the continued
+development and maintenance of Ground Station. It does not purchase development time, technical support, consulting,
+feature priority, influence over the project roadmap, or any promise of future work. Contributions and requests are
+considered through the project's normal process.
+
 ## Acknowledgments
 
 This project uses the SatNOGS API for transmitter information.
