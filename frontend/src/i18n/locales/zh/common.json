@@ -200,6 +200,7 @@
       "add_sdr": "添加 SDR",
       "sdr_configuration_title": "SDR 配置",
       "sdr_label": "SDR",
+      "sdr_in_use_by_another_session": "已用于其他会话",
       "sample_rate_label": "采样率",
       "gain_label": "增益",
       "antenna_port_label": "天线端口",

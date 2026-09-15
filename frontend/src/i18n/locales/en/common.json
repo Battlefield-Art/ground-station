@@ -185,6 +185,7 @@
       "add_sdr": "Add SDR",
       "sdr_configuration_title": "SDR Configuration",
       "sdr_label": "SDR",
+      "sdr_in_use_by_another_session": "In use by another session",
       "sample_rate_label": "Sample Rate",
       "gain_label": "Gain",
       "antenna_port_label": "Antenna Port",

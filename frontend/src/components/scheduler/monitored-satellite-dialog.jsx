@@ -54,7 +54,7 @@ import {
     Switch,
     Tooltip,
 } from '@mui/material';
-import { Add as AddIcon, Delete as DeleteIcon, ExpandMore as ExpandMoreIcon, ErrorOutline as ErrorOutlineIcon } from '@mui/icons-material';
+import { Add as AddIcon, Close as CloseIcon, Delete as DeleteIcon, ExpandMore as ExpandMoreIcon, ErrorOutline as ErrorOutlineIcon } from '@mui/icons-material';
 import {
     setMonitoredSatelliteDialogOpen,
     createMonitoredSatellite,
@@ -797,14 +797,13 @@ export default function MonitoredSatelliteDialog() {
             const transmitter = availableTransmitters.find(t => t.id === task.config.transmitter_id);
             const transmitterName = transmitter?.description || t('scheduler_dialogs.shared.no_transmitter');
             const freqMHz = transmitter?.downlink_low ? `${(transmitter.downlink_low / 1000000).toFixed(3)} MHz` : '';
-            const decoderType = getTaskSummaryOptionLabel(DECODER_TYPES, task.config.decoder_type, task.config.decoder_type);
 
             if (task.config.decoder_type === 'none') {
-                const parts = [transmitterName, freqMHz, t('scheduler_dialogs.shared.no_decoder')].filter(Boolean);
+                const parts = [transmitterName, freqMHz].filter(Boolean);
                 return parts.join(' • ');
             }
 
-            const parts = [transmitterName, freqMHz, decoderType].filter(Boolean);
+            const parts = [transmitterName, freqMHz].filter(Boolean);
             return parts.join(' • ');
         } else if (task.type === 'audio_recording') {
             const transmitter = availableTransmitters.find(t => t.id === task.config.transmitter_id);
@@ -914,10 +913,24 @@ export default function MonitoredSatelliteDialog() {
         tasks: formData.tasks,
     });
 
+    const isSdrUsedByAnotherSession = (sdrId) => {
+        if (!sdrId) return false;
+        return (formData.sessions || []).some(
+            (session, sessionIndex) =>
+                sessionIndex !== activeSessionIndex &&
+                String(session?.sdr?.id) === String(sdrId)
+        );
+    };
+
     const isFormValid = () => {
         const sessions = Array.isArray(formData.sessions) && formData.sessions.length
             ? formData.sessions
             : [{ sdr: formData.sdr, tasks: formData.tasks }];
+        const selectedSdrIds = sessions
+            .map((session) => session?.sdr?.id)
+            .filter(Boolean)
+            .map(String);
+        const hasUniqueSdrs = new Set(selectedSdrIds).size === selectedSdrIds.length;
         const sessionsValid = sessions.every((session) => {
             const sdr = session?.sdr || {};
             return (
@@ -930,6 +943,7 @@ export default function MonitoredSatelliteDialog() {
         return (
             formData.satellite.norad_id !== '' &&
             sessionsValid &&
+            hasUniqueSdrs &&
             formData.min_elevation >= 0 &&
             formData.task_start_elevation >= 0 &&
             formData.task_start_elevation <= formData.min_elevation &&
@@ -1274,56 +1288,137 @@ export default function MonitoredSatelliteDialog() {
                         <Typography variant="subtitle2" gutterBottom sx={{ color: 'primary.main', fontWeight: 'bold' }}>
                             {t('scheduler_dialogs.shared.sdr_sessions_title')}
                         </Typography>
-                        <Stack direction="row" spacing={2} alignItems="center">
+                        <Stack direction="row" spacing={1} alignItems="center">
                             <Tabs
                                 value={activeSessionIndex}
                                 onChange={(event, value) => handleSelectSession(value)}
                                 variant="scrollable"
                                 scrollButtons="auto"
-                                sx={{ flex: 1 }}
+                                sx={{
+                                    flex: 1,
+                                    minWidth: 0,
+                                    minHeight: 44,
+                                    p: 0.5,
+                                    borderRadius: 1.5,
+                                    bgcolor: 'action.hover',
+                                    '& .MuiTabs-indicator': { display: 'none' },
+                                    '& .MuiTabs-scrollButtons': {
+                                        width: 32,
+                                        borderRadius: 1,
+                                    },
+                                }}
                             >
-                                {(formData.sessions || []).map((session, index) => (
-                                    <Tab
-                                        key={index}
-                                        label={
-                                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                                                <Typography variant="body2">
-                                                    {session?.sdr?.name || `SDR ${index + 1}`}
-                                                </Typography>
-                                                <IconButton
-                                                    size="small"
-                                                    onClick={(event) => {
-                                                        event.stopPropagation();
-                                                        requestRemoveSession(index);
-                                                    }}
-                                                    disabled={(formData.sessions || []).length <= 1}
-                                                >
-                                                    <DeleteIcon fontSize="small" />
-                                                </IconButton>
-                                            </Box>
-                                        }
-                                        value={index}
-                                    />
-                                ))}
+                                {(formData.sessions || []).map((session, index) => {
+                                    const sdrName = session?.sdr?.name || `SDR ${index + 1}`;
+                                    return (
+                                        <Tab
+                                            key={index}
+                                            value={index}
+                                            aria-label={sdrName}
+                                            label={
+                                                <Tooltip title={sdrName} enterDelay={500} arrow>
+                                                    <Box
+                                                        component="span"
+                                                        sx={{
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            gap: 1,
+                                                            minWidth: 0,
+                                                            width: '100%',
+                                                        }}
+                                                    >
+                                                        <Box
+                                                            component="span"
+                                                            sx={{
+                                                                display: 'inline-flex',
+                                                                alignItems: 'center',
+                                                                justifyContent: 'center',
+                                                                width: 22,
+                                                                height: 22,
+                                                                flexShrink: 0,
+                                                                borderRadius: 0.75,
+                                                                bgcolor: index === activeSessionIndex ? 'primary.main' : 'action.selected',
+                                                                color: index === activeSessionIndex ? 'primary.contrastText' : 'text.secondary',
+                                                                fontSize: '0.75rem',
+                                                                fontWeight: 700,
+                                                            }}
+                                                        >
+                                                            {index + 1}
+                                                        </Box>
+                                                        <Typography
+                                                            component="span"
+                                                            variant="body2"
+                                                            noWrap
+                                                            sx={{
+                                                                display: 'block',
+                                                                flex: 1,
+                                                                minWidth: 0,
+                                                                maxWidth: { xs: 120, sm: 180 },
+                                                                fontWeight: index === activeSessionIndex ? 700 : 500,
+                                                            }}
+                                                        >
+                                                            {sdrName}
+                                                        </Typography>
+                                                    </Box>
+                                                </Tooltip>
+                                            }
+                                            sx={{
+                                                minWidth: 0,
+                                                maxWidth: { xs: 180, sm: 240 },
+                                                minHeight: 36,
+                                                px: 1.25,
+                                                py: 0.5,
+                                                mr: 0.5,
+                                                border: '1px solid transparent',
+                                                borderRadius: 1,
+                                                textTransform: 'none',
+                                                color: 'text.secondary',
+                                                '&:hover': { bgcolor: 'action.hover', color: 'text.primary' },
+                                                '&.Mui-selected': {
+                                                    bgcolor: 'background.paper',
+                                                    borderColor: 'divider',
+                                                    color: 'text.primary',
+                                                    boxShadow: 1,
+                                                },
+                                            }}
+                                        />
+                                    );
+                                })}
                             </Tabs>
+                            <Tooltip title={t('scheduler_dialogs.shared.remove_sdr_session_title')}>
+                                <Box component="span">
+                                    <IconButton
+                                        size="small"
+                                        aria-label={t('scheduler_dialogs.shared.remove_sdr_session_title')}
+                                        onClick={() => requestRemoveSession(activeSessionIndex)}
+                                        disabled={(formData.sessions || []).length <= 1}
+                                        sx={{
+                                            width: 38,
+                                            height: 38,
+                                            border: '1px solid',
+                                            borderColor: 'divider',
+                                            borderRadius: 1,
+                                            '&:hover': { color: 'error.main', borderColor: 'error.main' },
+                                        }}
+                                    >
+                                        <CloseIcon fontSize="small" />
+                                    </IconButton>
+                                </Box>
+                            </Tooltip>
                             <Button
                                 size="small"
                                 variant="outlined"
                                 startIcon={<AddIcon />}
                                 onClick={handleAddSession}
+                                sx={{ minHeight: 38, whiteSpace: 'nowrap' }}
                             >
                                 {t('scheduler_dialogs.shared.add_sdr')}
                             </Button>
                         </Stack>
                     </Box>
 
-                    <Divider />
-
                     {/* SDR Configuration */}
                     <Box sx={{ position: 'relative' }}>
-                        <Typography variant="subtitle2" gutterBottom sx={{ color: 'primary.main', fontWeight: 'bold' }}>
-                            {t('scheduler_dialogs.shared.sdr_configuration_title')}
-                        </Typography>
                         {sdrParametersLoading && (
                             <Box
                                 sx={{
@@ -1365,12 +1460,18 @@ export default function MonitoredSatelliteDialog() {
                                 <Select
                                     value={formData.sdr.id}
                                     onChange={(e) => {
-                                        const selectedSdr = sdrs.find((s) => s.id === e.target.value);
+                                        const selectedSdrId = e.target.value;
+                                        // Disabled menu items should not emit changes, but keep this
+                                        // guard so duplicate SDRs cannot enter state programmatically.
+                                        if (isSdrUsedByAnotherSession(selectedSdrId)) return;
+                                        const selectedSdr = sdrs.find(
+                                            (s) => String(s.id) === String(selectedSdrId)
+                                        );
                                         setFormData((prev) => ({
                                             ...prev,
                                             sdr: {
                                                 ...prev.sdr,
-                                                id: e.target.value,
+                                                id: selectedSdrId,
                                                 name: selectedSdr?.name || '',
                                                 gain: '',
                                                 antenna_port: '',
@@ -1379,21 +1480,38 @@ export default function MonitoredSatelliteDialog() {
                                     }}
                                     label={t('scheduler_dialogs.shared.sdr_label')}
                                 >
-                                    {sdrs.filter(sdr => sdr.id !== 'sigmf-playback').map((sdr) => (
-                                        <MenuItem key={sdr.id} value={sdr.id}>
-                                            <Box>
-                                                <Typography variant="body2">
-                                                    {sdr.name} ({sdr.type})
-                                                </Typography>
-                                                <Typography variant="caption" color="text.secondary">
-                                                    {[
-                                                        sdr.driver ? `Driver: ${sdr.driver}` : null,
-                                                        sdr.serial ? `Serial: ${sdr.serial}` : null,
-                                                    ].filter(Boolean).join(' • ') || t('scheduler_dialogs.shared.no_additional_details')}
-                                                </Typography>
-                                            </Box>
-                                        </MenuItem>
-                                    ))}
+                                    {sdrs.filter(sdr => sdr.id !== 'sigmf-playback').map((sdr) => {
+                                        const isUsedByAnotherSession = isSdrUsedByAnotherSession(sdr.id);
+                                        return (
+                                            <MenuItem
+                                                key={sdr.id}
+                                                value={sdr.id}
+                                                disabled={isUsedByAnotherSession}
+                                            >
+                                                <Box sx={{ width: '100%', minWidth: 0 }}>
+                                                    <Stack direction="row" spacing={1} alignItems="center">
+                                                        <Typography variant="body2">
+                                                            {sdr.name} ({sdr.type})
+                                                        </Typography>
+                                                        {isUsedByAnotherSession && (
+                                                            <Chip
+                                                                label={t('scheduler_dialogs.shared.sdr_in_use_by_another_session')}
+                                                                size="small"
+                                                                variant="outlined"
+                                                                sx={{ ml: 'auto', flexShrink: 0 }}
+                                                            />
+                                                        )}
+                                                    </Stack>
+                                                    <Typography variant="caption" color="text.secondary">
+                                                        {[
+                                                            sdr.driver ? `Driver: ${sdr.driver}` : null,
+                                                            sdr.serial ? `Serial: ${sdr.serial}` : null,
+                                                        ].filter(Boolean).join(' • ') || t('scheduler_dialogs.shared.no_additional_details')}
+                                                    </Typography>
+                                                </Box>
+                                            </MenuItem>
+                                        );
+                                    })}
                                 </Select>
                             </FormControl>
 
@@ -1441,59 +1559,61 @@ export default function MonitoredSatelliteDialog() {
                                 )}
                             </FormControl>
 
-                            <FormControl fullWidth size="small" required disabled={!formData.sdr.id || sdrParametersLoading} error={!!sdrParametersError[formData.sdr.id]}>
-                                <InputLabel>{t('scheduler_dialogs.shared.gain_label')}</InputLabel>
-                                <Select
-                                    value={
-                                        formData.sdr.id && sdrParameters[formData.sdr.id]?.gain_values?.includes(formData.sdr.gain)
-                                            ? formData.sdr.gain
-                                            : ''
-                                    }
-                                    onChange={(e) => {
-                                        setFormData((prev) => ({
-                                            ...prev,
-                                            sdr: {
-                                                ...prev.sdr,
-                                                gain: e.target.value,
-                                            },
-                                        }));
-                                    }}
-                                    label={t('scheduler_dialogs.shared.gain_label')}
-                                >
-                                    {sdrParameters[formData.sdr.id]?.gain_values?.map((gain) => (
-                                        <MenuItem key={gain} value={gain}>
-                                            {gain} dB
-                                        </MenuItem>
-                                    )) || []}
-                                </Select>
-                            </FormControl>
+                            <Stack direction="row" spacing={2}>
+                                <FormControl fullWidth size="small" required disabled={!formData.sdr.id || sdrParametersLoading} error={!!sdrParametersError[formData.sdr.id]} sx={{ minWidth: 0 }}>
+                                    <InputLabel>{t('scheduler_dialogs.shared.gain_label')}</InputLabel>
+                                    <Select
+                                        value={
+                                            formData.sdr.id && sdrParameters[formData.sdr.id]?.gain_values?.includes(formData.sdr.gain)
+                                                ? formData.sdr.gain
+                                                : ''
+                                        }
+                                        onChange={(e) => {
+                                            setFormData((prev) => ({
+                                                ...prev,
+                                                sdr: {
+                                                    ...prev.sdr,
+                                                    gain: e.target.value,
+                                                },
+                                            }));
+                                        }}
+                                        label={t('scheduler_dialogs.shared.gain_label')}
+                                    >
+                                        {sdrParameters[formData.sdr.id]?.gain_values?.map((gain) => (
+                                            <MenuItem key={gain} value={gain}>
+                                                {gain} dB
+                                            </MenuItem>
+                                        )) || []}
+                                    </Select>
+                                </FormControl>
 
-                            <FormControl fullWidth size="small" required disabled={!formData.sdr.id || sdrParametersLoading} error={!!sdrParametersError[formData.sdr.id]}>
-                                <InputLabel>{t('scheduler_dialogs.shared.antenna_port_label')}</InputLabel>
-                                <Select
-                                    value={
-                                        formData.sdr.id && sdrParameters[formData.sdr.id]?.antennas?.rx?.includes(formData.sdr.antenna_port)
-                                            ? formData.sdr.antenna_port
-                                            : ''
-                                    }
-                                    onChange={(e) => {
-                                        setFormData((prev) => ({
-                                            ...prev,
-                                            sdr: {
-                                                ...prev.sdr,
-                                                antenna_port: e.target.value,
-                                            },
-                                        }));
-                                    }}
-                                    label={t('scheduler_dialogs.shared.antenna_port_label')}
-                                >
-                                    {sdrParameters[formData.sdr.id]?.antennas?.rx?.map((port) => (
-                                        <MenuItem key={port} value={port}>
-                                            {formatAntennaPortOptionLabel(port)}
-                                        </MenuItem>
-                                    )) || []}
-                                </Select>
-                            </FormControl>
+                                <FormControl fullWidth size="small" required disabled={!formData.sdr.id || sdrParametersLoading} error={!!sdrParametersError[formData.sdr.id]} sx={{ minWidth: 0 }}>
+                                    <InputLabel>{t('scheduler_dialogs.shared.antenna_port_label')}</InputLabel>
+                                    <Select
+                                        value={
+                                            formData.sdr.id && sdrParameters[formData.sdr.id]?.antennas?.rx?.includes(formData.sdr.antenna_port)
+                                                ? formData.sdr.antenna_port
+                                                : ''
+                                        }
+                                        onChange={(e) => {
+                                            setFormData((prev) => ({
+                                                ...prev,
+                                                sdr: {
+                                                    ...prev.sdr,
+                                                    antenna_port: e.target.value,
+                                                },
+                                            }));
+                                        }}
+                                        label={t('scheduler_dialogs.shared.antenna_port_label')}
+                                    >
+                                        {sdrParameters[formData.sdr.id]?.antennas?.rx?.map((port) => (
+                                            <MenuItem key={port} value={port}>
+                                                {formatAntennaPortOptionLabel(port)}
+                                            </MenuItem>
+                                        )) || []}
+                                    </Select>
+                                </FormControl>
+                            </Stack>
 
                             {biasTSupported && (
                                 <FormControlLabel
@@ -1754,7 +1874,21 @@ export default function MonitoredSatelliteDialog() {
                                         task.type === 'audio_recording' ? t('scheduler_dialogs.shared.task_audio_recording') :
                                         task.type === 'transcription' ? t('scheduler_dialogs.shared.task_transcription') :
                                         t('scheduler_dialogs.shared.task_iq_recording');
-                                    const deleteTaskLabel = `${t('delete')} ${taskLabel}`;
+                                    const decoderType = task.type === 'decoder'
+                                        ? task.config.decoder_type || 'none'
+                                        : null;
+                                    let decoderTypeLabel = null;
+                                    if (decoderType) {
+                                        decoderTypeLabel = decoderType === 'none'
+                                            ? t('scheduler_dialogs.shared.no_decoder')
+                                            : getTaskSummaryOptionLabel(
+                                                DECODER_TYPES,
+                                                decoderType,
+                                                decoderType.toUpperCase()
+                                            );
+                                    }
+                                    const taskSummary = getTaskSummary(task);
+                                    const removeTaskLabel = `${t('scheduler_dialogs.shared.remove_button')} ${taskLabel}`;
 
                                     return (
                                         <Box
@@ -1771,6 +1905,12 @@ export default function MonitoredSatelliteDialog() {
                                                     overflow: 'hidden',
                                                     border: '1px solid',
                                                     borderColor: 'divider',
+                                                    borderLeftWidth: 4,
+                                                    borderLeftColor:
+                                                        task.type === 'decoder' ? 'primary.main' :
+                                                        task.type === 'audio_recording' ? 'secondary.main' :
+                                                        task.type === 'transcription' ? 'info.main' :
+                                                        'text.disabled',
                                                     borderRadius: 1,
                                                     bgcolor: (theme) => theme.palette.mode === 'dark' ? 'grey.900' : 'grey.50',
                                                     '&::before': { display: 'none' },
@@ -1812,17 +1952,35 @@ export default function MonitoredSatelliteDialog() {
                                                             task.type === 'transcription' ? 'info' :
                                                             'default'
                                                         }
-                                                        variant="filled"
-                                                        sx={{ minWidth: { sm: 130 }, flexShrink: 0 }}
+                                                        variant="outlined"
+                                                        sx={{
+                                                            display: { xs: 'none', sm: 'inline-flex' },
+                                                            minWidth: 120,
+                                                            flexShrink: 0,
+                                                        }}
                                                     />
+                                                    {decoderTypeLabel && (
+                                                        <Chip
+                                                            label={decoderTypeLabel}
+                                                            size="small"
+                                                            color={decoderType === 'none' ? 'default' : 'primary'}
+                                                            variant={decoderType === 'none' ? 'outlined' : 'filled'}
+                                                            sx={{
+                                                                flexShrink: 0,
+                                                                fontWeight: 800,
+                                                                letterSpacing: '0.04em',
+                                                            }}
+                                                        />
+                                                    )}
                                                     {!expandedTasks[taskKey] && (
                                                         <Typography
                                                             variant="body2"
                                                             color="text.secondary"
                                                             noWrap
-                                                            sx={{ minWidth: 0 }}
+                                                            title={taskSummary}
+                                                            sx={{ minWidth: 0, flex: 1 }}
                                                         >
-                                                            {getTaskSummary(task)}
+                                                            {taskSummary}
                                                         </Typography>
                                                     )}
                                                 </AccordionSummary>
@@ -2522,10 +2680,10 @@ export default function MonitoredSatelliteDialog() {
                                                     </Stack>
                                                 </AccordionDetails>
                                             </Accordion>
-                                            <Tooltip title={deleteTaskLabel}>
+                                            <Tooltip title={removeTaskLabel}>
                                                 <IconButton
                                                     size="small"
-                                                    aria-label={deleteTaskLabel}
+                                                    aria-label={removeTaskLabel}
                                                     onClick={(event) => {
                                                         event.stopPropagation();
                                                         handleRemoveTask(index);
@@ -2542,7 +2700,7 @@ export default function MonitoredSatelliteDialog() {
                                                         },
                                                     }}
                                                 >
-                                                    <DeleteIcon fontSize="small" />
+                                                    <CloseIcon fontSize="small" />
                                                 </IconButton>
                                             </Tooltip>
                                         </Box>
@@ -2600,6 +2758,9 @@ export default function MonitoredSatelliteDialog() {
                 <DialogTitle>{t('scheduler_dialogs.shared.remove_sdr_session_title')}</DialogTitle>
                 <DialogContent
                     sx={{
+                        [`.MuiDialogTitle-root + &`]: {
+                            pt: 1,
+                        },
                         bgcolor: (theme) => (
                             theme.palette.mode === 'dark'
                                 ? theme.palette.background.elevated

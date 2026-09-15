@@ -177,6 +177,7 @@
       "add_sdr": "Προσθηκη SDR",
       "sdr_configuration_title": "Ρυθμιση SDR",
       "sdr_label": "SDR",
+      "sdr_in_use_by_another_session": "Χρησιμοποιειται απο αλλη συνεδρια",
       "sample_rate_label": "Ρυθμος δειγματοληψιας",
       "gain_label": "Κερδος",
       "antenna_port_label": "Θυρα κεραιας",
