@@ -31,7 +31,7 @@ from crud.satellites import (
     fetch_satellites_for_group_id,
     search_satellites,
 )
-from db.models import SatelliteOrbits
+from db.models import SatelliteOrbits, Transmitters
 
 # TLE templates for testing (valid format but dummy data)
 TLE1_TEMPLATE = "1 {norad:05d}U 00000A   21001.00000000  .00000000  00000-0  00000-0 0  9990"
@@ -483,6 +483,54 @@ class TestSatellitesCRUD:
 
         assert result["success"] is True
         assert len(result["data"]) == 2
+
+    async def test_fetch_satellites_for_group_id_bulk_maps_transmitters(self, db_session):
+        """Group members receive owned and followed transmitters without duplicates."""
+        for norad_id in (11111, 22222):
+            await add_satellite(
+                db_session,
+                {
+                    "name": f"Sat {norad_id}",
+                    "sat_id": f"SAT-{norad_id}",
+                    "norad_id": norad_id,
+                    "status": "alive",
+                    "is_frequency_violator": False,
+                    "tle1": TLE1_TEMPLATE.format(norad=norad_id),
+                    "tle2": TLE2_TEMPLATE.format(norad=norad_id),
+                },
+            )
+
+        db_session.add_all(
+            [
+                Transmitters(
+                    id="primary-and-followed",
+                    norad_cat_id=11111,
+                    norad_follow_id=22222,
+                    status="active",
+                ),
+                Transmitters(
+                    id="second-primary",
+                    norad_cat_id=22222,
+                    status="active",
+                ),
+            ]
+        )
+        await db_session.commit()
+        group_result = await add_satellite_group(
+            db_session,
+            {"name": "Test Group", "type": "user", "satellite_ids": [11111, 22222]},
+        )
+
+        result = await fetch_satellites_for_group_id(db_session, group_result["data"]["id"])
+
+        transmitters_by_satellite = {
+            satellite["norad_id"]: {transmitter["id"] for transmitter in satellite["transmitters"]}
+            for satellite in result["data"]
+        }
+        assert transmitters_by_satellite == {
+            11111: {"primary-and-followed"},
+            22222: {"primary-and-followed", "second-primary"},
+        }
 
     async def test_fetch_satellites_for_group_id_prunes_missing_members(self, db_session):
         """Fetching group satellites should remove stale NORAD IDs from group membership."""

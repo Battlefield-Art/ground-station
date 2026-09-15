@@ -213,6 +213,8 @@ const SatelliteSearchAutocomplete = ({
             }))
                 .unwrap()
                 .then((satelliteWithTransmitters) => {
+                    if (requestId !== transmitterRequestIdRef.current) return;
+
                     // Set the satellite ID to trigger pass fetching
                     dispatch(setSatelliteId(satelliteWithTransmitters.norad_id));
                     dispatch(setSelectedFromSearch(true));
@@ -231,6 +233,8 @@ const SatelliteSearchAutocomplete = ({
                     }
                 })
                 .catch(() => {
+                    if (requestId !== transmitterRequestIdRef.current) return;
+
                     // Fallback: use initial satellite without transmitters
                     dispatch(setSatelliteId(initialSatellite.norad_id));
                     dispatch(setSelectedFromSearch(true));
@@ -285,64 +289,27 @@ const SatelliteSearchAutocomplete = ({
 
     const handleOptionSelect = (event, selectedSatellite) => {
         setValue(selectedSatellite);
-        const requestId = ++transmitterRequestIdRef.current;
+        // Prevent an older initialization request from replacing the user's selection.
+        ++transmitterRequestIdRef.current;
         onTransmittersLoadingChange?.(false);
 
         if (selectedSatellite) {
-            // If satellite has groups, populate the dropdowns properly
-            if (selectedSatellite.groups && selectedSatellite.groups.length > 0) {
-                const firstGroup = selectedSatellite.groups[0];
+            const firstGroup = selectedSatellite.groups?.[0];
+            const selectedSatelliteWithGroup = {
+                ...selectedSatellite,
+                group_id: firstGroup?.id || selectedSatellite.group_id || '',
+            };
 
-                // Step 1: Set the group ID first
+            // Search results already include the selected satellite's transmitters.
+            // Keep only that result instead of loading every satellite in its group.
+            if (firstGroup) {
                 dispatch(setGroupId(firstGroup.id));
-                dispatch(setSelectedFromSearch(true));
-
-                // Step 2: Fetch satellites for that group
-                if (socket) {
-                    onTransmittersLoadingChange?.(true);
-                    socket.emit("api.call", {
-  cmd: 'get-satellites-for-group-id',
-  data: firstGroup.id
-}, response => {
-  if (response.success) {
-    // Step 3: Populate the group satellites
-    dispatch(setGroupOfSats(response.data));
-
-    // Step 4: Now set the selected satellite ID (after group satellites are loaded)
-    dispatch(setSatelliteId(selectedSatellite.norad_id));
-
-    // Step 5: Find the satellite from the response (it has group_id)
-    const satelliteWithGroupId = response.data.find(s => s.norad_id === selectedSatellite.norad_id);
-
-    // Step 6: Call onSatelliteSelect with the satellite that has group_id
-    if (onSatelliteSelect && satelliteWithGroupId) {
-      onSatelliteSelect(satelliteWithGroupId);
-    }
-  } else {
-    // Keep the selected search result, which already contains its transmitters.
-    dispatch(setGroupOfSats([selectedSatellite]));
-    dispatch(setSatelliteId(selectedSatellite.norad_id));
-    onSatelliteSelect?.(selectedSatellite);
-  }
-  if (requestId === transmitterRequestIdRef.current) {
-    onTransmittersLoadingChange?.(false);
-  }
-});
-                } else {
-                    // No socket, call callback anyway
-                    if (onSatelliteSelect) {
-                        onSatelliteSelect(selectedSatellite);
-                    }
-                }
-            } else {
-                // No groups, just set the satellite ID
-                dispatch(setSatelliteId(selectedSatellite.norad_id));
-                dispatch(setSelectedFromSearch(true));
-
-                if (onSatelliteSelect) {
-                    onSatelliteSelect(selectedSatellite);
-                }
             }
+
+            dispatch(setSelectedFromSearch(true));
+            dispatch(setGroupOfSats([selectedSatelliteWithGroup]));
+            dispatch(setSatelliteId(selectedSatellite.norad_id));
+            onSatelliteSelect?.(selectedSatelliteWithGroup);
         } else {
             // Clear selection when autocomplete is cleared
             dispatch(setSelectedFromSearch(false));

@@ -32,6 +32,7 @@ from db.models import Groups, SatelliteGroupType, SatelliteOrbits, Satellites, T
 DATETIME_FIELDS = {"decayed", "launched", "deployed", "added", "updated"}
 SUPPORTED_CENTRAL_BODIES = {"earth", "moon", "mars"}
 SUPPORTED_ORBIT_MODEL_KINDS = {"tle", "omm"}
+TRANSMITTER_LOOKUP_CHUNK_SIZE = 400
 
 
 def _coerce_datetime(value):
@@ -294,13 +295,34 @@ async def fetch_satellites_for_group_id(session: AsyncSession, group_id: Union[s
                 group_row.satellite_ids = cleaned_satellite_ids
                 await session.commit()
 
-        # Fetch transmitters for each satellite and add group_id
+        # Fetch transmitters in bounded batches. Large system groups can contain
+        # thousands of satellites, so querying once per member is prohibitively slow.
+        transmitters_by_norad: Dict[int, Dict[str, Dict[str, Any]]] = {
+            satellite["norad_id"]: {} for satellite in satellites
+        }
+        if existing_satellite_ids:
+            satellite_id_list = list(existing_satellite_ids)
+            # Keep each statement below SQLite's conservative bind-variable limit.
+            for start in range(0, len(satellite_id_list), TRANSMITTER_LOOKUP_CHUNK_SIZE):
+                satellite_id_chunk = satellite_id_list[
+                    start : start + TRANSMITTER_LOOKUP_CHUNK_SIZE
+                ]
+                transmitter_stmt = select(Transmitters).filter(
+                    or_(
+                        Transmitters.norad_cat_id.in_(satellite_id_chunk),
+                        Transmitters.norad_follow_id.in_(satellite_id_chunk),
+                    )
+                )
+                transmitter_result = await session.execute(transmitter_stmt)
+                transmitters = serialize_object(transmitter_result.scalars().all())
+                for transmitter in transmitters:
+                    for field in ("norad_cat_id", "norad_follow_id"):
+                        norad_id = transmitter.get(field)
+                        if norad_id in transmitters_by_norad:
+                            transmitters_by_norad[norad_id][transmitter["id"]] = transmitter
+
         for satellite in satellites:
-            stmt = select(Transmitters).filter(Transmitters.norad_cat_id == satellite["norad_id"])
-            result = await session.execute(stmt)
-            transmitters = result.scalars().all()
-            satellite["transmitters"] = serialize_object(transmitters)
-            # Add the group_id to each satellite object
+            satellite["transmitters"] = list(transmitters_by_norad[satellite["norad_id"]].values())
             satellite["group_id"] = str(group_id)
 
         return {"success": True, "data": satellites, "error": None}

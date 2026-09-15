@@ -144,17 +144,6 @@ async def get_satellites_for_group_id(
     async with AsyncSessionLocal() as dbsession:
         logger.debug(f"Getting satellites for group id, data: {data}")
         satellites = await crud.satellites.fetch_satellites_for_group_id(dbsession, data)
-
-        # Get transmitters for each satellite
-        if satellites:
-            for satellite in satellites.get("data", []):
-                transmitters = await crud.transmitters.fetch_transmitters_for_satellite(
-                    dbsession, satellite["norad_id"]
-                )
-                satellite["transmitters"] = transmitters["data"]
-        else:
-            logger.debug(f"No satellites found for group id: {data}")
-
         return {"success": satellites["success"], "data": satellites.get("data", [])}
 
 
