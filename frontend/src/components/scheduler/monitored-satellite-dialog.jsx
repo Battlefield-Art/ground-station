@@ -25,6 +25,9 @@ import {
     DialogTitle,
     DialogContent,
     DialogActions,
+    Accordion,
+    AccordionSummary,
+    AccordionDetails,
     Button,
     Typography,
     Box,
@@ -49,6 +52,7 @@ import {
     Tabs,
     Tab,
     Switch,
+    Tooltip,
 } from '@mui/material';
 import { Add as AddIcon, Delete as DeleteIcon, ExpandMore as ExpandMoreIcon, ErrorOutline as ErrorOutlineIcon } from '@mui/icons-material';
 import {
@@ -1745,59 +1749,62 @@ export default function MonitoredSatelliteDialog() {
                             <Stack spacing={2}>
                                 {formData.tasks.map((task, index) => {
                                     const taskKey = `${activeSessionIndex}-${index}`;
+                                    const taskLabel =
+                                        task.type === 'decoder' ? t('scheduler_dialogs.shared.task_decoder') :
+                                        task.type === 'audio_recording' ? t('scheduler_dialogs.shared.task_audio_recording') :
+                                        task.type === 'transcription' ? t('scheduler_dialogs.shared.task_transcription') :
+                                        t('scheduler_dialogs.shared.task_iq_recording');
+                                    const deleteTaskLabel = `${t('delete')} ${taskLabel}`;
+
                                     return (
                                         <Box
-                                            key={index}
-                                            sx={{
-                                                p: 2,
-                                                border: '1px solid',
-                                                borderColor: 'divider',
-                                                borderRadius: 1,
-                                                bgcolor: (theme) => theme.palette.mode === 'dark' ? 'grey.900' : 'grey.50',
-                                                transition: 'background-color 0.2s',
-                                                cursor: !expandedTasks[taskKey] ? 'pointer' : 'default',
-                                                ...(!expandedTasks[taskKey] && {
-                                                    '&:hover': {
-                                                        bgcolor: (theme) => theme.palette.mode === 'dark' ? 'grey.800' : 'grey.100',
-                                                    },
-                                                }),
-                                            }}
-                                            onClick={(e) => {
-                                                if (!expandedTasks[taskKey] && !e.target.closest('button')) {
-                                                    toggleTaskExpanded(index);
-                                                }
-                                            }}
+                                            key={taskKey}
+                                            sx={{ position: 'relative' }}
                                         >
-                                            <Box>
-                                                <Box
-                                                    display="flex"
-                                                    justifyContent="space-between"
-                                                    alignItems="center"
-                                                    mb={expandedTasks[taskKey] ? 2 : 0}
+                                            <Accordion
+                                                expanded={Boolean(expandedTasks[taskKey])}
+                                                onChange={() => toggleTaskExpanded(index)}
+                                                disableGutters
+                                                elevation={0}
+                                                slotProps={{ transition: { unmountOnExit: true } }}
+                                                sx={{
+                                                    overflow: 'hidden',
+                                                    border: '1px solid',
+                                                    borderColor: 'divider',
+                                                    borderRadius: 1,
+                                                    bgcolor: (theme) => theme.palette.mode === 'dark' ? 'grey.900' : 'grey.50',
+                                                    '&::before': { display: 'none' },
+                                                    '&.Mui-expanded': { margin: 0 },
+                                                }}
+                                            >
+                                                <AccordionSummary
+                                                    expandIcon={<ExpandMoreIcon />}
+                                                    id={`monitored-task-${taskKey}-header`}
+                                                    aria-controls={`monitored-task-${taskKey}-content`}
+                                                    sx={{
+                                                        minHeight: 56,
+                                                        px: 2,
+                                                        transition: 'background-color 0.2s',
+                                                        '&.Mui-expanded': { minHeight: 56 },
+                                                        '&:hover': {
+                                                            bgcolor: (theme) => theme.palette.mode === 'dark' ? 'grey.800' : 'grey.100',
+                                                        },
+                                                        '&.Mui-focusVisible': {
+                                                            bgcolor: 'action.focus',
+                                                            boxShadow: (theme) => `inset 0 0 0 2px ${theme.palette.primary.main}`,
+                                                        },
+                                                        '& .MuiAccordionSummary-content': {
+                                                            alignItems: 'center',
+                                                            gap: 1.5,
+                                                            minWidth: 0,
+                                                            mr: 6,
+                                                            my: 1.25,
+                                                        },
+                                                        '& .MuiAccordionSummary-content.Mui-expanded': { my: 1.25 },
+                                                    }}
                                                 >
-                                                    <Box
-                                                        display="flex"
-                                                        alignItems="center"
-                                                        gap={1}
-                                                        sx={{ flex: 1 }}
-                                                        onClick={() => expandedTasks[taskKey] && toggleTaskExpanded(index)}
-                                                    >
-                                                        <IconButton
-                                                            size="small"
-                                                            sx={{
-                                                                transform: expandedTasks[taskKey] ? 'rotate(180deg)' : 'rotate(0deg)',
-                                                                transition: 'transform 0.2s'
-                                                            }}
-                                                        >
-                                                            <ExpandMoreIcon fontSize="small" />
-                                                        </IconButton>
                                                     <Chip
-                                                        label={
-                                                            task.type === 'decoder' ? 'Decoder' :
-                                                            task.type === 'audio_recording' ? 'Audio Recording' :
-                                                            task.type === 'transcription' ? 'Transcription' :
-                                                            'IQ Recording'
-                                                        }
+                                                        label={taskLabel}
                                                         size="small"
                                                         color={
                                                             task.type === 'decoder' ? 'primary' :
@@ -1806,27 +1813,29 @@ export default function MonitoredSatelliteDialog() {
                                                             'default'
                                                         }
                                                         variant="filled"
-                                                        sx={{ minWidth: 130 }}
+                                                        sx={{ minWidth: { sm: 130 }, flexShrink: 0 }}
                                                     />
                                                     {!expandedTasks[taskKey] && (
                                                         <Typography
                                                             variant="body2"
                                                             color="text.secondary"
-                                                            sx={{ ml: 1 }}
+                                                            noWrap
+                                                            sx={{ minWidth: 0 }}
                                                         >
                                                             {getTaskSummary(task)}
                                                         </Typography>
                                                     )}
-                                                </Box>
-                                                <IconButton
-                                                    size="small"
-                                                    onClick={() => handleRemoveTask(index)}
+                                                </AccordionSummary>
+                                                <AccordionDetails
+                                                    sx={{
+                                                        px: 2,
+                                                        pt: 2,
+                                                        pb: 2,
+                                                        borderTop: '1px solid',
+                                                        borderColor: 'divider',
+                                                    }}
                                                 >
-                                                    <DeleteIcon fontSize="small" />
-                                                </IconButton>
-                                            </Box>
-                                            {expandedTasks[taskKey] && (
-                                                <Stack spacing={2}>
+                                                    <Stack spacing={2}>
                                                     {task.type === 'decoder' && (() => {
                                                         const decoderType = task.config.decoder_type;
                                                         const decoderParams = getDecoderParameters(decoderType);
@@ -2510,10 +2519,33 @@ export default function MonitoredSatelliteDialog() {
                                                             </Box>
                                                         </>
                                                     )}
-                                                </Stack>
-                                            )}
+                                                    </Stack>
+                                                </AccordionDetails>
+                                            </Accordion>
+                                            <Tooltip title={deleteTaskLabel}>
+                                                <IconButton
+                                                    size="small"
+                                                    aria-label={deleteTaskLabel}
+                                                    onClick={(event) => {
+                                                        event.stopPropagation();
+                                                        handleRemoveTask(index);
+                                                    }}
+                                                    sx={{
+                                                        position: 'absolute',
+                                                        top: 11,
+                                                        right: 48,
+                                                        zIndex: 1,
+                                                        color: 'text.secondary',
+                                                        '&:hover': {
+                                                            color: 'error.main',
+                                                            bgcolor: 'action.hover',
+                                                        },
+                                                    }}
+                                                >
+                                                    <DeleteIcon fontSize="small" />
+                                                </IconButton>
+                                            </Tooltip>
                                         </Box>
-                                    </Box>
                                     );
                                 })}
                             </Stack>
