@@ -1,13 +1,21 @@
 {
   "map_settings": {
     "title": "Karteneinstellungen",
-    "close": "Schließen"
+    "close": "Schließen",
+    "apply": "Übernehmen",
+    "reset_defaults": "Standardwerte zurücksetzen",
+    "save_failed": "Speichern fehlgeschlagen",
+    "saved": "Gespeichert",
+    "saving": "Speichern…"
   },
   "map_controls": {
     "map_settings": "Karteneinstellungen",
     "go_home": "Zur Heimatposition",
     "go_to_center": "Zur Kartenmitte",
-    "go_fullscreen": "Vollbild"
+    "go_fullscreen": "Vollbild",
+    "exit_fullscreen": "Vollbildmodus beenden",
+    "zoom_in": "Vergrößern",
+    "zoom_out": "Verkleinern"
   },
   "next_passes": {
     "title": "Nächste Überflüge für {{name}} in den nächsten {{hours}} Stunden",
@@ -22,7 +30,50 @@
     "automatic_observation_tooltip": "Dieser Überflug wird automatisch beobachtet",
     "geo_stat": "GEO Stat",
     "geo_sync": "GEO Sync",
-    "no_satellite_selected": "Bitte wählen Sie einen Satelliten aus, um Überflüge anzuzeigen"
+    "no_satellite_selected": "Bitte wählen Sie einen Satelliten aus, um Überflüge anzuzeigen",
+    "direction": "Richtung",
+    "direction_values": {
+      "cw": "CW",
+      "ccw": "CCW",
+      "mixed": "Gemischt"
+    },
+    "pass_types": "Überflugtypen",
+    "pass_tag_labels": {
+      "north_crossing": "N-Kreuzung",
+      "south_crossing": "S-Kreuzung",
+      "direction_cw": "CW",
+      "direction_ccw": "CCW",
+      "direction_mixed": "Gemischt",
+      "direction_e_to_w": "E>W",
+      "direction_w_to_e": "W>E",
+      "elevation_low": "Niedrige EL",
+      "elevation_medium": "Mittlere EL",
+      "elevation_high": "Hohe EL",
+      "elevation_overhead": "Zenitnah"
+    },
+    "pass_tag_tooltips": {
+      "north_crossing": "Der Überflug kreuzt den Norden (0° Azimut).",
+      "south_crossing": "Der Überflug kreuzt den Süden (180° Azimut).",
+      "direction_cw": "Der Satellit bewegt sich im Uhrzeigersinn über den Himmel.",
+      "direction_ccw": "Der Satellit bewegt sich gegen den Uhrzeigersinn über den Himmel.",
+      "direction_mixed": "Der Satellit ändert während des Überflugs seine Richtung.",
+      "direction_e_to_w": "Der Satellit bewegt sich von Ost nach West.",
+      "direction_w_to_e": "Der Satellit bewegt sich von West nach Ost.",
+      "elevation_low": "Die maximale Elevation liegt unter 30°.",
+      "elevation_medium": "Die maximale Elevation liegt zwischen 30° und unter 60°.",
+      "elevation_high": "Die maximale Elevation liegt zwischen 60° und unter 80°.",
+      "elevation_overhead": "Die maximale Elevation beträgt mindestens 80°."
+    },
+    "transmitter_links": "Links",
+    "transmitter_link_tooltips": {
+      "same_band": "{{count}} Transmitter mit {{band}} Uplink und Downlink",
+      "split_band": "{{count}} Sender mit {{uplinkBand}} Uplink und {{downlinkBand}} Downlink",
+      "uplink_only": "{{count}} Sender mit nur {{uplinkBand}} Uplink",
+      "downlink_only": "{{count}} Sender mit nur {{downlinkBand}} Downlink",
+      "unknown": "{{count}}-Sender ohne aufgeführtes Uplink- oder Downlink-Band",
+      "details": "Details: {{descriptions}}"
+    },
+    "no_data": "Keine Daten"
   },
   "rig_control": {
     "title": "Funkgerätesteuerung",
@@ -110,7 +161,10 @@
     "select_sdr": "SDR auswählen",
     "no_frequency_control": "[keine Frequenzsteuerung]",
     "select_transmitter": "Sender auswählen",
-    "no_transmitters": "Keine Sender für diesen Satelliten verfügbar"
+    "no_transmitters": "Keine Sender für diesen Satelliten verfügbar",
+    "vfo_label": "VFO",
+    "no_vfo_control": "[keine VFO-Steuerung]",
+    "select_vfo": "VFO auswählen"
   },
   "rotator_control_labels": {
     "rotator_label": "Rotor",
@@ -127,7 +181,20 @@
     "title": "Zielverfolgung"
   },
   "target_retarget_dialog": {
-    "title": "Slot neu zuweisen oder ein neues Ziel erstellen"
+    "title": "Slot neu zuweisen oder ein neues Ziel erstellen",
+    "cancel": "Abbrechen",
+    "confirm_create": "Neues Ziel erstellen",
+    "confirm_retarget": "Ausgewählten Platz neu ausrichten",
+    "no_rig": "Keine Rig-Steuerung",
+    "no_rotator": "Keine Rotatorsteuerung",
+    "no_slots": "Keine aktiven Zielplätze zum Neuausrichten verfügbar.",
+    "no_target": "Kein Ziel ausgewählt",
+    "option_new_title": "Neuen Zielplatz erstellen",
+    "or": "oder",
+    "submit_failed": "Zielauswahl konnte nicht angewendet werden.",
+    "submitting": "Wird angewendet...",
+    "subtitle": "Richten Sie den aktiven Platz neu aus oder erstellen Sie einen neuen.",
+    "this_target": "Dieses Ziel"
   },
   "pass_timeline": {
     "title": "Überflugzeitleiste für {{name}} - Nächste {{hours}} Stunden"
@@ -170,5 +237,36 @@
       "no_transmitters": "Keine Sender verfügbar",
       "no_transmitters_desc": "Dieser Satellit hat keine registrierten Sender."
     }
+  },
+  "view_picker": {
+    "label": "Ansicht",
+    "map": "2D-Karte",
+    "globe": "Globus",
+    "sky": "Himmel",
+    "automatic": "Automatisch nach Sichtbarkeit",
+    "solar_system": "Sonnensystem"
+  },
+  "view_settings": {
+    "customize_title": "Aktuelle Ansicht anpassen",
+    "interaction_title": "Interaktion",
+    "interaction_description": "Steuert die direkte Zeigerinteraktion in der aktuellen Ansicht.",
+    "map_preferences": "Kartenpräferenzen",
+    "map_preferences_description": "Wählen Sie eine Basemap und steuern Sie die direkte Karteninteraktion.",
+    "sky_interaction_description": "Steuert die Zeigerinteraktion in der Himmelsansicht."
+  },
+  "passes_table_settings": {
+    "title": "Einstellungen der Überflugtabelle",
+    "description": "Wählen Sie die Spalten aus, die in der Überflugtabelle angezeigt werden sollen.",
+    "rows_per_page": "Zeilen pro Seite",
+    "category_time": "Zeitangaben",
+    "category_basic": "Basisinformationen",
+    "category_distance": "Entfernungsangaben",
+    "category_orbital": "Orbitalinformationen",
+    "always_visible": "immer sichtbar",
+    "close": "Schließen"
+  },
+  "target_search": {
+    "retarget_hint": "Suchen Sie Satelliten, Missionen oder Körper. Durch die Auswahl eines Ergebnisses wird das aktive Ziel sofort neu ausgerichtet.",
+    "search_label": "Satelliten, Missionen oder Körper suchen"
   }
 }

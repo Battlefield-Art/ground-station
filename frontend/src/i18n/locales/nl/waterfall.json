@@ -1,6 +1,6 @@
 {
   "title": "Waterfall instellingen",
-  "main_title": "Waterfall & Spectrum",
+  "main_title": "Waterval en spectrum",
   "toolbar": {
     "start_streaming": "Start Streaming",
     "stop_streaming": "Stop Streaming",
@@ -15,14 +15,16 @@
     "toggle_fullscreen": "Schakel volledig scherm in/uit",
     "zoom_in": "Inzoomen",
     "zoom_out": "Uitzoomen",
-    "reset_zoom": "Reset zoom",
+    "reset_zoom": "Zoom opnieuw instellen",
     "toggle_rotator_lines": "Schakel rotator gebeurtenis stippellijnen in/uit",
     "toggle_vfo": "Schakel VFO {{number}} in/uit",
     "fft_overflow": "FFT update snelheid overflow — inkomende updates worden vertraagd",
-    "bookmark_source_user_defined": "User defined",
+    "bookmark_source_user_defined": "Door gebruiker gedefinieerd",
     "bookmark_source_satnogs": "SATNOGS",
     "bookmark_source_gr_satellites": "gr-satellites",
-    "bookmark_source_satdump": "Satdump"
+    "bookmark_source_satdump": "Satdump",
+    "toggle_neighboring_transmitters": "Aangrenzende satellietzenders tonen of verbergen",
+    "take_snapshot": "Waterfallsnapshot maken"
   },
   "frequency": {
     "title": "Frequentieregeling",
@@ -52,7 +54,7 @@
     "other_sdrs": "Andere SDRs",
     "gain_db": "Versterking (dB)",
     "no_gain_selected": "[geen versterking geselecteerd]",
-    "sample_rate": "Sample Rate",
+    "sample_rate": "Samplefrequentie",
     "no_rate_selected": "[geen rate geselecteerd]",
     "antenna": "Antenne",
     "no_antenna_selected": "[geen antenne geselecteerd]",
@@ -60,7 +62,16 @@
     "enable_tuner_agc": "Schakel tuner AGC in",
     "enable_agc": "Schakel AGC in",
     "enable_rtl_agc": "Schakel RTL AGC in",
-    "refresh_params": "Refresh SDR params"
+    "refresh_params": "SDR-parameters vernieuwen",
+    "antenna_required": "Selecteer een antenne voordat u de stream start",
+    "gain_required": "Selecteer de versterking voordat u de stream start",
+    "in_use_badge": "in gebruik",
+    "loading_recordings": "Opnames laden...",
+    "no_playback_recording_selected": "[geen opname geselecteerd]",
+    "no_playback_recordings": "Geen IQ-opnames gevonden",
+    "playback_recording": "IQ-opname",
+    "sample_rate_required": "Selecteer de samplefrequentie voordat u de stream start",
+    "unknown_date": "Onbekende datum"
   },
   "fft": {
     "title": "FFT",
@@ -69,7 +80,19 @@
     "fft_averaging": "FFT Middeling",
     "averaging_none": "Geen",
     "averaging_samples": "{{count}} samples",
-    "color_map": "Kleurenschaal"
+    "color_map": "Kleurenschaal",
+    "bandscope_smoothing": "Bandscope-afvlakking",
+    "fft_overlap": "FFT-overlap",
+    "overlap_25": "Aan (25%)",
+    "overlap_75": "Aan (75%)",
+    "overlap_depth": "Overlapdiepte",
+    "overlap_depth_segments": "4 segmenten",
+    "overlap_off": "Uit",
+    "overlap_on_50": "Aan (50%)",
+    "smoothing_high": "Hoog",
+    "smoothing_low": "Laag",
+    "smoothing_medium": "Gemiddeld",
+    "smoothing_off": "Uit"
   },
   "vfo": {
     "title": "VFO Bediening",
@@ -111,7 +134,27 @@
       "ja": "Japans",
       "zh": "Chinees",
       "ar": "Arabisch"
-    }
+    },
+    "locked_by_tracking": "Deze VFO is vergrendeld door het satellietvolgproces.",
+    "audio_demodulation": "Geluidsdemodulatie",
+    "audio_demodulation_help": "Audio uit het RF-signaal halen",
+    "data_decoders": "Data-decoders",
+    "data_decoders_help": "Een interne FM- of SSB-demodulator wordt indien nodig gestart om bepaalde modi te decoderen",
+    "decoder_active_info": "Audiodecodering wordt automatisch door de decoder afgehandeld",
+    "decoders_modes": {
+      "none": "Geen",
+      "sstv": "SSTV",
+      "geoscanimage": "Geoscan afbeelding",
+      "morse": "Morse",
+      "lora": "LoRa",
+      "aprs": "APRS",
+      "gmsk": "GMSK",
+      "gfsk": "GFSK",
+      "bpsk": "BPSK"
+    },
+    "lock_to_transmitter": "Aan zender koppelen",
+    "none": "Geen",
+    "locked_to_transmitter_info": "Doppler-gecorrigeerde frequentie volgen"
   },
   "error_dialog": {
     "title": "Fout Opgetreden",
@@ -119,5 +162,35 @@
   },
   "statusbar": {
     "stopped": "gestopt"
+  },
+  "recording": {
+    "title": "IQ-opname",
+    "filename": "Opnamenaam",
+    "sampleRate": "Opgenomen samplefrequentie",
+    "fullBandwidth": "Volledige bandbreedte ({{rate}})",
+    "centeredBandwidthHelp": "Neemt het gecentreerde deel van het SDR-spectrum op. Centreer het signaal vóór de opname.",
+    "fullBandwidthHelp": "Registreert het volledige SDR spectrum.",
+    "storageFormat": "IQ-opslagformaat",
+    "storageFormatFloat": "32-bits zwevendekomma-IQ (cf32_le)",
+    "storageFormatFloatHelp": "Verliesloze IQ met volledige precisie. Gebruikt tweemaal zoveel schijfruimte als ci16_le.",
+    "storageFormatInt16": "16-bits IQ met teken (ci16_le)",
+    "storageFormatInt16Help": "50% kleiner. Alleen verliesgevend wanneer uitzonderlijk sterke samples worden afgekapt.",
+    "statusRecording": "Bezig met opnemen",
+    "statusReady": "Niet opnemen",
+    "statusAriaLabel": "IQ-opname {{status}}, {{rate}}",
+    "start": "REC",
+    "stop": "Stoppen"
+  },
+  "playback": {
+    "title": "IQ-afspelen",
+    "select_recording": "Selecteer een opname om af te spelen",
+    "refresh": "Opnames vernieuwen",
+    "no_recordings": "Geen opnames beschikbaar. Neem eerst wat IQ-gegevens op!",
+    "sort_by": "Sorteren op",
+    "sort_modified": "Datum gewijzigd",
+    "sort_created": "Datum aangemaakt",
+    "sort_name": "Naam",
+    "sort_size": "Grootte",
+    "sort_sample_rate": "Samplefrequentie"
   }
 }

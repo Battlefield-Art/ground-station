@@ -1,1 +1,107 @@
-{}
+{
+  "title": "Navigateur de fichiers",
+  "sort_by": "Trier par",
+  "sort": {
+    "created": "Date de création",
+    "modified": "Date de modification",
+    "name": "Dénomination",
+    "size": "Taille",
+    "sample_rate": "Taux d'échantillonnage"
+  },
+  "filter": "Filtre",
+  "filters": {
+    "recordings": "Enregistrements",
+    "snapshots": "Prises de vue",
+    "decoded": "Décodé",
+    "audio": "Audio"
+  },
+  "sort_order": {
+    "ascending": "Accélération",
+    "descending": "Décroissant"
+  },
+  "refresh": "Actualiser",
+  "storage": {
+    "title": "Stockage",
+    "used": "utilisés",
+    "available": "disponibles"
+  },
+  "no_files": {
+    "title": "Aucun fichier trouvé",
+    "message_filter": "Activer au moins un filtre pour voir les fichiers",
+    "message_empty": "Prendre des instantanés ou enregistrer les données IQ depuis la vue cascade"
+  },
+  "recording": {
+    "type": "Enregistrement",
+    "in_progress": "Enregistrement en cours",
+    "in_progress_message": "Enregistrement en cours",
+    "snapshot_message": "Un instantané de la chute d'eau sera enregistré à l'arrêt",
+    "delete_message": "Cela supprimera le fichier de données, le fichier de métadonnées et l'instantané."
+  },
+  "snapshot": {
+    "type": "Capture instantanée",
+    "description": "Capture d'eau Ground Station"
+  },
+  "audio": {
+    "type": "Enregistrement audio",
+    "description": "Enregistrement audio VFO",
+    "in_progress": "Enregistrement audio",
+    "in_progress_message": "Enregistrement audio en cours"
+  },
+  "details": {
+    "title": "Détails d'enregistrement",
+    "name": "Dénomination",
+    "files": "Fichiers",
+    "metadata": "Métadonnées",
+    "captures": "Captures",
+    "data_type": "Type de données",
+    "sample_rate": "Taux d'échantillonnage",
+    "version": "Version SigMF",
+    "recorder": "Enregistrement",
+    "description": "Désignation des marchandises",
+    "created": "Créé",
+    "modified": "Modifié"
+  },
+  "actions": {
+    "view_details": "Afficher les détails",
+    "download": "Télécharger",
+    "download_data": "Télécharger les données",
+    "download_metadata": "Télécharger les métadonnées",
+    "download_snapshot": "Télécharger Snapshot",
+    "delete": "Supprimer",
+    "cannot_delete_active": "Impossible de supprimer l'enregistrement actif",
+    "close": "Fermer"
+  },
+  "delete_dialog": {
+    "title_recording": "Supprimer l'enregistrement",
+    "title_snapshot": "Supprimer Snapshot",
+    "title_decoded": "Supprimer le fichier décodé",
+    "title_audio": "Supprimer l'enregistrement audio",
+    "warning": "Cette action ne peut être annulée!",
+    "confirm": "Voulez-vous vraiment supprimer",
+    "cancel": "Annuler",
+    "delete": "Supprimer"
+  },
+  "batch_delete_dialog": {
+    "title": "Supprimer plusieurs éléments",
+    "confirm": "Voulez-vous vraiment supprimer les éléments {{count}} ?",
+    "message": "Cela supprimera définitivement tous les enregistrements et instantanés sélectionnés."
+  },
+  "selection": {
+    "select": "Sélectionner",
+    "exit": "Quitter Sélectionner",
+    "no_items": "Aucun élément sélectionné",
+    "count": "{{count}} élément(s) sélectionné(s)",
+    "select_all": "Tout sélectionner",
+    "clear": "Effacer",
+    "delete": "Supprimer la sélection"
+  },
+  "toast": {
+    "recording_deleted": "Enregistrement \"{{name}}\" supprimé avec succès",
+    "snapshot_deleted": "Capture instantanée \"{{name}}\" supprimé avec succès",
+    "decoded_deleted": "Fichier décodé \"{{name}}\" supprimé avec succès",
+    "audio_deleted": "Enregistrement audio \"{{name}}\" supprimé avec succès",
+    "delete_failed": "Impossible de supprimer: {{error}}",
+    "batch_delete_partial": "Certains éléments n'ont pas pu être supprimés.",
+    "batch_delete_failed": "Impossible de supprimer les éléments : {{error}}"
+  }
+}

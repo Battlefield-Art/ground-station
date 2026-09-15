@@ -16,5 +16,16 @@
   "preferences": "Preferencias",
   "location": "Ubicación",
   "maintenance": "Mantenimiento",
-  "about": "Acerca de"
+  "about": "Acerca de",
+  "operations": "Operaciones",
+  "administration": "Administración",
+  "system": "Sistema",
+  "solar_system": "Sistema solar",
+  "live_tracking": "Seguimiento en vivo",
+  "files": "Archivos",
+  "scheduler": "Programador",
+  "catalog": "Catálogo",
+  "general": "General",
+  "integrations": "Integración",
+  "users": "Usuarios"
 }

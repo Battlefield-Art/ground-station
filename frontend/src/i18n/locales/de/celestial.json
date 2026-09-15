@@ -302,7 +302,8 @@
       "peak_azimuth": "Spitzenazimut",
       "cache": "Cache",
       "stale": "Abgestanden",
-      "source": "Quelle"
+      "source": "Quelle",
+      "current_elevation": "Aktuelle Höhe"
     },
     "summary": {
       "start": "Start",
@@ -328,7 +329,7 @@
       "reset_values": "Werte zurücksetzen",
       "close": "Schließen",
       "categories": {
-        "basic": "Basic",
+        "basic": "Grundlegend",
         "time": "Zeit",
         "metrics": "Metriken",
         "source": "Quelle"

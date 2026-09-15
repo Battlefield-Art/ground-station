@@ -1,13 +1,21 @@
 {
   "map_settings": {
     "title": "Configuración del mapa",
-    "close": "Cerrar"
+    "close": "Cerrar",
+    "apply": "Aplicar",
+    "reset_defaults": "Restablecer valores predeterminados",
+    "save_failed": "Error al guardar",
+    "saved": "Guardado",
+    "saving": "Guardando…"
   },
   "map_controls": {
     "map_settings": "Configuración del mapa",
     "go_home": "Ir al inicio",
     "go_to_center": "Ir al centro del mapa",
-    "go_fullscreen": "Pantalla completa"
+    "go_fullscreen": "Pantalla completa",
+    "exit_fullscreen": "Salir de pantalla completa",
+    "zoom_in": "Zoom en",
+    "zoom_out": "Fuera."
   },
   "next_passes": {
     "title": "Próximas pasadas de {{name}} en las próximas {{hours}} horas",
@@ -22,7 +30,50 @@
     "automatic_observation_tooltip": "Este paso se observará automáticamente",
     "geo_stat": "GEO Est",
     "geo_sync": "GEO Sinc",
-    "no_satellite_selected": "Por favor, seleccione un satélite para ver los pasos"
+    "no_satellite_selected": "Por favor, seleccione un satélite para ver los pasos",
+    "direction": "Dirección",
+    "direction_values": {
+      "cw": "CW",
+      "ccw": "CCW",
+      "mixed": "Mezcla"
+    },
+    "pass_types": "Tipos de pase",
+    "pass_tag_labels": {
+      "north_crossing": "Cruce N",
+      "south_crossing": "Cruce S",
+      "direction_cw": "CW",
+      "direction_ccw": "CCW",
+      "direction_mixed": "Mezcla",
+      "direction_e_to_w": "E>W",
+      "direction_w_to_e": "W>E",
+      "elevation_low": "Baja EL",
+      "elevation_medium": "EL media",
+      "elevation_high": "Alto EL",
+      "elevation_overhead": "Cenital"
+    },
+    "pass_tag_tooltips": {
+      "north_crossing": "El pase cruza al norte (0° azimut).",
+      "south_crossing": "El pase cruza al sur (180° azimut).",
+      "direction_cw": "El satélite se mueve en el cielo.",
+      "direction_ccw": "El satélite se mueve hacia el cielo.",
+      "direction_mixed": "El satélite cambia la dirección durante el paso.",
+      "direction_e_to_w": "El satélite viaja de este a oeste.",
+      "direction_w_to_e": "El satélite viaja de oeste a este.",
+      "elevation_low": "La elevación máxima es inferior a 30°.",
+      "elevation_medium": "La elevación máxima es de 30° a 60°.",
+      "elevation_high": "La elevación máxima es de 60° a 80°.",
+      "elevation_overhead": "La elevación máxima es de 80° o superior."
+    },
+    "transmitter_links": "Enlaces",
+    "transmitter_link_tooltips": {
+      "same_band": "{{count}} transmisor(s) con {{band}} enlace ascendente y enlace descendente",
+      "split_band": "{{count}} transmisor(s) con {{uplinkBand}} uplink y {{downlinkBand}} downlink",
+      "uplink_only": "{{count}} transmisor(s) con {{uplinkBand}} enlace ascendente solamente",
+      "downlink_only": "{{count}} transmisor(s) con enlace descendente {{downlinkBand}} solo",
+      "unknown": "{{count}} transmisor(s) sin banda de enlace ascendente o de enlace descendente",
+      "details": "Detalles: {{descriptions}}"
+    },
+    "no_data": "No hay datos"
   },
   "rig_control": {
     "title": "Control de radio",
@@ -110,7 +161,10 @@
     "select_sdr": "selecciona un SDR",
     "no_frequency_control": "[sin control de frecuencia]",
     "select_transmitter": "selecciona un transmisor",
-    "no_transmitters": "No hay transmisores disponibles para este satélite"
+    "no_transmitters": "No hay transmisores disponibles para este satélite",
+    "vfo_label": "VFO",
+    "no_vfo_control": "[sin control VFO]",
+    "select_vfo": "seleccionar un VFO"
   },
   "rotator_control_labels": {
     "rotator_label": "Rotador",
@@ -127,7 +181,20 @@
     "title": "Seguimiento del objetivo"
   },
   "target_retarget_dialog": {
-    "title": "Reasignar ranura o crear un nuevo objetivo"
+    "title": "Reasignar ranura o crear un nuevo objetivo",
+    "cancel": "Cancelar",
+    "confirm_create": "Crear un nuevo objetivo",
+    "confirm_retarget": "Ranura seleccionada",
+    "no_rig": "Sin control de plataformas",
+    "no_rotator": "No hay control de rotación",
+    "no_slots": "No hay ranuras de destino activas disponibles para retarget.",
+    "no_target": "No se ha seleccionado ningún objetivo",
+    "option_new_title": "Crear nuevo objetivo ranura",
+    "or": "o",
+    "submit_failed": "No se pudo aplicar la selección de objetivo.",
+    "submitting": "Aplicando...",
+    "subtitle": "Elija retarget la ranura activa o crear una nueva",
+    "this_target": "este objetivo"
   },
   "pass_timeline": {
     "title": "Línea de tiempo de pasadas para {{name}} - Próximas {{hours}} horas"
@@ -170,5 +237,36 @@
       "no_transmitters": "No hay transmisores disponibles",
       "no_transmitters_desc": "Este satélite no tiene transmisores registrados."
     }
+  },
+  "view_picker": {
+    "label": "Vista",
+    "map": "Mapa 2D",
+    "globe": "Globo",
+    "sky": "Cielo",
+    "automatic": "Auto por visibilidad",
+    "solar_system": "Sistema solar"
+  },
+  "view_settings": {
+    "customize_title": "Personalizar la vista actual",
+    "interaction_title": "Interacción",
+    "interaction_description": "Controlar la interacción directa del puntero dentro de la vista actual.",
+    "map_preferences": "Preferencias de mapa",
+    "map_preferences_description": "Elija un mapa base y controlar la interacción directa del mapa.",
+    "sky_interaction_description": "Interacción de puntero de control dentro de la vista del cielo."
+  },
+  "passes_table_settings": {
+    "title": "Ajustes de tabla de pases",
+    "description": "Elija qué columnas para mostrar en la tabla de pases",
+    "rows_per_page": "Filas por página",
+    "category_time": "Información sobre el tiempo",
+    "category_basic": "Información básica",
+    "category_distance": "Información de distancia",
+    "category_orbital": "Información orbital",
+    "always_visible": "siempre visible",
+    "close": "Cerca"
+  },
+  "target_search": {
+    "retarget_hint": "Busque satélites, misiones o órganos. Seleccionar un resultado inmediatamente retargets el objetivo activo.",
+    "search_label": "Buscar satélites, misiones o órganos"
   }
 }

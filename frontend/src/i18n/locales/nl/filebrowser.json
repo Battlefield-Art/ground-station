@@ -1,1 +1,107 @@
-{}
+{
+  "title": "Bestandsverkenner",
+  "sort_by": "Sorteren op",
+  "sort": {
+    "created": "Datum aangemaakt",
+    "modified": "Datum gewijzigd",
+    "name": "Naam",
+    "size": "Grootte",
+    "sample_rate": "Samplefrequentie"
+  },
+  "filter": "Filter",
+  "filters": {
+    "recordings": "Opnamen",
+    "snapshots": "Snapshots",
+    "decoded": "Gedecodeerd",
+    "audio": "Audio"
+  },
+  "sort_order": {
+    "ascending": "Oplopend",
+    "descending": "Aflopend"
+  },
+  "refresh": "Verversen",
+  "storage": {
+    "title": "Opslag",
+    "used": "gebruikt",
+    "available": "beschikbaar"
+  },
+  "no_files": {
+    "title": "Geen bestanden gevonden",
+    "message_filter": "Ten minste één filter inschakelen om bestanden te zien",
+    "message_empty": "Snapshots maken of IQ-gegevens opnemen vanuit de watervalweergave"
+  },
+  "recording": {
+    "type": "Opname",
+    "in_progress": "Opname in uitvoering",
+    "in_progress_message": "Opname in uitvoering",
+    "snapshot_message": "Waterfall snapshot wordt opgeslagen bij stop",
+    "delete_message": "Dit zal het gegevensbestand, metadatabestand en snapshot verwijderen."
+  },
+  "snapshot": {
+    "type": "Snapshot",
+    "description": "Ground Station-waterfallsnapshot"
+  },
+  "audio": {
+    "type": "Geluidsopname",
+    "description": "VFO-audioopname",
+    "in_progress": "Geluid opnemen",
+    "in_progress_message": "Audio-opname in uitvoering"
+  },
+  "details": {
+    "title": "Opnamedetails",
+    "name": "Naam",
+    "files": "Bestanden",
+    "metadata": "Metadata",
+    "captures": "Vangsten",
+    "data_type": "Gegevenstype",
+    "sample_rate": "Samplefrequentie",
+    "version": "SigMF-versie",
+    "recorder": "Recorder",
+    "description": "Omschrijving",
+    "created": "Aangemaakt",
+    "modified": "Gewijzigd"
+  },
+  "actions": {
+    "view_details": "Details bekijken",
+    "download": "Downloaden",
+    "download_data": "Gegevens downloaden",
+    "download_metadata": "Metadata downloaden",
+    "download_snapshot": "Snapshot downloaden",
+    "delete": "Verwijderen",
+    "cannot_delete_active": "Kan actieve opname niet verwijderen",
+    "close": "Sluiten"
+  },
+  "delete_dialog": {
+    "title_recording": "Opname verwijderen",
+    "title_snapshot": "Snapshot verwijderen",
+    "title_decoded": "Verwijder gedecodeerd bestand",
+    "title_audio": "Audio-opname verwijderen",
+    "warning": "Deze actie kan niet ongedaan worden gemaakt!",
+    "confirm": "Weet u zeker dat u wilt verwijderen",
+    "cancel": "Annuleren",
+    "delete": "Verwijderen"
+  },
+  "batch_delete_dialog": {
+    "title": "Meerdere items verwijderen",
+    "confirm": "Weet u zeker dat u {{count}} item(s) wilt verwijderen?",
+    "message": "Dit zal alle geselecteerde opnames en snapshots permanent verwijderen."
+  },
+  "selection": {
+    "select": "Selecteren",
+    "exit": "Selectiemodus afsluiten",
+    "no_items": "Geen items geselecteerd",
+    "count": "{{count}} item(s) geselecteerd",
+    "select_all": "Alles selecteren",
+    "clear": "Wissen",
+    "delete": "Geselecteerde items verwijderen"
+  },
+  "toast": {
+    "recording_deleted": "Opname \"{{name}}\" succesvol verwijderd",
+    "snapshot_deleted": "Snapshot \"{{name}}\" succesvol verwijderd",
+    "decoded_deleted": "Gedecodeerd bestand \"{{name}}\" succesvol verwijderd",
+    "audio_deleted": "Audio-opname “{{name}}” succesvol verwijderd",
+    "delete_failed": "Verwijderen is mislukt: {{error}}",
+    "batch_delete_partial": "Sommige items konden niet verwijderd worden",
+    "batch_delete_failed": "Verwijderen van items mislukt: {{error}}"
+  }
+}

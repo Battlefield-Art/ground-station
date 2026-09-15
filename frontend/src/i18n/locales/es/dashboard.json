@@ -9,7 +9,16 @@
     "reconnecting": "Reconectando",
     "attempt": "Intento {{count}}",
     "connecting": "Conectando",
-    "establishing_connection": "Estableciendo conexión"
+    "establishing_connection": "Estableciendo conexión",
+    "backend_disconnected": "Backend desconectado",
+    "reconnecting_attempt": "Reconectando (intento {{count}})...",
+    "reconnecting_message": "Reconectando...",
+    "connecting_to_backend": "Conectando al backend",
+    "establishing_backend_connection": "Estableciendo conexión con el backend...",
+    "loading_setup_state": "Cargando estado de configuración...",
+    "syncing_data": "Sincronizando datos",
+    "loading_initial_state": "Cargando datos iniciales de la aplicación",
+    "loading_progress": "{{completed}} cargado de {{total}}"
   },
   "version_update": {
     "new_version_available": "Nueva versión disponible",
@@ -84,7 +93,14 @@
     "rotator_tracking": "Rotador: Siguiendo (Az: {{az}}°, El: {{el}}°)",
     "rotator_slewing": "Rotador: Moviéndose (Az: {{az}}°, El: {{el}}°)",
     "rotator_stopped": "Rotador: Detenido (Az: {{az}}°, El: {{el}}°)",
-    "rotator_connected": "Rotador: Conectado (Az: {{az}}°, El: {{el}}°)"
+    "rotator_connected": "Rotador: Conectado (Az: {{az}}°, El: {{el}}°)",
+    "no_targets_configured": "No hay objetivos configurados",
+    "rig_fleet_summary": "Radios: {{active}} activas, {{attention}} requieren atención, {{disconnected}} desconectadas",
+    "rotator_fleet_summary": "Rotores: {{active}} activos, {{attention}} requieren atención, {{disconnected}} desconectados",
+    "warning_below_horizon": "Bajo Horizonte",
+    "warning_below_min_elevation": "Debajo de Min Elevation",
+    "warning_out_of_bounds": "Fuera de Libras",
+    "warning_parked": "Aparcado"
   },
   "orbital_sync_popover": {
     "syncing": "Sincronizando: {{progress}}%",
@@ -102,5 +118,14 @@
     "transmitters": "Transmisores: {{count}}",
     "groups": "Grupos: {{count}}",
     "errors": "Errores ({{count}})"
+  },
+  "auth": {
+    "logout": "Cerrar sesión",
+    "logout_confirm_message": "¿Seguro que quieres salir?",
+    "logout_confirm_skip": "No vuelvas a mostrar esto.",
+    "logout_confirm_title": "Confirmación de registro"
+  },
+  "common": {
+    "cancel": "Cancelar"
   }
 }

@@ -9,7 +9,16 @@
     "reconnecting": "Reconnexion",
     "attempt": "Tentative {{count}}",
     "connecting": "Connexion",
-    "establishing_connection": "Établissement de la connexion"
+    "establishing_connection": "Établissement de la connexion",
+    "backend_disconnected": "Déconnecté du moteur",
+    "reconnecting_attempt": "Reconnexion (Tempt {{count}})...",
+    "reconnecting_message": "Reconnecter...",
+    "connecting_to_backend": "Connexion au moteur",
+    "establishing_backend_connection": "Établissement de la connexion au backend...",
+    "loading_setup_state": "Chargement de l'état d'installation...",
+    "syncing_data": "Synchronisation des données",
+    "loading_initial_state": "Chargement des données initiales de l'application",
+    "loading_progress": "{{completed}} chargé de {{total}}"
   },
   "version_update": {
     "new_version_available": "Nouvelle version disponible",
@@ -63,8 +72,8 @@
     "duration": "Durée :",
     "reconnecting": "Reconnexion... (Tentative : {{count}})",
     "current_traffic_rate": "Débit actuel",
-    "upload": "Upload :",
-    "download": "Download :",
+    "upload": "Envoi :",
+    "download": "Téléchargement :",
     "msgs_per_second": "{{count}} msgs/s",
     "application_level": "Niveau application (Total de session)",
     "sent": "Envoyés :",
@@ -84,7 +93,14 @@
     "rotator_tracking": "Rotateur : Suivi (Az : {{az}}°, El : {{el}}°)",
     "rotator_slewing": "Rotateur : En mouvement (Az : {{az}}°, El : {{el}}°)",
     "rotator_stopped": "Rotateur : Arrêté (Az : {{az}}°, El : {{el}}°)",
-    "rotator_connected": "Rotateur : Connecté (Az : {{az}}°, El : {{el}}°)"
+    "rotator_connected": "Rotateur : Connecté (Az : {{az}}°, El : {{el}}°)",
+    "no_targets_configured": "Aucune cible configurée",
+    "rig_fleet_summary": "Radios : {{active}} actives, {{attention}} nécessitent une intervention, {{disconnected}} déconnectées",
+    "rotator_fleet_summary": "Rotateurs : {{active}} actifs, {{attention}} nécessitent une intervention, {{disconnected}} déconnectés",
+    "warning_below_horizon": "Sous Horizon",
+    "warning_below_min_elevation": "Au-dessous de Min Élévation",
+    "warning_out_of_bounds": "Hors des limites",
+    "warning_parked": "Stationné"
   },
   "orbital_sync_popover": {
     "syncing": "Synchronisation : {{progress}}%",
@@ -102,5 +118,14 @@
     "transmitters": "Émetteurs : {{count}}",
     "groups": "Groupes : {{count}}",
     "errors": "Erreurs ({{count}})"
+  },
+  "auth": {
+    "logout": "Déconnexion",
+    "logout_confirm_message": "Tu es sûr de vouloir te déconnecter ?",
+    "logout_confirm_skip": "Ne le montre plus jamais.",
+    "logout_confirm_title": "Confirmer la Déconnexion"
+  },
+  "common": {
+    "cancel": "Annuler"
   }
 }

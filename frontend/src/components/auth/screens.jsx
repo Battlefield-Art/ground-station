@@ -45,6 +45,7 @@ import {
 } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { GroundStationLogoGreenBlue } from '../common/dataurl-icons.jsx';
 import { useSocket } from '../common/socket.jsx';
@@ -443,6 +444,7 @@ function SetupAdminRecoveryScreen({ station }) {
 function SetupWizardScreen() {
     const dispatch = useDispatch();
     const { socket } = useSocket();
+    const { t } = useTranslation('dashboard');
 
     const [locationChecked, setLocationChecked] = React.useState(false);
     const [setupConnectionState, setSetupConnectionState] = React.useState(
@@ -529,23 +531,23 @@ function SetupWizardScreen() {
         if (setupConnectionState === 'reconnecting' && reconnectAttempt > 0) {
             return {
                 icon: SyncProblemIcon,
-                title: 'Backend disconnected',
-                message: `Reconnecting (attempt ${reconnectAttempt})...`,
+                title: t('connection.backend_disconnected'),
+                message: t('connection.reconnecting_attempt', { count: reconnectAttempt }),
                 tone: 'warning',
             };
         }
         if (setupConnectionState === 'disconnected') {
             return {
                 icon: CloudOffIcon,
-                title: 'Backend disconnected',
-                message: 'Reconnecting...',
+                title: t('connection.backend_disconnected'),
+                message: t('connection.reconnecting_message'),
                 tone: 'info',
             };
         }
         return {
             icon: CloudOffIcon,
-            title: 'Connecting to backend',
-            message: 'Establishing backend connection...',
+            title: t('connection.connecting_to_backend'),
+            message: t('connection.establishing_backend_connection'),
             tone: 'info',
         };
     })();
@@ -556,7 +558,7 @@ function SetupWizardScreen() {
             <Box sx={shellSx}>
                 <Stack direction="row" spacing={1.5} alignItems="center">
                     <CircularProgress size={22} />
-                    <Typography variant="body1">Loading setup state...</Typography>
+                    <Typography variant="body1">{t('connection.loading_setup_state')}</Typography>
                 </Stack>
             </Box>
         );

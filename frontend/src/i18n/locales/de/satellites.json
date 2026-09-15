@@ -59,7 +59,18 @@
     "deleted_success": "Satellit(en) erfolgreich gelöscht",
     "failed_add": "Fehler beim Hinzufügen des Satelliten",
     "failed_update": "Fehler beim Aktualisieren des Satelliten",
-    "failed_delete": "Fehler beim Löschen der Satelliten"
+    "failed_delete": "Fehler beim Löschen der Satelliten",
+    "search_satellites": "Satelliten suchen",
+    "search_placeholder": "Nach Name oder NORAD-ID suchen...",
+    "search_min_chars": "Geben Sie mindestens 3 Zeichen ein, um zu suchen",
+    "search_success": "{{count}} Satelliten gefunden",
+    "search_failed": "Suche fehlgeschlagen",
+    "catalog_stats_summary": "Aktuelle Datenbankstatistik: {{satellites}} Satelliten, {{groups}} Gruppen ({{userGroups}} Benutzer-, {{systemGroups}} Systemgruppen), {{transmitters}} Satellitensender.",
+    "omm_payload": "OMM-Nutzdaten (JSON-Objekt)",
+    "orbit_epoch": "Orbit-Epoche (ISO 8601)",
+    "orbit_model_kind": "Orbit-Modell",
+    "tab_general": "Allgemein",
+    "tab_orbital": "Orbital"
   },
   "orbital_sources": {
     "title": "Orbitdatenquellen",
@@ -88,7 +99,96 @@
     "updated_success": "Orbitquelle erfolgreich aktualisiert",
     "failed_add": "Fehler beim Hinzufügen der Orbitquelle",
     "failed_update": "Fehler beim Aktualisieren der Orbitquelle",
-    "failed_delete": "Fehler beim Löschen der Orbitquellen"
+    "failed_delete": "Fehler beim Löschen der Orbitquellen",
+    "provider": "Anbieter",
+    "providers": {
+      "celestrak": "CelesTrak",
+      "generic_http": "Generisches HTTP",
+      "space_track": "Space-Track"
+    },
+    "provider_option_celestrak": "CelesTrak (geführte GP/CSV-Feeds)",
+    "provider_option_generic_http": "Generisches HTTP (kuratierte Listen)",
+    "provider_option_space_track": "Space-Track (selbstkuratierte Listen)",
+    "adapter": "Adapter",
+    "format_hint": "Steuert, wie Orbitalaufzeichnungen aus dieser Quelle analysiert werden.",
+    "celestrak_group": "CelesTrak-Gruppe",
+    "select_celestrak_group": "Wählen Sie eine CelesTrak-Gruppe",
+    "celestrak_group_hint": "Ground Station erstellt für diese Gruppe die kanonische CelesTrak-GP/CSV-URL.",
+    "celestrak_transport_hint": "Transport: CelesTrak GP/CSV. Datensätze werden als kanonisches OMM gespeichert und vom OMM-kompatiblen CSV-Adapter analysiert.",
+    "sync_status": "Synchronisierungsstatus",
+    "sync_status_attention": "Eingreifen erforderlich",
+    "sync_status_disabled": "Deaktiviert",
+    "sync_status_waiting": "Ausstehend",
+    "sync_status_healthy": "Fehlerfrei",
+    "sync_status_attempted": "Status prüfen",
+    "sync_status_not_synced": "Nicht synchronisiert",
+    "sync_status_disabled_detail": "Diese Quelle ist deaktiviert und wird nicht abgefragt.",
+    "sync_status_waiting_detail": "Eine erfolgreiche CelesTrak-Antwort ist weniger als zwei Stunden alt. Die nächste Anfrage wird daher zurückgestellt.",
+    "sync_status_healthy_detail": "Die letzte Anfrage wurde erfolgreich abgeschlossen.",
+    "sync_status_healthy_deferred_detail": "Die letzte Anfrage wurde erfolgreich abgeschlossen. Die nächste Anfrage von CelesTrak wird verschoben, bis das zweistündige Intervall abgelaufen ist.",
+    "sync_status_attempted_detail": "Eine Anfrage wurde gestartet, aber nicht erfolgreich abgeschlossen.",
+    "sync_status_not_synced_detail": "Diese Quelle hat noch keine Synchronisation abgeschlossen.",
+    "sync_status_dialog_title": "Synchronisierungsstatus: {{name}}",
+    "last_sync": "Letzte Synchronisation",
+    "last_success": "Letzte erfolgreiche Synchronisierung",
+    "last_attempt": "Letzter Versuch",
+    "http_status": "HTTP-Status",
+    "close": "Schließen",
+    "suspended": "Ausgesetzt",
+    "suspended_reason": "Vor der nächsten Synchronisierung dieser Quelle ist eine manuelle Prüfung erforderlich.",
+    "norad_ids": "NORAD IDs",
+    "norad_ids_placeholder": "25544, 43017, 57172",
+    "norad_ids_hint": "Durch Leerzeichen, Kommas oder Zeilenumbrüche getrennte NORAD-Katalog-IDs.",
+    "query_mode": "Quellenmodus",
+    "query_mode_url": "Benutzerdefinierte Space-Track-Abfrage",
+    "query_mode_group_norad": "Satellitengruppe verwenden",
+    "group": "Gruppe",
+    "system_group_notice": "Für diese Quelle wird eine Systemgruppe erstellt und synchron gehalten.",
+    "select_group": "Wählen Sie eine Gruppe",
+    "no_user_groups": "Keine benutzerdefinierten Gruppen verfügbar",
+    "manage_groups": "Gruppen verwalten",
+    "space_track_query_url": "URL der benutzerdefinierten Space-Track-Abfrage",
+    "system_groups": "Systemgruppen",
+    "user_groups": "Nutzergruppen",
+    "central_body": "Zentralkörper",
+    "priority": "Priorität",
+    "priority_hint": "Niedrigere Werte werden zuerst ausgeführt und bei doppelten NORAD-IDs bevorzugt.",
+    "enabled": "Aktiviert",
+    "enabled_yes": "Ja",
+    "enabled_no": "Nein",
+    "auth_type": "Authentifizierungstyp",
+    "username": "Benutzername",
+    "password": "Passwort / Token",
+    "advanced_settings": "Erweiterte Einstellungen",
+    "default_names": {
+      "celestrak": "CelesTrak-Quelle",
+      "generic_http": "Generische HTTP-Quelle",
+      "space_track_norad": "Space-Track - NORAD IDs",
+      "space_track_group": "Space-Track — {{group}}",
+      "space_track_group_pending": "Space-Track - Satellitengruppe",
+      "space_track_custom": "Space-Track – benutzerdefinierte Abfrage"
+    },
+    "validation": {
+      "required": "erforderlich",
+      "invalid_option": "Ungültige Option",
+      "url_invalid": "Ungültige URL",
+      "url_http_https": "Muss http:// oder https:// verwenden",
+      "priority": "Die Priorität muss eine ganze Zahl ≥ 0 sein",
+      "space_track_provider": "Der Adapter space_track_gp erfordert provider = space_track",
+      "space_track_adapter": "NORAD-Gruppenquellen erfordern adapter = space_track_gp",
+      "space_track_auth": "Der Adapter space_track_gp erfordert auth type = basic",
+      "space_track_creds": "Der Adapter space_track_gp erfordert Benutzername und Passwort",
+      "norad_ids_required": "Mindestens eine NORAD-ID ist erforderlich",
+      "celestrak_group_required": "Wählen Sie eine unterstützte CelesTrak-Gruppe",
+      "group_required": "Gruppe ist erforderlich",
+      "user_group_required": "Wählen Sie eine benutzerdefinierte Gruppe",
+      "space_track_query_filter_required": "Benutzerdefinierte Space-Track-Abfragen müssen einen Filter wie NORAD_CAT_ID enthalten. Verwenden Sie für zusammengestellte Gruppen die Satellitengruppe."
+    },
+    "tabs": {
+      "aria": "Registerkarten für Orbitquellen",
+      "sources": "Quellen",
+      "sync_now": "Jetzt synchronisieren"
+    }
   },
   "groups": {
     "title": "Satellitengruppen",
@@ -121,7 +221,6 @@
     "delete_satellite": "Satellit Löschen",
     "delete_confirm_title": "Satellit Löschen",
     "delete_confirm_message": "Sind Sie sicher, dass Sie diesen Satelliten löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
-    "delete_confirm_transmitters": "Hinweis: Dies löscht auch {{count}} zugehörige(n) Sender{{plural}}.",
     "delete_success": "Satellit erfolgreich gelöscht",
     "delete_failed": "Fehler beim Löschen des Satelliten: {{error}}",
     "fields": {
@@ -140,7 +239,7 @@
     "no_image": "Kein Bild verfügbar",
     "transmitters": {
       "title": "Sender",
-      "no_data": "Keine Sender Verfügbar",
+      "no_data": "Keine Sender verfügbar",
       "columns": {
         "description": "Beschreibung",
         "type": "Typ",
@@ -162,8 +261,11 @@
       "delete": "LÖSCHEN",
       "delete_confirm_title": "Löschung Bestätigen",
       "delete_confirm_message": "Sind Sie sicher, dass Sie die ausgewählte(n) Sender löschen möchten?",
-      "cancel": "ABBRECHEN"
-    }
+      "cancel": "ABBRECHEN",
+      "duplicate": "Duplizieren"
+    },
+    "delete_confirm_transmitters_one": "Hinweis: Dadurch wird auch {{count}} zugehöriger Sender gelöscht.",
+    "delete_confirm_transmitters_other": "Hinweis: Dadurch werden auch {{count}} zugehörige Sender gelöscht."
   },
   "synchronize": {
     "header": {
@@ -171,7 +273,15 @@
       "subtitle": "Bahndaten von Satellitenquellen abrufen",
       "button": "SYNCHRONISIEREN",
       "cancel_button": "ABBRECHEN",
-      "last_update": "Letzte Aktualisierung: {{date}}"
+      "last_update": "Letzte Aktualisierung: {{date}}",
+      "next_scheduled_sync": "Nächste geplante Synchronisierung: {{when}}",
+      "next_scheduled_sync_exact": "Nächste geplante Synchronisierung: {{date}}",
+      "next_scheduled_sync_unknown": "Nächste geplante Synchronisierung: Nicht verfügbar",
+      "status": "Status",
+      "status_completed": "Abgeschlossen",
+      "status_failed": "Eingreifen erforderlich",
+      "status_idle": "Inaktiv",
+      "status_running": "Wird ausgeführt"
     },
     "cancel_dialog": {
       "title": "Synchronisierung abbrechen?",
@@ -186,7 +296,8 @@
     "terminal": {
       "ready": "Bereit zur Synchronisation. Klicken Sie auf die Schaltfläche zum Starten.",
       "complete": "Synchronisation abgeschlossen!",
-      "syncing": "Satellitendaten werden synchronisiert..."
+      "syncing": "Satellitendaten werden synchronisiert...",
+      "output_label": "Ausgabe:"
     },
     "errors": {
       "title_singular": "{{count}} Fehler Aufgetreten",

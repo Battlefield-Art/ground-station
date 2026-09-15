@@ -19,10 +19,12 @@
     "toggle_rotator_lines": "Rotator-Ereignis-Punktlinien umschalten",
     "toggle_vfo": "VFO {{number}} umschalten",
     "fft_overflow": "FFT-Aktualisierungsrate-Überlauf — eingehende Aktualisierungen werden gedrosselt",
-    "bookmark_source_user_defined": "User defined",
+    "bookmark_source_user_defined": "Benutzerdefiniert",
     "bookmark_source_satnogs": "SATNOGS",
     "bookmark_source_gr_satellites": "gr-satellites",
-    "bookmark_source_satdump": "Satdump"
+    "bookmark_source_satdump": "Satdump",
+    "toggle_neighboring_transmitters": "Benachbarte Satellitensender ein-/ausblenden",
+    "take_snapshot": "Wasserfall-Snapshot erstellen"
   },
   "frequency": {
     "title": "Frequenzsteuerung",
@@ -48,7 +50,7 @@
     "sdr_label": "SDR",
     "no_sdr_selected": "[kein SDR ausgewählt]",
     "local_sdrs": "Lokale SDRs",
-    "remote_sdrs": "Remote SDRs",
+    "remote_sdrs": "Remote-SDRs",
     "other_sdrs": "Andere SDRs",
     "gain_db": "Verstärkung (dB)",
     "no_gain_selected": "[keine Verstärkung ausgewählt]",
@@ -60,7 +62,16 @@
     "enable_tuner_agc": "Tuner AGC aktivieren",
     "enable_agc": "AGC aktivieren",
     "enable_rtl_agc": "RTL AGC aktivieren",
-    "refresh_params": "Refresh SDR params"
+    "refresh_params": "SDR-Parameter aktualisieren",
+    "antenna_required": "Wählen Sie vor dem Start des Streams eine Antenne aus.",
+    "gain_required": "Wählen Sie vor dem Start des Streams die Verstärkung aus.",
+    "in_use_badge": "im Einsatz",
+    "loading_recordings": "Aufzeichnungen werden geladen...",
+    "no_playback_recording_selected": "[keine Aufzeichnung ausgewählt]",
+    "no_playback_recordings": "Keine IQ-Aufnahmen gefunden",
+    "playback_recording": "IQ-Aufzeichnung",
+    "sample_rate_required": "Wählen Sie vor dem Start des Streams eine Abtastrate aus.",
+    "unknown_date": "Unbekanntes Datum"
   },
   "fft": {
     "title": "FFT",
@@ -69,7 +80,19 @@
     "fft_averaging": "FFT-Mittelung",
     "averaging_none": "Keine",
     "averaging_samples": "{{count}} Proben",
-    "color_map": "Farbschema"
+    "color_map": "Farbschema",
+    "bandscope_smoothing": "Bandscope-Glättung",
+    "fft_overlap": "FFT-Überlappung",
+    "overlap_25": "Ein (25 %)",
+    "overlap_75": "Ein (75 %)",
+    "overlap_depth": "Überlappungstiefe",
+    "overlap_depth_segments": "4 Segmente",
+    "overlap_off": "Aus",
+    "overlap_on_50": "Ein (50 %)",
+    "smoothing_high": "Hoch",
+    "smoothing_low": "Niedrig",
+    "smoothing_medium": "Mittel",
+    "smoothing_off": "Aus"
   },
   "vfo": {
     "title": "VFO-Steuerungen",
@@ -111,7 +134,27 @@
       "ja": "Japanisch",
       "zh": "Chinesisch",
       "ar": "Arabisch"
-    }
+    },
+    "locked_by_tracking": "Dieser VFO ist durch die Satellitenverfolgung gesperrt.",
+    "audio_demodulation": "Audiodemodulation",
+    "audio_demodulation_help": "Legt fest, wie Audio aus dem HF-Signal extrahiert wird.",
+    "data_decoders": "Datendecoder",
+    "data_decoders_help": "Für einige Modi wird bei Bedarf intern ein FM- oder SSB-Demodulator zur Dekodierung gestartet.",
+    "decoder_active_info": "Audio-Demodulation wird automatisch vom Decoder gehandhabt",
+    "decoders_modes": {
+      "none": "Keine",
+      "sstv": "SSTV",
+      "geoscanimage": "Geoscan-Bild",
+      "morse": "Morse",
+      "lora": "LoRa",
+      "aprs": "APRS",
+      "gmsk": "GMSK",
+      "gfsk": "GFSK",
+      "bpsk": "BPSK"
+    },
+    "lock_to_transmitter": "An Sender koppeln",
+    "none": "Keine",
+    "locked_to_transmitter_info": "Doppler-korrigierte Frequenz verfolgen"
   },
   "error_dialog": {
     "title": "Fehler aufgetreten",
@@ -119,5 +162,35 @@
   },
   "statusbar": {
     "stopped": "gestoppt"
+  },
+  "recording": {
+    "title": "IQ-Aufzeichnung",
+    "filename": "Name der Aufzeichnung",
+    "sampleRate": "Aufgezeichnete Abtastrate",
+    "fullBandwidth": "Volle Bandbreite ({{rate}})",
+    "centeredBandwidthHelp": "Zeichnet den zentrierten Teil des SDR-Spektrums auf. Zentrieren Sie das Signal vor der Aufzeichnung.",
+    "fullBandwidthHelp": "Zeichnet das volle SDR-Spektrum auf.",
+    "storageFormat": "IQ-Speicherformat",
+    "storageFormatFloat": "32-Bit-Gleitkomma-IQ (cf32_le)",
+    "storageFormatFloatHelp": "Verlustfreie IQ-Daten mit voller Präzision. Benötigt doppelt so viel Speicherplatz wie ci16_le.",
+    "storageFormatInt16": "Vorzeichenbehaftete 16-Bit-IQ-Daten (ci16_le)",
+    "storageFormatInt16Help": "50 % kleiner. Nur bei Übersteuerung durch außergewöhnlich starke Samples verlustbehaftet.",
+    "statusRecording": "Aufzeichnung",
+    "statusReady": "Keine Aufzeichnung",
+    "statusAriaLabel": "IQ-Aufzeichnung {{status}}, {{rate}}",
+    "start": "REC",
+    "stop": "Stopp"
+  },
+  "playback": {
+    "title": "IQ-Wiedergabe",
+    "select_recording": "Wählen Sie eine Aufnahme zur Wiedergabe",
+    "refresh": "Aufzeichnungen aktualisieren",
+    "no_recordings": "Keine Aufnahmen verfügbar. Nehmen Sie zuerst einige IQ-Daten auf!",
+    "sort_by": "Sortieren nach",
+    "sort_modified": "Datum geändert",
+    "sort_created": "Datum erstellt",
+    "sort_name": "Name",
+    "sort_size": "Größe",
+    "sort_sample_rate": "Abtastrate"
   }
 }

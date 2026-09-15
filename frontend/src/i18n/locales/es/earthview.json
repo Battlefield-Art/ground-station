@@ -22,7 +22,20 @@
     "status_reentered": "Reentrado",
     "invalid_date": "Fecha inválida",
     "na": "N/D",
-    "no_group_selected": "Por favor, seleccione un grupo de satélites para ver satélites"
+    "no_group_selected": "Por favor, seleccione un grupo de satélites para ver satélites",
+    "context_menu": {
+      "set_as_target": "Establece como objetivo...",
+      "edit_properties": "Editar propiedades...",
+      "edit_transmitters": "Editar transmisores...",
+      "schedule_observation": "Observación programada...",
+      "monitor_satellite": "Vigilar este satélite...",
+      "copy_norad": "Copiado NORAD ID",
+      "copy_summary": "Resumen del satélite",
+      "edit_transmitters_title": "Editar transmisores: {{name}}"
+    },
+    "below_horizon": "Bajo Horizonte",
+    "visibility": "Visibilidad",
+    "visible": "Visible"
   },
   "passes_table": {
     "title": "Pases para las próximas {{hours}} horas",
@@ -48,7 +61,55 @@
     "automatic_observation_tooltip": "Este paso se observará automáticamente",
     "no_value": "sin valor",
     "no_data": "Sin datos",
-    "no_passes": "No se detectaron pases para las próximas {{hours}} horas"
+    "no_passes": "No se detectaron pases para las próximas {{hours}} horas",
+    "alternative_name": "Nombre alternativo",
+    "name_other": "Otros nombres",
+    "direction": "Dirección",
+    "direction_values": {
+      "cw": "CW",
+      "ccw": "CCW",
+      "mixed": "Mezcla"
+    },
+    "pass_types": "Tipos de pase",
+    "pass_tag_labels": {
+      "north_crossing": "Cruce N",
+      "south_crossing": "Cruce S",
+      "direction_cw": "CW",
+      "direction_ccw": "CCW",
+      "direction_mixed": "Mezcla",
+      "direction_e_to_w": "E>W",
+      "direction_w_to_e": "W>E",
+      "elevation_low": "Baja EL",
+      "elevation_medium": "EL media",
+      "elevation_high": "Alto EL",
+      "elevation_overhead": "Cenital"
+    },
+    "pass_tag_tooltips": {
+      "north_crossing": "El pase cruza al norte (0° azimut).",
+      "south_crossing": "El pase cruza al sur (180° azimut).",
+      "direction_cw": "El satélite se mueve en el cielo.",
+      "direction_ccw": "El satélite se mueve hacia el cielo.",
+      "direction_mixed": "El satélite cambia la dirección durante el paso.",
+      "direction_e_to_w": "El satélite viaja de este a oeste.",
+      "direction_w_to_e": "El satélite viaja de oeste a este.",
+      "elevation_low": "La elevación máxima es inferior a 30°.",
+      "elevation_medium": "La elevación máxima es de 30° a 60°.",
+      "elevation_high": "La elevación máxima es de 60° a 80°.",
+      "elevation_overhead": "La elevación máxima es de 80° o superior."
+    },
+    "transmitter_link_tooltips": {
+      "same_band": "{{count}} transmisor(s) con {{band}} enlace ascendente y enlace descendente",
+      "split_band": "{{count}} transmisor(s) con {{uplinkBand}} uplink y {{downlinkBand}} downlink",
+      "uplink_only": "{{count}} transmisor(s) con {{uplinkBand}} enlace ascendente solamente",
+      "downlink_only": "{{count}} transmisor(s) con enlace descendente {{downlinkBand}} solo",
+      "unknown": "{{count}} transmisor(s) sin banda de enlace ascendente o de enlace descendente",
+      "details": "Detalles: {{descriptions}}"
+    },
+    "context_menu": {
+      "copy_pass_window": "Copiado paso ventana",
+      "copy_pass_summary": "Resumen del pase"
+    },
+    "tracked_tooltip": "Satélite objetivo actual"
   },
   "satellite_selector": {
     "title": "Seleccionar grupo de satélites",
@@ -107,10 +168,34 @@
     "go_home": "Ir al inicio",
     "go_to_center": "Ir al centro del mapa",
     "go_fullscreen": "Pantalla completa",
-    "map_settings": "Configuración del mapa"
+    "map_settings": "Configuración del mapa",
+    "zoom_in": "Zoom en",
+    "zoom_out": "Fuera."
   },
   "weather_errors": {
     "fetch_failed": "No se pudieron obtener los datos meteorológicos",
     "failed_to_fetch": "Error al obtener datos meteorológicos"
+  },
+  "satellites_table_settings": {
+    "title": "Configuración de la tabla de satélites",
+    "description": "Elige qué columnas se muestran en la tabla de satélites",
+    "rows_per_page": "Filas por página",
+    "category_basic": "Información básica",
+    "category_names": "Nombres de satélite",
+    "category_metadata": "Metadatos",
+    "always_visible": "siempre visible",
+    "close": "Cerca"
+  },
+  "passes_table_settings": {
+    "title": "Ajustes de tabla de pases",
+    "description": "Elija qué columnas para mostrar en la tabla de pases",
+    "rows_per_page": "Filas por página",
+    "category_basic": "Información básica",
+    "category_names": "Nombres de satélite",
+    "category_time": "Información sobre el tiempo",
+    "category_distance": "Información de distancia",
+    "category_orbital": "Información orbital",
+    "always_visible": "siempre visible",
+    "close": "Cerca"
   }
 }

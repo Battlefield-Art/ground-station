@@ -1,1 +1,107 @@
-{}
+{
+  "title": "Dateibrowser",
+  "sort_by": "Sortieren nach",
+  "sort": {
+    "created": "Erstellungsdatum",
+    "modified": "Änderungsdatum",
+    "name": "Name",
+    "size": "Größe",
+    "sample_rate": "Abtastrate"
+  },
+  "filter": "Filter",
+  "filters": {
+    "recordings": "Aufzeichnungen",
+    "snapshots": "Snapshots",
+    "decoded": "Dekodiert",
+    "audio": "Audio"
+  },
+  "sort_order": {
+    "ascending": "Aufsteigend",
+    "descending": "Absteigend"
+  },
+  "refresh": "Aktualisieren",
+  "storage": {
+    "title": "Speicher",
+    "used": "verwendet von",
+    "available": "verfügbar"
+  },
+  "no_files": {
+    "title": "Keine Dateien gefunden",
+    "message_filter": "Aktivieren Sie mindestens einen Filter, um Dateien zu sehen",
+    "message_empty": "Nehmen Sie Snapshots auf oder zeichnen Sie IQ-Daten aus der Wasserfallansicht auf"
+  },
+  "recording": {
+    "type": "Aufzeichnung",
+    "in_progress": "Aufzeichnung im Gange",
+    "in_progress_message": "Aufzeichnung im Gange",
+    "snapshot_message": "Der Wasserfall-Snapshot wird beim Stoppen gespeichert.",
+    "delete_message": "Dadurch werden die Datendatei, die Metadatendatei und der Snapshot gelöscht."
+  },
+  "snapshot": {
+    "type": "Snapshot",
+    "description": "Ground Station-Wasserfall-Snapshot"
+  },
+  "audio": {
+    "type": "Audioaufzeichnung",
+    "description": "VFO-Audioaufzeichnung",
+    "in_progress": "Audio wird aufgezeichnet",
+    "in_progress_message": "Audioaufzeichnung läuft"
+  },
+  "details": {
+    "title": "Angaben zur Aufzeichnung",
+    "name": "Name",
+    "files": "Dateien",
+    "metadata": "Metadaten",
+    "captures": "Aufnahmen",
+    "data_type": "Datentyp",
+    "sample_rate": "Abtastrate",
+    "version": "SigMF-Version",
+    "recorder": "Aufzeichnungsgerät",
+    "description": "Beschreibung",
+    "created": "Erstellt",
+    "modified": "Geändert"
+  },
+  "actions": {
+    "view_details": "Details anzeigen",
+    "download": "Herunterladen",
+    "download_data": "Daten herunterladen",
+    "download_metadata": "Metadaten herunterladen",
+    "download_snapshot": "Snapshot herunterladen",
+    "delete": "Löschen",
+    "cannot_delete_active": "Aktive Aufzeichnung kann nicht gelöscht werden",
+    "close": "Schließen"
+  },
+  "delete_dialog": {
+    "title_recording": "Aufzeichnung löschen",
+    "title_snapshot": "Snapshot löschen",
+    "title_decoded": "Dekodierte Datei löschen",
+    "title_audio": "Audioaufzeichnung löschen",
+    "warning": "Diese Aktion kann nicht rückgängig gemacht werden!",
+    "confirm": "Sind Sie sicher, dass Sie löschen möchten",
+    "cancel": "Abbrechen",
+    "delete": "Löschen"
+  },
+  "batch_delete_dialog": {
+    "title": "Löschen mehrerer Elemente",
+    "confirm": "Sind Sie sicher, dass Sie {{count}}-Elemente löschen möchten?",
+    "message": "Dadurch werden alle ausgewählten Aufnahmen und Snapshots dauerhaft gelöscht."
+  },
+  "selection": {
+    "select": "Auswählen",
+    "exit": "Auswahlmodus beenden",
+    "no_items": "Keine Elemente ausgewählt",
+    "count": "{{count}} Element(e) ausgewählt",
+    "select_all": "Alle auswählen",
+    "clear": "Auswahl aufheben",
+    "delete": "Ausgewählt löschen"
+  },
+  "toast": {
+    "recording_deleted": "Aufzeichnung \"{{name}}\" erfolgreich gelöscht",
+    "snapshot_deleted": "Snapshot \"{{name}}\" erfolgreich gelöscht",
+    "decoded_deleted": "Dekodierte Datei \"{{name}}\" erfolgreich gelöscht",
+    "audio_deleted": "Audioaufzeichnung \"{{name}}\" erfolgreich gelöscht",
+    "delete_failed": "Löschen fehlgeschlagen: {{error}}",
+    "batch_delete_partial": "Einige Elemente konnten nicht gelöscht werden",
+    "batch_delete_failed": "Elemente konnten nicht gelöscht werden: {{error}}"
+  }
+}

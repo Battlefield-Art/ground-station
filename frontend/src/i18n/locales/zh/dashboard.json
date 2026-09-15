@@ -9,7 +9,16 @@
     "reconnecting": "正在重新连接",
     "attempt": "尝试 {{count}}",
     "connecting": "正在连接",
-    "establishing_connection": "正在建立连接"
+    "establishing_connection": "正在建立连接",
+    "backend_disconnected": "后端已断开连接",
+    "reconnecting_attempt": "正在重新连接（第 {{count}} 次尝试）...",
+    "reconnecting_message": "正在重新连接...",
+    "connecting_to_backend": "正在连接后端",
+    "establishing_backend_connection": "正在建立后端连接...",
+    "loading_setup_state": "正在加载设置状态...",
+    "syncing_data": "正在同步数据",
+    "loading_initial_state": "正在加载初始应用数据",
+    "loading_progress": "已加载 {{completed}}/{{total}}"
   },
   "version_update": {
     "new_version_available": "新版本可用",

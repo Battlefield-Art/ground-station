@@ -1,44 +1,52 @@
 {
   "map_settings": {
-    "title": "Ρυθμίσεις Χάρτη",
-    "close": "ΚΛΕΙΣΙΜΟ"
+    "title": "Ρυθμισεις Χαρτη",
+    "close": "ΚΛΕΙΣΙΜΟ",
+    "apply": "Εφαρμογη",
+    "reset_defaults": "Επαναφορα προεπιλογών",
+    "save_failed": "Αποτυχια αποθήκευσης",
+    "saved": "Αποθηκευτηκε",
+    "saving": "Αποθηκευση…"
   },
   "map_controls": {
-    "map_settings": "Ρυθμίσεις χάρτη",
-    "go_home": "Μετάβαση στο σπίτι",
-    "go_to_center": "Μετάβαση στο κέντρο του χάρτη",
-    "go_fullscreen": "Πλήρης οθόνη"
+    "map_settings": "Ρυθμισεις χάρτη",
+    "go_home": "Μεταβαση στο σπίτι",
+    "go_to_center": "Μεταβαση στο κέντρο του χάρτη",
+    "go_fullscreen": "Πληρης οθόνη",
+    "exit_fullscreen": "Εξοδος από πλήρη οθόνη",
+    "zoom_in": "Μεγεθυνση",
+    "zoom_out": "Σμικρυνση"
   },
   "next_passes": {
-    "title": "Επόμενες διελεύσεις για {{name}} τις επόμενες {{hours}} ώρες",
+    "title": "Επομενες διελεύσεις για {{name}} τις επόμενες {{hours}} ώρες",
     "start": "Εναρξη",
-    "end": "Λήξη",
-    "duration": "Διάρκεια",
-    "progress": "Πρόοδος",
-    "direction": "Κατεύθυνση",
+    "end": "Ληξη",
+    "duration": "Διαρκεια",
+    "progress": "Προοδος",
+    "direction": "Κατευθυνση",
     "direction_values": {
-      "cw": "Δεξιόστροφα",
-      "ccw": "Αριστερόστροφα",
-      "mixed": "Μικτή"
+      "cw": "Δεξιοστροφα",
+      "ccw": "Αριστεροστροφα",
+      "mixed": "Μικτη"
     },
-    "distance_aos": "Απόσταση στο AOS",
-    "distance_los": "Απόσταση στο LOS",
-    "distance_peak": "Απόσταση στην κορυφή",
-    "max_el": "Μέγ. Υψ.",
-    "automatic_observation_tooltip": "Αυτή η διέλευση θα παρατηρηθεί αυτόματα",
-    "pass_types": "Τύποι διέλευσης",
+    "distance_aos": "Αποσταση στο AOS",
+    "distance_los": "Αποσταση στο LOS",
+    "distance_peak": "Αποσταση στην κορυφή",
+    "max_el": "Μεγ. Υψ.",
+    "automatic_observation_tooltip": "Αυτη η διέλευση θα παρατηρηθεί αυτόματα",
+    "pass_types": "Τυποι διέλευσης",
     "pass_tag_labels": {
-      "north_crossing": "Διέλευση από βορρά",
-      "south_crossing": "Διέλευση από νότο",
-      "direction_cw": "Δεξιόστροφα",
-      "direction_ccw": "Αριστερόστροφα",
-      "direction_mixed": "Μικτή",
+      "north_crossing": "Διελευση από βορρά",
+      "south_crossing": "Διελευση από νότο",
+      "direction_cw": "Δεξιοστροφα",
+      "direction_ccw": "Αριστεροστροφα",
+      "direction_mixed": "Μικτη",
       "direction_e_to_w": "E>W",
       "direction_w_to_e": "W>E",
-      "elevation_low": "Χαμηλή ύψωση",
-      "elevation_medium": "Μέτρια ύψωση",
-      "elevation_high": "Υψηλή ύψωση",
-      "elevation_overhead": "Πέρασμα zenith"
+      "elevation_low": "Χαμηλη ύψωση",
+      "elevation_medium": "Μετρια ύψωση",
+      "elevation_high": "Υψηλη ύψωση",
+      "elevation_overhead": "Περασμα zenith"
     },
     "pass_tag_tooltips": {
       "north_crossing": "Η διέλευση περνά από τον βορρά (αζιμούθιο 0°).",
@@ -53,30 +61,30 @@
       "elevation_high": "Το μέγιστο ύψος είναι από 60° έως κάτω από 80°.",
       "elevation_overhead": "Το μέγιστο ύψος είναι 80° ή μεγαλύτερο."
     },
-    "transmitter_links": "Συνδέσεις",
+    "transmitter_links": "Συνδεσεις",
     "transmitter_link_tooltips": {
       "same_band": "{{count}} πομποδέκτης/-ές με ανοδική και καθοδική ζεύξη {{band}}",
       "split_band": "{{count}} πομποδέκτης/-ές με ανοδική ζεύξη {{uplinkBand}} και καθοδική ζεύξη {{downlinkBand}}",
       "uplink_only": "{{count}} πομποδέκτης/-ές μόνο με ανοδική ζεύξη {{uplinkBand}}",
       "downlink_only": "{{count}} πομποδέκτης/-ές μόνο με καθοδική ζεύξη {{downlinkBand}}",
       "unknown": "{{count}} πομποδέκτης/-ές χωρίς καταχωρισμένη ανοδική ή καθοδική ζεύξη",
-      "details": "Λεπτομέρειες: {{descriptions}}"
+      "details": "Λεπτομερειες: {{descriptions}}"
     },
     "no_data": "Δεν υπάρχουν δεδομένα",
-    "geo_stat": "Γεωστατικός",
-    "geo_sync": "Γεωσύγχρονος",
-    "no_satellite_selected": "Παρακαλώ επιλέξτε έναν δορυφόρο για να δείτε τις διελεύσεις"
+    "geo_stat": "Γεωστατικος",
+    "geo_sync": "Γεωσυγχρονος",
+    "no_satellite_selected": "Παρακαλω επιλέξτε έναν δορυφόρο για να δείτε τις διελεύσεις"
   },
   "rig_control": {
     "title": "Ελεγχος ραδιοφωνικού rig",
-    "connected": "Συνδεδεμένο",
+    "connected": "Συνδεδεμενο",
     "not_connected": "Δεν έχει συνδεθεί",
     "unknown": "Αγνωστο",
-    "failed_start_tracking": "Αποτυχία έναρξης παρακολούθησης",
+    "failed_start_tracking": "Αποτυχια έναρξης παρακολούθησης",
     "on_rig": "Στη συσκευή:",
-    "doppler_shift": "Μετατόπιση:",
-    "transmitted": "Εκπεμπόμενη:",
-    "observed": "Παρατηρούμενη:",
+    "doppler_shift": "Μετατοπιση:",
+    "transmitted": "Εκπεμπομενη:",
+    "observed": "Παρατηρουμενη:",
     "connect": "ΣΥΝΔΕΣΗ",
     "disconnect": "ΑΠΟΣΥΝΔΕΣΗ",
     "track_radio": "ΠΑΡΑΚΟΛΟΥΘΗΣΗ ΡΑΔΙΟΦΩΝΟΥ",
@@ -84,7 +92,7 @@
   },
   "rotator_control": {
     "title": "Ελεγχος περιστροφέα",
-    "failed_start_tracking": "Αποτυχία έναρξης παρακολούθησης με τον περιστροφέα",
+    "failed_start_tracking": "Αποτυχια έναρξης παρακολούθησης με τον περιστροφέα",
     "az": "ΑΖ:",
     "el": "ΥΨ:",
     "ccw": "⟲ ΑΡΙΣΤ",
@@ -97,20 +105,20 @@
     "track": "ΠΑΡΑΚΟΛΟΥΘΗΣΗ",
     "stop": "ΔΙΑΚΟΠΗ",
     "manual_control": "ΧΕΙΡΟΚΙΝΗΤΟΣ ΕΛΕΓΧΟΣ",
-    "manual_help": "Εισαγάγετε θέση ή χρησιμοποιήστε τα καντράν και μετά πατήστε Μετακίνηση. Η αυτόματη παρακολούθηση πρέπει να έχει σταματήσει.",
-    "manual_azimuth": "Αζιμούθιο ({{min}}°–{{max}}°)",
-    "manual_elevation": "Ύψος ({{min}}°–{{max}}°)",
+    "manual_help": "Εισαγαγετε θέση ή χρησιμοποιήστε τα καντράν και μετά πατήστε Μετακινηση. Η αυτόματη παρακολούθηση πρέπει να έχει σταματήσει.",
+    "manual_azimuth": "Αζιμουθιο ({{min}}°–{{max}}°)",
+    "manual_elevation": "Υψος ({{min}}°–{{max}}°)",
     "move": "ΜΕΤΑΚΙΝΗΣΗ",
     "close": "ΚΛΕΙΣΙΜΟ"
   },
   "satellite_search": {
-    "search_label": "Αναζήτηση δορυφόρων (κατά όνομα ή NORAD ID)"
+    "search_label": "Αναζητηση δορυφόρων (κατά όνομα ή NORAD ID)"
   },
   "satellite_dropdown": {
-    "label": "Δορυφόρος"
+    "label": "Δορυφορος"
   },
   "satellite_info": {
-    "title": "Πληροφορίες δορυφόρου",
+    "title": "Πληροφοριες δορυφόρου",
     "sections": {
       "position_data": "ΔΕΔΟΜΕΝΑ ΘΕΣΗΣ",
       "orbital_data": "ΤΡΟΧΙΑΚΑ ΔΕΔΟΜΕΝΑ",
@@ -137,63 +145,79 @@
     }
   },
   "errors": {
-    "failed_get_tracking_state": "Αποτυχία λήψης κατάστασης παρακολούθησης"
+    "failed_get_tracking_state": "Αποτυχια λήψης κατάστασης παρακολούθησης"
   },
   "group_dropdown": {
-    "label": "Ομάδα",
-    "user_groups": "Ομάδες δορυφόρων που ορίστηκαν από τον χρήστη",
-    "tle_groups": "Ομάδες δορυφόρων με τροχιακή πηγή",
-    "none_created": "Κανένα δεν έχει δημιουργηθεί"
+    "label": "Ομαδα",
+    "user_groups": "Ομαδες δορυφόρων που ορίστηκαν από τον χρήστη",
+    "tle_groups": "Ομαδες δορυφόρων με τροχιακή πηγή",
+    "none_created": "Κανενα δεν έχει δημιουργηθεί"
   },
   "rig_control_labels": {
-    "rig_label": "Ραδιοφωνικό rig",
-    "transmitter_label": "Πομποδέκτης",
+    "rig_label": "Ραδιοφωνικο rig",
+    "transmitter_label": "Πομποδεκτης",
     "no_rig_control": "[χωρίς έλεγχο ραδιοφωνικού rig]",
     "select_rig": "επιλέξτε ένα rig",
     "select_sdr": "επιλέξτε ένα SDR",
     "no_frequency_control": "[χωρίς έλεγχο συχνότητας]",
     "select_transmitter": "επιλέξτε έναν πομποδέκτη",
-    "no_transmitters": "Δεν υπάρχουν διαθέσιμοι πομποδέκτες για αυτόν τον δορυφόρο"
+    "no_transmitters": "Δεν υπάρχουν διαθέσιμοι πομποδέκτες για αυτόν τον δορυφόρο",
+    "vfo_label": "VFO",
+    "no_vfo_control": "[δεν υπάρχει έλεγχος VFO]",
+    "select_vfo": "επιλέξτε ένα VFO"
   },
   "rotator_control_labels": {
-    "rotator_label": "Περιστροφέας",
-    "none": "Κανένας",
-    "rotators": "Περιστροφείς",
+    "rotator_label": "Περιστροφεας",
+    "none": "Κανενας",
+    "rotators": "Περιστροφεις",
     "no_rotator_control": "[χωρίς έλεγχο περιστροφέα]",
     "select_rotator": "επιλέξτε έναν περιστροφέα"
   },
   "satellite_selector": {
-    "title": "Επιλέξτε έναν δορυφόρο",
+    "title": "Επιλεξτε έναν δορυφόρο",
     "stop_tracking": "ΔΙΑΚΟΠΗ ΠΑΡΑΚΟΛΟΥΘΗΣΗΣ"
   },
   "satellite_map": {
-    "title": "Παρακολούθηση στόχου"
+    "title": "Παρακολουθηση στόχου"
   },
   "target_retarget_dialog": {
-    "title": "Αλλαγή στόχευσης θέσης ή δημιουργία νέου στόχου"
+    "title": "Αλλαγη στόχευσης θέσης ή δημιουργία νέου στόχου",
+    "cancel": "Ακυρωση",
+    "confirm_create": "Δημιουργια νέου στόχου",
+    "confirm_retarget": "Επαναστοχευση επιλεγμένης θέσης",
+    "no_rig": "Δεν υπάρχει έλεγχος πομποδέκτη",
+    "no_rotator": "Δεν υπάρχει έλεγχος περιστροφέα",
+    "no_slots": "Δεν υπάρχουν διαθέσιμες ενεργές θέσεις στόχου για επαναστόχευση.",
+    "no_target": "Δεν επιλέχθηκε στόχος",
+    "option_new_title": "ΔΗΜΙΟΥΡΓΙΑ ΝΕΑΣ ΘΕΣΗΣ ΣΤΟΧΟΥ",
+    "or": "ή",
+    "submit_failed": "Αποτυχια εφαρμογής επιλογής στόχου.",
+    "submitting": "Υποβολη...",
+    "subtitle": "Επιλεξτε να στοχεύσετε ξανά την ενεργή υποδοχή ή να δημιουργήσετε μια νέα",
+    "this_target": "αυτός ο στόχος"
   },
   "pass_timeline": {
-    "title": "Χρονοδιάγραμμα Διελεύσεων για {{name}} - Επόμενες {{hours}} ώρες"
+    "title": "Χρονοδιαγραμμα Διελευσεων για {{name}} - Επομενες {{hours}} ώρες"
   },
   "timeline": {
-    "zoomIn": "Μεγέθυνση",
-    "zoomOut": "Σμίκρυνση",
-    "resetZoom": "Επαναφορά Μεγέθυνσης",
-    "sunrise": "Ανατολή",
-    "sunset": "Δύση",
+    "zoomIn": "Μεγεθυνση",
+    "zoomOut": "Σμικρυνση",
+    "resetZoom": "Επαναφορα Μεγεθυνσης",
+    "sunrise": "Ανατολη",
+    "sunset": "Δυση",
     "now": "ΤΩΡΑ",
     "noPassesAvailable": "Δεν υπάρχουν διαθέσιμες διελεύσεις",
     "noPassesForSelected": "Δεν υπάρχουν διελεύσεις για τις επιλεγμένες {{hours}} ώρες",
     "active": "ΕΝΕΡΓΗ",
     "start": "Εναρξη",
-    "end": "Λήξη",
-    "duration": "Διάρκεια",
-    "maxElevation": "Μέγιστο Υψος",
-    "minDistance": "Ελάχιστη Απόσταση"
+    "end": "Ληξη",
+    "duration": "Διαρκεια",
+    "maxElevation": "Μεγιστο Υψος",
+    "minDistance": "Ελαχιστη Αποσταση"
   },
   "satellite_transmitters": {
-    "title": "Πομποδέκτες",
-    "count": "Πλήθος",
+    "title": "Πομποδεκτες",
+    "count": "Πληθος",
     "sections": {
       "communication_overview": "ΕΠΙΣΚΟΠΗΣΗ ΕΠΙΚΟΙΝΩΝΙΑΣ",
       "transmitter_details": "ΛΕΠΤΟΜΕΡΕΙΕΣ ΠΟΜΠΟΔΕΚΤΩΝ"
@@ -203,15 +227,46 @@
       "active": "ΕΝΕΡΓΟΙ",
       "inactive": "ΑΝΕΝΕΡΓΟΙ",
       "frequency_bands": "ΖΩΝΕΣ ΣΥΧΝΟΤΗΤΩΝ",
-      "downlink": "Downlink",
-      "mode": "Λειτουργία",
+      "downlink": "Καθοδος",
+      "mode": "Λειτουργια",
       "baud": "Baud",
-      "band": "Ζώνη"
+      "band": "Ζωνη"
     },
     "messages": {
       "frequency_violation": "⚠️ ΠΑΡΑΒΙΑΣΗ ΣΥΧΝΟΤΗΤΑΣ",
-      "no_transmitters": "Δεν Υπάρχουν Διαθέσιμοι Πομποδέκτες",
-      "no_transmitters_desc": "Αυτός ο δορυφόρος δεν έχει καταχωρημένους πομποδέκτες."
+      "no_transmitters": "Δεν Υπαρχουν Διαθεσιμοι Πομποδεκτες",
+      "no_transmitters_desc": "Αυτος ο δορυφόρος δεν έχει καταχωρημένους πομποδέκτες."
     }
+  },
+  "view_picker": {
+    "label": "Προβολη",
+    "map": "Δισδιαστατος χάρτης",
+    "globe": "Υδρογειος",
+    "sky": "Ουρανος",
+    "automatic": "Αυτοματη προβολή βάσει ορατότητας",
+    "solar_system": "Ηλιακο σύστημα"
+  },
+  "view_settings": {
+    "customize_title": "Προσαρμογη τρέχουσας εμφάνισης",
+    "interaction_title": "Αλληλεπιδραση",
+    "interaction_description": "Ελεγξτε την άμεση αλληλεπίδραση του δείκτη μέσα στην τρέχουσα προβολή.",
+    "map_preferences": "Προτιμησεις χάρτη",
+    "map_preferences_description": "Επιλεξτε έναν βασικό χάρτη και ελέγξτε την άμεση αλληλεπίδραση με τον χάρτη.",
+    "sky_interaction_description": "Αλληλεπιδραση δείκτη ελέγχου μέσα στην προβολή ουρανού."
+  },
+  "passes_table_settings": {
+    "title": "Ρυθμισεις πίνακα διελεύσεων",
+    "description": "Επιλεξτε ποιες στήλες θα εμφανίζονται στον πίνακα διελεύσεων",
+    "rows_per_page": "Σειρες ανά σελίδα",
+    "category_time": "Πληροφοριες χρόνου",
+    "category_basic": "Βασικες πληροφορίες",
+    "category_distance": "Πληροφοριες απόστασης",
+    "category_orbital": "Πληροφοριες τροχιάς",
+    "always_visible": "Παντα ορατά",
+    "close": "Κλεισιμο"
+  },
+  "target_search": {
+    "retarget_hint": "Αναζητηση δορυφόρων, αποστολών ή σωμάτων. Η επιλογή ενός αποτελέσματος επαναστοχοποιεί αμέσως τον ενεργό στόχο.",
+    "search_label": "Αναζητηση δορυφόρων, αποστολών ή ουράνιων σωμάτων"
   }
 }

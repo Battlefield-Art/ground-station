@@ -22,7 +22,20 @@
     "status_reentered": "Wieder eingetreten",
     "invalid_date": "Ungültiges Datum",
     "na": "N/V",
-    "no_group_selected": "Bitte wählen Sie eine Satellitengruppe aus, um Satelliten anzuzeigen"
+    "no_group_selected": "Bitte wählen Sie eine Satellitengruppe aus, um Satelliten anzuzeigen",
+    "context_menu": {
+      "set_as_target": "Als Ziel festlegen...",
+      "edit_properties": "Eigenschaften bearbeiten...",
+      "edit_transmitters": "Sender bearbeiten...",
+      "schedule_observation": "Beobachtung planen...",
+      "monitor_satellite": "Diesen Satelliten überwachen...",
+      "copy_norad": "NORAD-ID kopieren",
+      "copy_summary": "Satellitenübersicht kopieren",
+      "edit_transmitters_title": "Sender bearbeiten: {{name}}"
+    },
+    "below_horizon": "Unter dem Horizont",
+    "visibility": "Sichtbarkeit",
+    "visible": "Sichtbar"
   },
   "passes_table": {
     "title": "Überflüge für die nächsten {{hours}} Stunden",
@@ -48,7 +61,55 @@
     "automatic_observation_tooltip": "Dieser Überflug wird automatisch beobachtet",
     "no_value": "kein Wert",
     "no_data": "Keine Daten",
-    "no_passes": "Keine Überflüge für die nächsten {{hours}} Stunden erkannt"
+    "no_passes": "Keine Überflüge für die nächsten {{hours}} Stunden erkannt",
+    "alternative_name": "Alternative Bezeichnung",
+    "name_other": "Anderer Name",
+    "direction": "Richtung",
+    "direction_values": {
+      "cw": "CW",
+      "ccw": "CCW",
+      "mixed": "Gemischt"
+    },
+    "pass_types": "Überflugtypen",
+    "pass_tag_labels": {
+      "north_crossing": "N-Kreuzung",
+      "south_crossing": "S-Kreuzung",
+      "direction_cw": "CW",
+      "direction_ccw": "CCW",
+      "direction_mixed": "Gemischt",
+      "direction_e_to_w": "E>W",
+      "direction_w_to_e": "W>E",
+      "elevation_low": "Niedrige EL",
+      "elevation_medium": "Mittlere EL",
+      "elevation_high": "Hohe EL",
+      "elevation_overhead": "Zenitnah"
+    },
+    "pass_tag_tooltips": {
+      "north_crossing": "Der Überflug kreuzt den Norden (0° Azimut).",
+      "south_crossing": "Der Überflug kreuzt den Süden (180° Azimut).",
+      "direction_cw": "Der Satellit bewegt sich im Uhrzeigersinn über den Himmel.",
+      "direction_ccw": "Der Satellit bewegt sich gegen den Uhrzeigersinn über den Himmel.",
+      "direction_mixed": "Der Satellit ändert während des Überflugs seine Richtung.",
+      "direction_e_to_w": "Der Satellit bewegt sich von Ost nach West.",
+      "direction_w_to_e": "Der Satellit bewegt sich von West nach Ost.",
+      "elevation_low": "Die maximale Elevation liegt unter 30°.",
+      "elevation_medium": "Die maximale Elevation liegt zwischen 30° und unter 60°.",
+      "elevation_high": "Die maximale Elevation liegt zwischen 60° und unter 80°.",
+      "elevation_overhead": "Die maximale Elevation beträgt mindestens 80°."
+    },
+    "transmitter_link_tooltips": {
+      "same_band": "{{count}} Transmitter mit {{band}} Uplink und Downlink",
+      "split_band": "{{count}} Sender mit {{uplinkBand}} Uplink und {{downlinkBand}} Downlink",
+      "uplink_only": "{{count}} Sender mit nur {{uplinkBand}} Uplink",
+      "downlink_only": "{{count}} Sender mit nur {{downlinkBand}} Downlink",
+      "unknown": "{{count}}-Sender ohne aufgeführtes Uplink- oder Downlink-Band",
+      "details": "Details: {{descriptions}}"
+    },
+    "context_menu": {
+      "copy_pass_window": "Überflugfenster kopieren",
+      "copy_pass_summary": "Überflugübersicht kopieren"
+    },
+    "tracked_tooltip": "Aktueller Zielsatellit"
   },
   "satellite_selector": {
     "title": "Satellitengruppe auswählen",
@@ -107,10 +168,34 @@
     "go_home": "Zur Startposition",
     "go_to_center": "Zur Kartenmitte",
     "go_fullscreen": "Vollbildmodus",
-    "map_settings": "Karteneinstellungen"
+    "map_settings": "Karteneinstellungen",
+    "zoom_in": "Vergrößern",
+    "zoom_out": "Verkleinern"
   },
   "weather_errors": {
     "fetch_failed": "Wetterdaten konnten nicht abgerufen werden",
     "failed_to_fetch": "Fehler beim Abrufen der Wetterdaten"
+  },
+  "satellites_table_settings": {
+    "title": "Einstellungen der Satellitentabelle",
+    "description": "Wählen Sie aus, welche Spalten in der Satellitentabelle angezeigt werden sollen",
+    "rows_per_page": "Zeilen pro Seite",
+    "category_basic": "Basisinformationen",
+    "category_names": "Satellitennamen",
+    "category_metadata": "Metadaten",
+    "always_visible": "immer sichtbar",
+    "close": "Schließen"
+  },
+  "passes_table_settings": {
+    "title": "Einstellungen der Überflugtabelle",
+    "description": "Wählen Sie die Spalten aus, die in der Überflugtabelle angezeigt werden sollen.",
+    "rows_per_page": "Zeilen pro Seite",
+    "category_basic": "Basisinformationen",
+    "category_names": "Satellitennamen",
+    "category_time": "Zeitangaben",
+    "category_distance": "Entfernungsangaben",
+    "category_orbital": "Orbitalinformationen",
+    "always_visible": "immer sichtbar",
+    "close": "Schließen"
   }
 }

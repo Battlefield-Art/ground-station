@@ -1,1 +1,107 @@
-{}
+{
+  "title": "Explorador de archivos",
+  "sort_by": "Ordenar por",
+  "sort": {
+    "created": "Fecha Creada",
+    "modified": "Fecha modificada",
+    "name": "Nombre",
+    "size": "Tamaño",
+    "sample_rate": "Tasa de muestreo"
+  },
+  "filter": "Filtro",
+  "filters": {
+    "recordings": "Grabaciones",
+    "snapshots": "Juegos de rol",
+    "decoded": "Decodificado",
+    "audio": "Audio"
+  },
+  "sort_order": {
+    "ascending": "Ascendencia",
+    "descending": "Descendiente"
+  },
+  "refresh": "Actualizar",
+  "storage": {
+    "title": "Almacenamiento",
+    "used": "utilizado",
+    "available": "disponible"
+  },
+  "no_files": {
+    "title": "No hay archivos encontrados",
+    "message_filter": "Permite al menos un filtro para ver archivos",
+    "message_empty": "Tome instantáneas o registre datos IQ desde la vista de cascada"
+  },
+  "recording": {
+    "type": "Grabación",
+    "in_progress": "Grabación en curso",
+    "in_progress_message": "Grabación en curso",
+    "snapshot_message": "La instantánea de cascada se guardará en parada",
+    "delete_message": "Esto eliminará el archivo de datos, el archivo de metadatos y la instantánea."
+  },
+  "snapshot": {
+    "type": "Captura",
+    "description": "Cierre de cascada Ground Station"
+  },
+  "audio": {
+    "type": "Grabación de audio",
+    "description": "Grabación de audio VFO",
+    "in_progress": "Grabación de audio",
+    "in_progress_message": "Grabación de audio en progreso"
+  },
+  "details": {
+    "title": "Detalles de grabación",
+    "name": "Nombre",
+    "files": "Archivos",
+    "metadata": "Metadatos",
+    "captures": "Capturas",
+    "data_type": "Tipo de datos",
+    "sample_rate": "Tasa de muestreo",
+    "version": "Versión SigMF",
+    "recorder": "Grabadora",
+    "description": "Descripción",
+    "created": "Creado",
+    "modified": "Modificado"
+  },
+  "actions": {
+    "view_details": "Ver detalles",
+    "download": "Descargar",
+    "download_data": "Descargar datos",
+    "download_metadata": "Descargar Metadata",
+    "download_snapshot": "Descargar Snapshot",
+    "delete": "Suprimir",
+    "cannot_delete_active": "No se puede borrar la grabación activa",
+    "close": "Cerca"
+  },
+  "delete_dialog": {
+    "title_recording": "Eliminar la grabación",
+    "title_snapshot": "Borrar instantáneas",
+    "title_decoded": "Eliminar archivo decodificado",
+    "title_audio": "Eliminar la grabación de audio",
+    "warning": "¡Esta acción no se puede deshacer!",
+    "confirm": "¿Estás seguro de que quieres eliminar",
+    "cancel": "Cancelar",
+    "delete": "Suprimir"
+  },
+  "batch_delete_dialog": {
+    "title": "Eliminar múltiples elementos",
+    "confirm": "¿Seguro que desea eliminar {{count}} elemento(s)?",
+    "message": "Esto eliminará permanentemente todas las grabaciones y instantáneas seleccionadas."
+  },
+  "selection": {
+    "select": "Seleccione",
+    "exit": "Salir de la selección",
+    "no_items": "No hay elementos seleccionados",
+    "count": "{{count}} elemento(s) seleccionados",
+    "select_all": "Seleccione todos",
+    "clear": "Despejado",
+    "delete": "Eliminado"
+  },
+  "toast": {
+    "recording_deleted": "Grabación \"{{name}}\" borrado con éxito",
+    "snapshot_deleted": "Snapshot \"{{name}}\" eliminado con éxito",
+    "decoded_deleted": "Archivo decodificado \"{{name}}\" eliminado con éxito",
+    "audio_deleted": "Grabación de audio \"{{name}}\" borrada con éxito",
+    "delete_failed": "Error al eliminar: {{error}}",
+    "batch_delete_partial": "Algunos artículos no se pueden eliminar",
+    "batch_delete_failed": "Error al eliminar elementos: {{error}}"
+  }
+}

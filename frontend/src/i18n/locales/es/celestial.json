@@ -252,7 +252,7 @@
     "errors": {
       "failed_load_spacecraft_catalog": "No se pudo cargar el catálogo de naves espaciales.",
       "failed_load_body_catalog": "No se pudo cargar el catálogo de cuerpos celestes.",
-      "socket_unavailable": "La conexión de enchufe no está disponible.",
+      "socket_unavailable": "La conexión del socket no está disponible.",
       "display_name_command_required": "El nombre para mostrar y el comando son obligatorios.",
       "command_already_monitored": "Este comando ya está en la lista monitoreada.",
       "select_body_target": "Seleccione un objetivo corporal.",
@@ -302,7 +302,8 @@
       "peak_azimuth": "Azimut máximo",
       "cache": "Cache",
       "stale": "Duro",
-      "source": "Fuente"
+      "source": "Fuente",
+      "current_elevation": "Elevación actual"
     },
     "summary": {
       "start": "Comenzar",

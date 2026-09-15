@@ -302,7 +302,8 @@
       "peak_azimuth": "Azimut de pointe",
       "cache": "Cache",
       "stale": "Vicié",
-      "source": "Source"
+      "source": "Source",
+      "current_elevation": "Élévation actuelle"
     },
     "summary": {
       "start": "Commencer",

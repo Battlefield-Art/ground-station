@@ -9,7 +9,16 @@
     "reconnecting": "Verbindung Wird Wiederhergestellt",
     "attempt": "Versuch {{count}}",
     "connecting": "Verbindung Wird Hergestellt",
-    "establishing_connection": "Verbindung Wird Aufgebaut"
+    "establishing_connection": "Verbindung Wird Aufgebaut",
+    "backend_disconnected": "Backend-Verbindung getrennt",
+    "reconnecting_attempt": "Erneute Verbindung (Versuch {{count}})...",
+    "reconnecting_message": "Verbindung wird wiederhergestellt...",
+    "connecting_to_backend": "Verbindung zum Backend wird hergestellt",
+    "establishing_backend_connection": "Backend-Verbindung wird hergestellt...",
+    "loading_setup_state": "Einrichtungsstatus wird geladen...",
+    "syncing_data": "Daten werden synchronisiert",
+    "loading_initial_state": "Anwendungsdaten werden geladen",
+    "loading_progress": "Geladen {{completed}} von {{total}}"
   },
   "version_update": {
     "new_version_available": "Neue Version Verfügbar",
@@ -47,7 +56,7 @@
   "version_info": {
     "version": "Version:",
     "build_date": "Build-Datum:",
-    "git_commit": "Git Commit:",
+    "git_commit": "Git-Commit:",
     "unknown": "Unbekannt",
     "loading": "Version Wird Geladen...",
     "unavailable": "Version Nicht Verfügbar"
@@ -84,11 +93,18 @@
     "rotator_tracking": "Rotator: Verfolgung (Az: {{az}}°, El: {{el}}°)",
     "rotator_slewing": "Rotator: Schwenkt (Az: {{az}}°, El: {{el}}°)",
     "rotator_stopped": "Rotator: Gestoppt (Az: {{az}}°, El: {{el}}°)",
-    "rotator_connected": "Rotator: Verbunden (Az: {{az}}°, El: {{el}}°)"
+    "rotator_connected": "Rotator: Verbunden (Az: {{az}}°, El: {{el}}°)",
+    "no_targets_configured": "Keine Ziele konfiguriert",
+    "rig_fleet_summary": "Rigs: {{active}} aktiv, {{attention}} erfordern Aufmerksamkeit, {{disconnected}} getrennt",
+    "rotator_fleet_summary": "Rotatoren: {{active}} aktiv, {{attention}} erfordern Aufmerksamkeit, {{disconnected}} getrennt",
+    "warning_below_horizon": "Unter dem Horizont",
+    "warning_below_min_elevation": "Unter minimaler Elevation",
+    "warning_out_of_bounds": "Außerhalb des Bereichs",
+    "warning_parked": "Geparkt"
   },
   "orbital_sync_popover": {
     "syncing": "Synchronisierung: {{progress}}%",
-    "sync_failed": "Synchronisierung Fehlgeschlagen: {{error}}",
+    "sync_failed": "Synchronisierung fehlgeschlagen: {{error}}",
     "last_sync": "Letzte Synchronisierung: {{date}}",
     "satellite_orbital_sync": "Satelliten-Orbitdaten-Synchronisierung",
     "orbital_sync_status": "Orbitdaten-Synchronisierungsstatus",
@@ -102,5 +118,14 @@
     "transmitters": "Transmitter: {{count}}",
     "groups": "Gruppen: {{count}}",
     "errors": "Fehler ({{count}})"
+  },
+  "auth": {
+    "logout": "Abmelden",
+    "logout_confirm_message": "Möchten Sie sich wirklich abmelden?",
+    "logout_confirm_skip": "Nicht erneut anzeigen",
+    "logout_confirm_title": "Abmelden bestätigen"
+  },
+  "common": {
+    "cancel": "Abbrechen"
   }
 }

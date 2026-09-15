@@ -1,13 +1,21 @@
 {
   "map_settings": {
     "title": "Kaartinstellingen",
-    "close": "Sluiten"
+    "close": "Sluiten",
+    "apply": "Toepassen",
+    "reset_defaults": "Standaardinstellingen resetten",
+    "save_failed": "Opslaan mislukt",
+    "saved": "Opgeslagen",
+    "saving": "Opslaan..."
   },
   "map_controls": {
     "map_settings": "Kaartinstellingen",
     "go_home": "Ga naar startlocatie",
     "go_to_center": "Ga naar kaartmidden",
-    "go_fullscreen": "Volledig scherm"
+    "go_fullscreen": "Volledig scherm",
+    "exit_fullscreen": "Volledig scherm afsluiten",
+    "zoom_in": "Inzoomen",
+    "zoom_out": "Uitzoomen"
   },
   "next_passes": {
     "title": "Volgende passages voor {{name}} in de komende {{hours}} uur",
@@ -22,7 +30,50 @@
     "automatic_observation_tooltip": "Deze passage wordt automatisch waargenomen",
     "geo_stat": "GEO Stat",
     "geo_sync": "GEO Sync",
-    "no_satellite_selected": "Selecteer een satelliet om passages te bekijken"
+    "no_satellite_selected": "Selecteer een satelliet om passages te bekijken",
+    "direction": "Richting",
+    "direction_values": {
+      "cw": "CW",
+      "ccw": "CCW",
+      "mixed": "Gemengd"
+    },
+    "pass_types": "Passagetypen",
+    "pass_tag_labels": {
+      "north_crossing": "N-kruis",
+      "south_crossing": "S-kruis",
+      "direction_cw": "CW",
+      "direction_ccw": "CCW",
+      "direction_mixed": "Gemengd",
+      "direction_e_to_w": "E>W",
+      "direction_w_to_e": "W>E",
+      "elevation_low": "Laag EL",
+      "elevation_medium": "Gemiddelde EL",
+      "elevation_high": "Hoge EL",
+      "elevation_overhead": "Overhead"
+    },
+    "pass_tag_tooltips": {
+      "north_crossing": "De passage kruist het noorden (0° azimut).",
+      "south_crossing": "De passage kruist het zuiden (180° azimut).",
+      "direction_cw": "De satelliet beweegt met de klok mee door de lucht.",
+      "direction_ccw": "De satelliet beweegt tegen de klok in door de lucht.",
+      "direction_mixed": "De satelliet verandert tijdens de passage van richting.",
+      "direction_e_to_w": "De satelliet reist van oost naar west.",
+      "direction_w_to_e": "De satelliet reist van west naar oost.",
+      "elevation_low": "De maximale elevatie is lager dan 30°.",
+      "elevation_medium": "De maximale elevatie ligt tussen 30° en 60°.",
+      "elevation_high": "De maximale elevatie ligt tussen 60° en 80°.",
+      "elevation_overhead": "De maximale elevatie is 80° of hoger."
+    },
+    "transmitter_links": "Koppelingen",
+    "transmitter_link_tooltips": {
+      "same_band": "{{count}} zender(s) met {{band}}-uplink en -downlink",
+      "split_band": "{{count}} zender(s) met {{uplinkBand}} uplink en {{downlinkBand}} downlink",
+      "uplink_only": "{{count}}-zender(s) met alleen {{uplinkBand}}-uplink",
+      "downlink_only": "{{count}}-zender(s) met alleen {{downlinkBand}}-downlink",
+      "unknown": "{{count}} zender(s) zonder vermelde uplink- of downlinkband",
+      "details": "Details: {{descriptions}}"
+    },
+    "no_data": "Geen gegevens"
   },
   "rig_control": {
     "title": "Radio rig controle",
@@ -103,14 +154,17 @@
     "none_created": "Geen gemaakt"
   },
   "rig_control_labels": {
-    "rig_label": "Radio rig",
+    "rig_label": "Radio-installatie",
     "transmitter_label": "Zender",
     "no_rig_control": "[geen radio rig controle]",
     "select_rig": "selecteer een rig",
     "select_sdr": "selecteer een SDR",
     "no_frequency_control": "[geen frequentiecontrole]",
     "select_transmitter": "selecteer een zender",
-    "no_transmitters": "Geen zenders beschikbaar voor deze satelliet"
+    "no_transmitters": "Geen zenders beschikbaar voor deze satelliet",
+    "vfo_label": "VFO",
+    "no_vfo_control": "[geen VFO controle]",
+    "select_vfo": "selecteer een VFO"
   },
   "rotator_control_labels": {
     "rotator_label": "Rotator",
@@ -127,7 +181,20 @@
     "title": "Doel volgen"
   },
   "target_retarget_dialog": {
-    "title": "Wijs een slot opnieuw toe of maak een nieuw doel"
+    "title": "Wijs een slot opnieuw toe of maak een nieuw doel",
+    "cancel": "Annuleren",
+    "confirm_create": "Nieuw doel aanmaken",
+    "confirm_retarget": "Geselecteerde positie opnieuw richten",
+    "no_rig": "Geen rigbesturing",
+    "no_rotator": "Geen rotatorbesturing",
+    "no_slots": "Geen actieve doelslots beschikbaar om opnieuw te richten.",
+    "no_target": "Geen doel geselecteerd",
+    "option_new_title": "Nieuwe doelpositie aanmaken",
+    "or": "of",
+    "submit_failed": "Toepassen van doelselectie mislukt.",
+    "submitting": "Toepassen...",
+    "subtitle": "Kies of u de actieve positie opnieuw wilt richten of een nieuwe wilt aanmaken",
+    "this_target": "dit doel"
   },
   "pass_timeline": {
     "title": "Passage Tijdlijn voor {{name}} - Volgende {{hours}} uur"
@@ -170,5 +237,36 @@
       "no_transmitters": "Geen Zenders Beschikbaar",
       "no_transmitters_desc": "Deze satelliet heeft geen geregistreerde zenders."
     }
+  },
+  "view_picker": {
+    "label": "Weergave",
+    "map": "2D kaart",
+    "globe": "Wereldbol",
+    "sky": "Hemel",
+    "automatic": "Automatisch op zichtbaarheid",
+    "solar_system": "Zonnestelsel"
+  },
+  "view_settings": {
+    "customize_title": "Huidige weergave aanpassen",
+    "interaction_title": "Interactie",
+    "interaction_description": "Beheer directe aanwijzerinteractie in de huidige weergave.",
+    "map_preferences": "Kaartvoorkeuren",
+    "map_preferences_description": "Kies een basiskaart en beheer directe kaartinteractie.",
+    "sky_interaction_description": "Beheer aanwijzerinteractie in de hemelbeeldweergave."
+  },
+  "passes_table_settings": {
+    "title": "Instellingen voor passagetabel",
+    "description": "Kies welke kolommen in de passagetabel worden weergegeven",
+    "rows_per_page": "Rijen per pagina",
+    "category_time": "Tijdinformatie",
+    "category_basic": "Basisinformatie",
+    "category_distance": "Informatie over afstand",
+    "category_orbital": "Orbitale informatie",
+    "always_visible": "altijd zichtbaar",
+    "close": "Sluiten"
+  },
+  "target_search": {
+    "retarget_hint": "Zoek satellieten, missies of hemellichamen. Als u een resultaat selecteert, wordt het actieve doel onmiddellijk opnieuw gericht.",
+    "search_label": "Satellieten, missies of hemellichamen zoeken"
   }
 }

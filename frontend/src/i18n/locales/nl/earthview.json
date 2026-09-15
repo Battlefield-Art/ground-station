@@ -22,7 +22,20 @@
     "status_reentered": "Teruggekeerd",
     "invalid_date": "Ongeldige datum",
     "na": "N.v.t.",
-    "no_group_selected": "Selecteer een satellietgroep om satellieten te bekijken"
+    "no_group_selected": "Selecteer een satellietgroep om satellieten te bekijken",
+    "context_menu": {
+      "set_as_target": "Als doelwit ingesteld...",
+      "edit_properties": "Eigenschappen bewerken...",
+      "edit_transmitters": "Transmitters bewerken...",
+      "schedule_observation": "Observatie plannen...",
+      "monitor_satellite": "Deze satelliet bewaken...",
+      "copy_norad": "NORAD-ID kopiëren",
+      "copy_summary": "Satellietoverzicht kopiëren",
+      "edit_transmitters_title": "Transmitters bewerken: {{name}}"
+    },
+    "below_horizon": "Onder Horizon",
+    "visibility": "Zichtbaarheid",
+    "visible": "Zichtbaar"
   },
   "passes_table": {
     "title": "Overvluchten voor de komende {{hours}} uur",
@@ -48,7 +61,55 @@
     "automatic_observation_tooltip": "Deze passage wordt automatisch waargenomen",
     "no_value": "geen waarde",
     "no_data": "Geen gegevens",
-    "no_passes": "Geen overvluchten gedetecteerd voor de komende {{hours}} uur"
+    "no_passes": "Geen overvluchten gedetecteerd voor de komende {{hours}} uur",
+    "alternative_name": "Alternatieve naam",
+    "name_other": "Andere naam",
+    "direction": "Richting",
+    "direction_values": {
+      "cw": "CW",
+      "ccw": "CCW",
+      "mixed": "Gemengd"
+    },
+    "pass_types": "Passagetypen",
+    "pass_tag_labels": {
+      "north_crossing": "N-kruis",
+      "south_crossing": "S-kruis",
+      "direction_cw": "CW",
+      "direction_ccw": "CCW",
+      "direction_mixed": "Gemengd",
+      "direction_e_to_w": "E>W",
+      "direction_w_to_e": "W>E",
+      "elevation_low": "Laag EL",
+      "elevation_medium": "Gemiddelde EL",
+      "elevation_high": "Hoge EL",
+      "elevation_overhead": "Overhead"
+    },
+    "pass_tag_tooltips": {
+      "north_crossing": "De passage kruist het noorden (0° azimut).",
+      "south_crossing": "De passage kruist het zuiden (180° azimut).",
+      "direction_cw": "De satelliet beweegt met de klok mee door de lucht.",
+      "direction_ccw": "De satelliet beweegt tegen de klok in door de lucht.",
+      "direction_mixed": "De satelliet verandert tijdens de passage van richting.",
+      "direction_e_to_w": "De satelliet reist van oost naar west.",
+      "direction_w_to_e": "De satelliet reist van west naar oost.",
+      "elevation_low": "De maximale elevatie is lager dan 30°.",
+      "elevation_medium": "De maximale elevatie ligt tussen 30° en 60°.",
+      "elevation_high": "De maximale elevatie ligt tussen 60° en 80°.",
+      "elevation_overhead": "De maximale elevatie is 80° of hoger."
+    },
+    "transmitter_link_tooltips": {
+      "same_band": "{{count}} zender(s) met {{band}}-uplink en -downlink",
+      "split_band": "{{count}} zender(s) met {{uplinkBand}} uplink en {{downlinkBand}} downlink",
+      "uplink_only": "{{count}}-zender(s) met alleen {{uplinkBand}}-uplink",
+      "downlink_only": "{{count}}-zender(s) met alleen {{downlinkBand}}-downlink",
+      "unknown": "{{count}} zender(s) zonder vermelde uplink- of downlinkband",
+      "details": "Details: {{descriptions}}"
+    },
+    "context_menu": {
+      "copy_pass_window": "Passagevenster kopiëren",
+      "copy_pass_summary": "Passageoverzicht kopiëren"
+    },
+    "tracked_tooltip": "Huidige doelsatelliet"
   },
   "satellite_selector": {
     "title": "Selecteer groep satellieten",
@@ -107,10 +168,34 @@
     "go_home": "Ga naar home",
     "go_to_center": "Ga naar centrum van kaart",
     "go_fullscreen": "Ga naar volledig scherm",
-    "map_settings": "Kaart instellingen"
+    "map_settings": "Kaart instellingen",
+    "zoom_in": "Inzoomen",
+    "zoom_out": "Uitzoomen"
   },
   "weather_errors": {
     "fetch_failed": "Weer gegevens konden niet worden opgehaald",
     "failed_to_fetch": "Ophalen van weer gegevens mislukt"
+  },
+  "satellites_table_settings": {
+    "title": "Satelliettabelinstellingen",
+    "description": "Kies welke kolommen in de satelliettabel worden weergegeven",
+    "rows_per_page": "Rijen per pagina",
+    "category_basic": "Basisinformatie",
+    "category_names": "Satellietnamen",
+    "category_metadata": "Metadata",
+    "always_visible": "altijd zichtbaar",
+    "close": "Sluiten"
+  },
+  "passes_table_settings": {
+    "title": "Instellingen voor passagetabel",
+    "description": "Kies welke kolommen in de passagetabel worden weergegeven",
+    "rows_per_page": "Rijen per pagina",
+    "category_basic": "Basisinformatie",
+    "category_names": "Satellietnamen",
+    "category_time": "Tijdinformatie",
+    "category_distance": "Informatie over afstand",
+    "category_orbital": "Orbitale informatie",
+    "always_visible": "altijd zichtbaar",
+    "close": "Sluiten"
   }
 }

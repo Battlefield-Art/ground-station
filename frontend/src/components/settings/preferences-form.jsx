@@ -76,7 +76,7 @@ const SYSTEM_EDITABLE_KEYS = [
 
 const languageOptions = [
     { name: 'English', value: 'en_US' },
-    { name: 'Eλληνικά', value: 'el_GR' },
+    { name: 'Ελληνικά', value: 'el_GR' },
     { name: 'Français', value: 'fr_FR' },
     { name: 'Español', value: 'es_ES' },
     { name: 'Deutsch', value: 'de_DE' },
@@ -89,7 +89,7 @@ const localeOptions = [
     { name: 'Browser Default', value: 'browser' },
     { name: 'English (United States)', value: 'en-US' },
     { name: 'English (United Kingdom)', value: 'en-GB' },
-    { name: 'Eλληνικά (Greek)', value: 'el-GR' },
+    { name: 'Ελληνικά (Greek)', value: 'el-GR' },
     { name: 'Deutsch (German)', value: 'de-DE' },
     { name: 'Français (French)', value: 'fr-FR' },
     { name: 'Español (Spanish)', value: 'es-ES' },

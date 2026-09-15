@@ -19,10 +19,12 @@
     "toggle_rotator_lines": "Basculer les lignes pointillées d'événements du rotateur",
     "toggle_vfo": "Basculer VFO {{number}}",
     "fft_overflow": "Dépassement de la fréquence de mise à jour FFT — les mises à jour entrantes sont limitées",
-    "bookmark_source_user_defined": "User defined",
+    "bookmark_source_user_defined": "Défini par l’utilisateur",
     "bookmark_source_satnogs": "SATNOGS",
     "bookmark_source_gr_satellites": "gr-satellites",
-    "bookmark_source_satdump": "Satdump"
+    "bookmark_source_satdump": "Satdump",
+    "toggle_neighboring_transmitters": "Basculer les émetteurs satellites voisins",
+    "take_snapshot": "Prendre un instantané de cascade"
   },
   "frequency": {
     "title": "Contrôle de fréquence",
@@ -60,7 +62,16 @@
     "enable_tuner_agc": "Activer AGC du tuner",
     "enable_agc": "Activer AGC",
     "enable_rtl_agc": "Activer RTL AGC",
-    "refresh_params": "Refresh SDR params"
+    "refresh_params": "Actualiser les paramètres du SDR",
+    "antenna_required": "Sélectionnez l'antenne avant de commencer le flux",
+    "gain_required": "Sélectionner le gain avant de commencer le flux",
+    "in_use_badge": "en cours d' utilisation",
+    "loading_recordings": "Chargement des enregistrements...",
+    "no_playback_recording_selected": "[Aucun enregistrement sélectionné]",
+    "no_playback_recordings": "Aucun enregistrement IQ trouvé",
+    "playback_recording": "Enregistrement IQ",
+    "sample_rate_required": "Sélectionnez le taux d'échantillonnage avant de commencer le flux",
+    "unknown_date": "Date inconnue"
   },
   "fft": {
     "title": "FFT",
@@ -69,7 +80,19 @@
     "fft_averaging": "Moyennage FFT",
     "averaging_none": "Aucun",
     "averaging_samples": "{{count}} échantillons",
-    "color_map": "Carte de couleurs"
+    "color_map": "Carte de couleurs",
+    "bandscope_smoothing": "Lissage du Bandscope",
+    "fft_overlap": "Rupture de FFT",
+    "overlap_25": "Sur (25 %)",
+    "overlap_75": "Sur (75 %)",
+    "overlap_depth": "Profondeur de chevauchement",
+    "overlap_depth_segments": "4 segments",
+    "overlap_off": "Arrêt",
+    "overlap_on_50": "Sur (50%)",
+    "smoothing_high": "Élevé",
+    "smoothing_low": "Faible",
+    "smoothing_medium": "Moyenne",
+    "smoothing_off": "Arrêt"
   },
   "vfo": {
     "title": "Contrôles VFO",
@@ -111,7 +134,27 @@
       "ja": "Japonais",
       "zh": "Chinois",
       "ar": "Arabe"
-    }
+    },
+    "locked_by_tracking": "Ce VFO est verrouillé par le processus de suivi par satellite",
+    "audio_demodulation": "Démodulation audio",
+    "audio_demodulation_help": "Comment extraire l'audio du signal RF",
+    "data_decoders": "Décoder les données",
+    "data_decoders_help": "Un démodulateur interne FM ou SSB sera créé au besoin pour décoder certains modes",
+    "decoder_active_info": "La démodulation audio est automatiquement gérée par le décodeur",
+    "decoders_modes": {
+      "none": "Aucune",
+      "sstv": "SSTV",
+      "geoscanimage": "Image géoscane",
+      "morse": "Morse",
+      "lora": "LoRa",
+      "aprs": "APRS",
+      "gmsk": "GMSK",
+      "gfsk": "GFSK",
+      "bpsk": "BPSK"
+    },
+    "lock_to_transmitter": "Verrouillage vers l'émetteur",
+    "none": "Aucune",
+    "locked_to_transmitter_info": "Fréquence corrigée par le doppler"
   },
   "error_dialog": {
     "title": "Erreur survenue",
@@ -119,5 +162,35 @@
   },
   "statusbar": {
     "stopped": "arrêté"
+  },
+  "recording": {
+    "title": "Enregistrement IQ",
+    "filename": "Nom de l'enregistrement",
+    "sampleRate": "Taux d'échantillonnage enregistré",
+    "fullBandwidth": "Bande passante complète ({{rate}})",
+    "centeredBandwidthHelp": "Enregistre la partie centrée du spectre SDR. Centrer le signal avant d'enregistrer.",
+    "fullBandwidthHelp": "Enregistre le spectre SDR complet.",
+    "storageFormat": "Format de stockage IQ",
+    "storageFormatFloat": "Chariot 32 bits IQ (cf32_le)",
+    "storageFormatFloatHelp": "Sans perte, pleine précision IQ. Utilise deux fois l'espace disque de ci16_le.",
+    "storageFormatInt16": "16 bits signé IQ (ci16_le)",
+    "storageFormatInt16Help": "50% moins. Perte seulement si les échantillons sont particulièrement forts.",
+    "statusRecording": "Enregistrement",
+    "statusReady": "Sans enregistrement",
+    "statusAriaLabel": "Enregistrement IQ {{status}}, {{rate}}",
+    "start": "REC",
+    "stop": "Arrête"
+  },
+  "playback": {
+    "title": "IQ Lecture",
+    "select_recording": "Sélectionnez un enregistrement à lire",
+    "refresh": "Actualiser les enregistrements",
+    "no_recordings": "Aucun enregistrement disponible. Enregistrez d'abord quelques données IQ !",
+    "sort_by": "Trier par",
+    "sort_modified": "Date de modification",
+    "sort_created": "Date de création",
+    "sort_name": "Dénomination",
+    "sort_size": "Taille",
+    "sort_sample_rate": "Taux d'échantillonnage"
   }
 }

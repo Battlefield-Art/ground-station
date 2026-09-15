@@ -1,13 +1,21 @@
 {
   "map_settings": {
     "title": "Paramètres de la carte",
-    "close": "Fermer"
+    "close": "Fermer",
+    "apply": "Appliquer",
+    "reset_defaults": "Réinitialiser les valeurs par défaut",
+    "save_failed": "Enregistrer a échoué",
+    "saved": "Enregistrer",
+    "saving": "Sauver..."
   },
   "map_controls": {
     "map_settings": "Paramètres de la carte",
     "go_home": "Retour à l'accueil",
     "go_to_center": "Aller au centre de la carte",
-    "go_fullscreen": "Passer en plein écran"
+    "go_fullscreen": "Passer en plein écran",
+    "exit_fullscreen": "Sortie en plein écran",
+    "zoom_in": "Zoom dans",
+    "zoom_out": "Zoom arrière"
   },
   "next_passes": {
     "title": "Prochains passages de {{name}} dans les {{hours}} prochaines heures",
@@ -22,7 +30,50 @@
     "automatic_observation_tooltip": "Ce passage sera observé automatiquement",
     "geo_stat": "GEO Stat",
     "geo_sync": "GEO Sync",
-    "no_satellite_selected": "Veuillez sélectionner un satellite pour voir les passages"
+    "no_satellite_selected": "Veuillez sélectionner un satellite pour voir les passages",
+    "direction": "Direction",
+    "direction_values": {
+      "cw": "CW",
+      "ccw": "CCW",
+      "mixed": "Mélange"
+    },
+    "pass_types": "Types de passe",
+    "pass_tag_labels": {
+      "north_crossing": "N-cross",
+      "south_crossing": "S-cross",
+      "direction_cw": "CW",
+      "direction_ccw": "CCW",
+      "direction_mixed": "Mélange",
+      "direction_e_to_w": "E>W",
+      "direction_w_to_e": "W>E",
+      "elevation_low": "Faible EL",
+      "elevation_medium": "Moyenne EL",
+      "elevation_high": "Haute EL",
+      "elevation_overhead": "Frais généraux"
+    },
+    "pass_tag_tooltips": {
+      "north_crossing": "Le col traverse le nord (0° azimut).",
+      "south_crossing": "Le col traverse le sud (180° azimut).",
+      "direction_cw": "Le satellite se déplace dans le sens des aiguilles d'une montre dans le ciel.",
+      "direction_ccw": "Le satellite se déplace dans le sens contraire des aiguilles d'une montre à travers le ciel.",
+      "direction_mixed": "Le satellite change de direction pendant le passage.",
+      "direction_e_to_w": "Le satellite voyage d'est en ouest.",
+      "direction_w_to_e": "Le satellite voyage d'ouest en est.",
+      "elevation_low": "L'altitude maximale est inférieure à 30°.",
+      "elevation_medium": "L'altitude maximale est de 30° à moins de 60°.",
+      "elevation_high": "L'altitude maximale est de 60° à moins de 80°.",
+      "elevation_overhead": "L'altitude maximale est de 80° ou plus."
+    },
+    "transmitter_links": "Liens",
+    "transmitter_link_tooltips": {
+      "same_band": "Émetteur(s) {{count}} avec liaison ascendante et liaison descendante {{band}}",
+      "split_band": "Émetteur(s) {{count}} avec liaison ascendante {{uplinkBand}} et liaison descendante {{downlinkBand}}",
+      "uplink_only": "Émetteur(s) {{count}} avec liaison ascendante {{uplinkBand}} seulement",
+      "downlink_only": "Émetteur(s) {{count}} avec liaison descendante {{downlinkBand}} seulement",
+      "unknown": "Émetteur(s) {{count}} sans liaison ascendante ou bande descendante répertoriée",
+      "details": "Détails: {{descriptions}}"
+    },
+    "no_data": "Pas de données"
   },
   "rig_control": {
     "title": "Contrôle de la radio",
@@ -110,7 +161,10 @@
     "select_sdr": "sélectionner un SDR",
     "no_frequency_control": "[aucun contrôle de fréquence]",
     "select_transmitter": "sélectionner un émetteur",
-    "no_transmitters": "Aucun émetteur disponible pour ce satellite"
+    "no_transmitters": "Aucun émetteur disponible pour ce satellite",
+    "vfo_label": "VFO",
+    "no_vfo_control": "[pas de contrôle VFO]",
+    "select_vfo": "sélectionner un VFO"
   },
   "rotator_control_labels": {
     "rotator_label": "Rotateur",
@@ -127,7 +181,20 @@
     "title": "Suivi de la cible"
   },
   "target_retarget_dialog": {
-    "title": "Réassigner un emplacement ou créer une nouvelle cible"
+    "title": "Réassigner un emplacement ou créer une nouvelle cible",
+    "cancel": "Annuler",
+    "confirm_create": "Créer une nouvelle cible",
+    "confirm_retarget": "Recibler la fente sélectionnée",
+    "no_rig": "Pas de contrôle de la plate-forme",
+    "no_rotator": "Aucune commande de rotation",
+    "no_slots": "Pas de créneaux cibles actifs disponibles pour recibler.",
+    "no_target": "Aucune cible sélectionnée",
+    "option_new_title": "Créer une nouvelle fente cible",
+    "or": "ou",
+    "submit_failed": "La sélection de la cible a échoué.",
+    "submitting": "Appliquer...",
+    "subtitle": "Choisir de recibler l’emplacement actif ou d’en créer un nouveau",
+    "this_target": "cette cible"
   },
   "pass_timeline": {
     "title": "Chronologie des passages pour {{name}} - Prochaines {{hours}} heures"
@@ -170,5 +237,36 @@
       "no_transmitters": "Aucun émetteur disponible",
       "no_transmitters_desc": "Ce satellite n'a aucun émetteur enregistré."
     }
+  },
+  "view_picker": {
+    "label": "Affichage",
+    "map": "Carte 2D",
+    "globe": "Globe",
+    "sky": "Ciel",
+    "automatic": "Auto par visibilité",
+    "solar_system": "Système solaire"
+  },
+  "view_settings": {
+    "customize_title": "Personnaliser la vue actuelle",
+    "interaction_title": "Interactions",
+    "interaction_description": "Contrôler l'interaction directe du pointeur dans la vue actuelle.",
+    "map_preferences": "Préférences de la carte",
+    "map_preferences_description": "Choisissez une carte de base et contrôlez l'interaction directe de la carte.",
+    "sky_interaction_description": "Contrôle l'interaction des pointeurs dans la vue du ciel."
+  },
+  "passes_table_settings": {
+    "title": "Passe les paramètres de la table",
+    "description": "Choisissez les colonnes à afficher dans la table des passes",
+    "rows_per_page": "Lignes par page",
+    "category_time": "Informations sur l'heure",
+    "category_basic": "Informations de base",
+    "category_distance": "Informations sur la distance",
+    "category_orbital": "Informations orbitales",
+    "always_visible": "toujours visible",
+    "close": "Fermer"
+  },
+  "target_search": {
+    "retarget_hint": "Rechercher des satellites, des missions ou des corps. Sélectionner un résultat recible immédiatement la cible active.",
+    "search_label": "Satellites, missions ou organismes de recherche"
   }
 }

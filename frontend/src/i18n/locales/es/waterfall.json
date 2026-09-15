@@ -19,10 +19,12 @@
     "toggle_rotator_lines": "Alternar líneas punteadas de eventos del rotor",
     "toggle_vfo": "Alternar VFO {{number}}",
     "fft_overflow": "Sobrecarga en tasa de actualización FFT — las actualizaciones entrantes están siendo limitadas",
-    "bookmark_source_user_defined": "User defined",
+    "bookmark_source_user_defined": "Definido por el usuario",
     "bookmark_source_satnogs": "SATNOGS",
     "bookmark_source_gr_satellites": "gr-satellites",
-    "bookmark_source_satdump": "Satdump"
+    "bookmark_source_satdump": "Satdump",
+    "toggle_neighboring_transmitters": "Transmisores de satélite vecinos",
+    "take_snapshot": "Toma la instantánea de cascada"
   },
   "frequency": {
     "title": "Control de frecuencia",
@@ -60,7 +62,16 @@
     "enable_tuner_agc": "Habilitar AGC del sintonizador",
     "enable_agc": "Habilitar AGC",
     "enable_rtl_agc": "Habilitar RTL AGC",
-    "refresh_params": "Refresh SDR params"
+    "refresh_params": "Actualizar parámetros del SDR",
+    "antenna_required": "Seleccione la antena antes de iniciar el flujo",
+    "gain_required": "Seleccione ganancia antes de iniciar el flujo",
+    "in_use_badge": "en uso",
+    "loading_recordings": "Cargando grabaciones...",
+    "no_playback_recording_selected": "[sin grabación seleccionada]",
+    "no_playback_recordings": "No se encontraron grabaciones IQ",
+    "playback_recording": "Registro IQ",
+    "sample_rate_required": "Seleccione la tasa de muestra antes de iniciar el flujo",
+    "unknown_date": "Fecha desconocida"
   },
   "fft": {
     "title": "FFT",
@@ -69,7 +80,19 @@
     "fft_averaging": "Promediado FFT",
     "averaging_none": "Ninguno",
     "averaging_samples": "{{count}} muestras",
-    "color_map": "Mapa de Colores"
+    "color_map": "Mapa de Colores",
+    "bandscope_smoothing": "Suavizado del analizador de banda",
+    "fft_overlap": "Superposición FFT",
+    "overlap_25": "En (25%)",
+    "overlap_75": "Sobre (75%)",
+    "overlap_depth": "Profundidad",
+    "overlap_depth_segments": "4 segmentos",
+    "overlap_off": "Fuera.",
+    "overlap_on_50": "En (50%)",
+    "smoothing_high": "Alto",
+    "smoothing_low": "Baja",
+    "smoothing_medium": "Mediana",
+    "smoothing_off": "Fuera."
   },
   "vfo": {
     "title": "Controles VFO",
@@ -111,7 +134,27 @@
       "ja": "Japonés",
       "zh": "Chino",
       "ar": "Árabe"
-    }
+    },
+    "locked_by_tracking": "Este VFO está bloqueado por el proceso de rastreo por satélite",
+    "audio_demodulation": "Demodulación de audio",
+    "audio_demodulation_help": "Cómo extraer el audio de la señal RF",
+    "data_decoders": "Decodificadores de datos",
+    "data_decoders_help": "Un demodulador interno FM o SSB se activará según sea necesario para decodificar algunos modos",
+    "decoder_active_info": "Demodulación de audio es manejado automáticamente por el decodificador",
+    "decoders_modes": {
+      "none": "Ninguno",
+      "sstv": "SSTV",
+      "geoscanimage": "Imagen geoescana",
+      "morse": "Morse",
+      "lora": "LoRa",
+      "aprs": "APRS",
+      "gmsk": "GMSK",
+      "gfsk": "GFSK",
+      "bpsk": "BPSK"
+    },
+    "lock_to_transmitter": "Cierre para el transmisor",
+    "none": "Ninguno",
+    "locked_to_transmitter_info": "Rastreo de frecuencia corregida por doppler"
   },
   "error_dialog": {
     "title": "Ocurrió un Error",
@@ -119,5 +162,35 @@
   },
   "statusbar": {
     "stopped": "detenido"
+  },
+  "recording": {
+    "title": "Registro IQ",
+    "filename": "Nombre de grabación",
+    "sampleRate": "Tasa de muestra grabada",
+    "fullBandwidth": "Ancho completo de banda ({{rate}})",
+    "centeredBandwidthHelp": "Registra la porción centrada del espectro SDR. Centro la señal antes de grabar.",
+    "fullBandwidthHelp": "Registra el espectro SDR completo.",
+    "storageFormat": "Formato de almacenamiento IQ",
+    "storageFormatFloat": "IQ flotador de 32 bits (cf32_le)",
+    "storageFormatFloatHelp": "IQ, sin pérdida de precisión. Usa dos veces el espacio de disco de ci16_le.",
+    "storageFormatInt16": "IQ firmada por 16 bits (ci16_le)",
+    "storageFormatInt16Help": "50% más pequeño. Perdido sólo si excepcionalmente fuerte muestra clip.",
+    "statusRecording": "Grabación",
+    "statusReady": "Sin grabar",
+    "statusAriaLabel": "Grabación IQ {{status}}, {{rate}}",
+    "start": "REC",
+    "stop": "Para."
+  },
+  "playback": {
+    "title": "Reproducción IQ",
+    "select_recording": "Seleccione una grabación para reproducir",
+    "refresh": "Grabaciones de referencia",
+    "no_recordings": "No hay grabaciones disponibles. ¡Registre algunos datos IQ primero!",
+    "sort_by": "Ordenar por",
+    "sort_modified": "Fecha modificada",
+    "sort_created": "Fecha Creada",
+    "sort_name": "Nombre",
+    "sort_size": "Tamaño",
+    "sort_sample_rate": "Tasa de muestreo"
   }
 }

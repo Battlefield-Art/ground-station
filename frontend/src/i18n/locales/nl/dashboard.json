@@ -9,7 +9,16 @@
     "reconnecting": "Opnieuw verbinden",
     "attempt": "Poging {{count}}",
     "connecting": "Verbinden",
-    "establishing_connection": "Verbinding tot stand brengen"
+    "establishing_connection": "Verbinding tot stand brengen",
+    "backend_disconnected": "Verbinding met backend verbroken",
+    "reconnecting_attempt": "Opnieuw verbinden (poging {{count}})...",
+    "reconnecting_message": "Opnieuw verbinden...",
+    "connecting_to_backend": "Verbinden met backend",
+    "establishing_backend_connection": "Verbinding met backend tot stand brengen...",
+    "loading_setup_state": "Instelstatus wordt geladen...",
+    "syncing_data": "Gegevens synchroniseren",
+    "loading_initial_state": "Initiële toepassingsgegevens laden",
+    "loading_progress": "Geladen {{completed}} van {{total}}"
   },
   "version_update": {
     "new_version_available": "Nieuwe versie beschikbaar",
@@ -84,7 +93,14 @@
     "rotator_tracking": "Rotator: Volgen (Az: {{az}}°, El: {{el}}°)",
     "rotator_slewing": "Rotator: Draaien (Az: {{az}}°, El: {{el}}°)",
     "rotator_stopped": "Rotator: Gestopt (Az: {{az}}°, El: {{el}}°)",
-    "rotator_connected": "Rotator: Verbonden (Az: {{az}}°, El: {{el}}°)"
+    "rotator_connected": "Rotator: Verbonden (Az: {{az}}°, El: {{el}}°)",
+    "no_targets_configured": "Geen doelen ingesteld",
+    "rig_fleet_summary": "Rigvloot: {{active}} actief, {{attention}} vereist aandacht, {{disconnected}} verbroken",
+    "rotator_fleet_summary": "Rotatorvloot: {{active}} actief, {{attention}} vereist aandacht, {{disconnected}} verbroken",
+    "warning_below_horizon": "Onder de horizon",
+    "warning_below_min_elevation": "Onder de minimale elevatie",
+    "warning_out_of_bounds": "Buiten bereik",
+    "warning_parked": "Geparkeerd"
   },
   "orbital_sync_popover": {
     "syncing": "Synchroniseren: {{progress}}%",
@@ -102,5 +118,14 @@
     "transmitters": "Zenders: {{count}}",
     "groups": "Groepen: {{count}}",
     "errors": "Fouten ({{count}})"
+  },
+  "auth": {
+    "logout": "Afmelden",
+    "logout_confirm_message": "Weet je zeker dat je wilt uitloggen?",
+    "logout_confirm_skip": "Laat dit niet meer zien.",
+    "logout_confirm_title": "Afmelden bevestigen"
+  },
+  "common": {
+    "cancel": "Annuleren"
   }
 }

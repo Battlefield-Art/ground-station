@@ -6,7 +6,7 @@
   "waterfall_view": "Watervalaanzicht",
   "hardware": "Hardware",
   "rigs": "Radio's",
-  "rotators": "Rotators",
+  "rotators": "Rotatoren",
   "cameras": "Camera's",
   "sdrs": "SDR's",
   "satellites": "Satellieten",
@@ -16,5 +16,16 @@
   "preferences": "Voorkeuren",
   "location": "Locatie",
   "maintenance": "Onderhoud",
-  "about": "Over"
+  "about": "Over",
+  "operations": "Operaties",
+  "administration": "Administratie",
+  "system": "Systeem",
+  "solar_system": "Zonnestelsel",
+  "live_tracking": "Live tracking",
+  "files": "Bestanden",
+  "scheduler": "Planner",
+  "catalog": "Catalogus",
+  "general": "Algemeen",
+  "integrations": "Integraties",
+  "users": "Gebruikers"
 }

@@ -9,7 +9,16 @@
     "reconnecting": "Reconnecting",
     "attempt": "Attempt {{count}}",
     "connecting": "Connecting",
-    "establishing_connection": "Establishing connection"
+    "establishing_connection": "Establishing connection",
+    "backend_disconnected": "Backend disconnected",
+    "reconnecting_attempt": "Reconnecting (attempt {{count}})...",
+    "reconnecting_message": "Reconnecting...",
+    "connecting_to_backend": "Connecting to backend",
+    "establishing_backend_connection": "Establishing backend connection...",
+    "loading_setup_state": "Loading setup state...",
+    "syncing_data": "Syncing data",
+    "loading_initial_state": "Loading initial application data",
+    "loading_progress": "Loaded {{completed}} of {{total}}"
   },
   "version_update": {
     "new_version_available": "New Version Available",

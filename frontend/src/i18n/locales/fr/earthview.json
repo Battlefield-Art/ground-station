@@ -22,7 +22,20 @@
     "status_reentered": "Rentré",
     "invalid_date": "Date invalide",
     "na": "N/D",
-    "no_group_selected": "Veuillez sélectionner un groupe de satellites pour voir les satellites"
+    "no_group_selected": "Veuillez sélectionner un groupe de satellites pour voir les satellites",
+    "context_menu": {
+      "set_as_target": "Définir comme cible...",
+      "edit_properties": "Modifier les propriétés...",
+      "edit_transmitters": "Modifier les émetteurs...",
+      "schedule_observation": "Observation des horaires...",
+      "monitor_satellite": "Surveille ce satellite...",
+      "copy_norad": "Copier NORAD ID",
+      "copy_summary": "Copier le résumé du satellite",
+      "edit_transmitters_title": "Éditer les émetteurs: {{name}}"
+    },
+    "below_horizon": "Sous Horizon",
+    "visibility": "Visibilité",
+    "visible": "Visibilité"
   },
   "passes_table": {
     "title": "Passages pour les prochaines {{hours}} heures",
@@ -48,7 +61,55 @@
     "automatic_observation_tooltip": "Ce passage sera observé automatiquement",
     "no_value": "aucune valeur",
     "no_data": "Aucune donnée",
-    "no_passes": "Aucun passage détecté pour les prochaines {{hours}} heures"
+    "no_passes": "Aucun passage détecté pour les prochaines {{hours}} heures",
+    "alternative_name": "Autre nom",
+    "name_other": "Autre nom",
+    "direction": "Direction",
+    "direction_values": {
+      "cw": "CW",
+      "ccw": "CCW",
+      "mixed": "Mélange"
+    },
+    "pass_types": "Types de passe",
+    "pass_tag_labels": {
+      "north_crossing": "N-cross",
+      "south_crossing": "S-cross",
+      "direction_cw": "CW",
+      "direction_ccw": "CCW",
+      "direction_mixed": "Mélange",
+      "direction_e_to_w": "E>W",
+      "direction_w_to_e": "W>E",
+      "elevation_low": "Faible EL",
+      "elevation_medium": "Moyenne EL",
+      "elevation_high": "Haute EL",
+      "elevation_overhead": "Frais généraux"
+    },
+    "pass_tag_tooltips": {
+      "north_crossing": "Le col traverse le nord (0° azimut).",
+      "south_crossing": "Le col traverse le sud (180° azimut).",
+      "direction_cw": "Le satellite se déplace dans le sens des aiguilles d'une montre dans le ciel.",
+      "direction_ccw": "Le satellite se déplace dans le sens contraire des aiguilles d'une montre à travers le ciel.",
+      "direction_mixed": "Le satellite change de direction pendant le passage.",
+      "direction_e_to_w": "Le satellite voyage d'est en ouest.",
+      "direction_w_to_e": "Le satellite voyage d'ouest en est.",
+      "elevation_low": "L'altitude maximale est inférieure à 30°.",
+      "elevation_medium": "L'altitude maximale est de 30° à moins de 60°.",
+      "elevation_high": "L'altitude maximale est de 60° à moins de 80°.",
+      "elevation_overhead": "L'altitude maximale est de 80° ou plus."
+    },
+    "transmitter_link_tooltips": {
+      "same_band": "Émetteur(s) {{count}} avec liaison ascendante et liaison descendante {{band}}",
+      "split_band": "Émetteur(s) {{count}} avec liaison ascendante {{uplinkBand}} et liaison descendante {{downlinkBand}}",
+      "uplink_only": "Émetteur(s) {{count}} avec liaison ascendante {{uplinkBand}} seulement",
+      "downlink_only": "Émetteur(s) {{count}} avec liaison descendante {{downlinkBand}} seulement",
+      "unknown": "Émetteur(s) {{count}} sans liaison ascendante ou bande descendante répertoriée",
+      "details": "Détails: {{descriptions}}"
+    },
+    "context_menu": {
+      "copy_pass_window": "Copier la fenêtre de passage",
+      "copy_pass_summary": "Copier le résumé du laissez-passer"
+    },
+    "tracked_tooltip": "Satellite cible actuel"
   },
   "satellite_selector": {
     "title": "Sélectionner un groupe de satellites",
@@ -107,10 +168,34 @@
     "go_home": "Retour à l'accueil",
     "go_to_center": "Aller au centre de la carte",
     "go_fullscreen": "Passer en plein écran",
-    "map_settings": "Paramètres de la carte"
+    "map_settings": "Paramètres de la carte",
+    "zoom_in": "Zoom dans",
+    "zoom_out": "Zoom arrière"
   },
   "weather_errors": {
     "fetch_failed": "Les données météorologiques n'ont pas pu être récupérées",
     "failed_to_fetch": "Échec de la récupération des données météorologiques"
+  },
+  "satellites_table_settings": {
+    "title": "Paramètres de la table des satellites",
+    "description": "Choisissez les colonnes à afficher dans la table des satellites",
+    "rows_per_page": "Lignes par page",
+    "category_basic": "Informations de base",
+    "category_names": "Noms des satellites",
+    "category_metadata": "Métadonnées",
+    "always_visible": "toujours visible",
+    "close": "Fermer"
+  },
+  "passes_table_settings": {
+    "title": "Passe les paramètres de la table",
+    "description": "Choisissez les colonnes à afficher dans la table des passes",
+    "rows_per_page": "Lignes par page",
+    "category_basic": "Informations de base",
+    "category_names": "Noms des satellites",
+    "category_time": "Informations sur l'heure",
+    "category_distance": "Informations sur la distance",
+    "category_orbital": "Informations orbitales",
+    "always_visible": "toujours visible",
+    "close": "Fermer"
   }
 }
