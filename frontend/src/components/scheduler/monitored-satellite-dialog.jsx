@@ -278,6 +278,7 @@ export default function MonitoredSatelliteDialog() {
     });
 
     const [expandedTasks, setExpandedTasks] = useState({});
+    const [transmittersLoading, setTransmittersLoading] = useState(false);
     const [transmitterMenuAnchor, setTransmitterMenuAnchor] = useState(null);
     const [pendingRemoveSessionIndex, setPendingRemoveSessionIndex] = useState(null);
     const [openRemoveSessionConfirm, setOpenRemoveSessionConfirm] = useState(false);
@@ -512,6 +513,7 @@ export default function MonitoredSatelliteDialog() {
     }, [open, dispatch]);
 
     const handleClose = () => {
+        setTransmittersLoading(false);
         dispatch(setMonitoredSatelliteDialogOpen(false));
     };
 
@@ -1075,6 +1077,7 @@ export default function MonitoredSatelliteDialog() {
                         </Typography>
                         <SatelliteSelector 
                             onSatelliteSelect={handleSatelliteSelect} 
+                            onTransmittersLoadingChange={setTransmittersLoading}
                             showPassSelector={false}
                             initialSatellite={selectedMonitoredSatellite?.satellite}
                         />
@@ -1673,7 +1676,27 @@ export default function MonitoredSatelliteDialog() {
                     <Divider />
 
                     {/* Tasks */}
-                    <Box>
+                    <Box sx={{ position: 'relative', minHeight: 120 }}>
+                        <Backdrop
+                            open={transmittersLoading}
+                            sx={{
+                                position: 'absolute',
+                                zIndex: 2,
+                                borderRadius: 1,
+                                color: 'primary.main',
+                                bgcolor: (theme) => theme.palette.mode === 'dark'
+                                    ? 'rgba(18, 18, 18, 0.78)'
+                                    : 'rgba(255, 255, 255, 0.78)',
+                                backdropFilter: 'blur(1px)',
+                            }}
+                        >
+                            <Stack spacing={1} alignItems="center">
+                                <CircularProgress size={32} />
+                                <Typography variant="body2" color="text.secondary">
+                                    {t('scheduler_dialogs.shared.loading_satellite_transmitters')}
+                                </Typography>
+                            </Stack>
+                        </Backdrop>
                         <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
                             <Typography variant="subtitle2" sx={{ color: 'primary.main', fontWeight: 'bold' }}>
                                 {t('scheduler_dialogs.shared.tasks_title')}

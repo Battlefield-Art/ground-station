@@ -197,6 +197,7 @@
       "enter_center_frequency_hz": "Enter center frequency in Hz",
       "select_from_transmitter_list": "← Select from transmitter list",
       "no_transmitters_available": "No transmitters available",
+      "loading_satellite_transmitters": "Loading transmitters for the selected satellite...",
       "tasks_title": "Tasks",
       "task_decoder": "Decoder",
       "task_audio_recording": "Audio Recording",

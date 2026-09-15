@@ -183,7 +183,12 @@ const SatelliteDropdown = ({ onSatelliteSelect, disabled = false }) => {
     );
 };
 
-const SatelliteSearchAutocomplete = ({ onSatelliteSelect, disabled = false, initialSatellite = null }) => {
+const SatelliteSearchAutocomplete = ({
+    onSatelliteSelect,
+    onTransmittersLoadingChange,
+    disabled = false,
+    initialSatellite = null,
+}) => {
     const dispatch = useDispatch();
     const { socket } = useSocket();
     const { searchOptions, searchLoading } = useSelector((state) => state.scheduler?.satelliteSelection || {});
@@ -191,11 +196,14 @@ const SatelliteSearchAutocomplete = ({ onSatelliteSelect, disabled = false, init
     const [open, setOpen] = React.useState(false);
     const [value, setValue] = React.useState(null);
     const [hasInitialized, setHasInitialized] = React.useState(false);
+    const transmitterRequestIdRef = React.useRef(0);
 
     // Set initial value when editing and trigger satellite ID selection (for pass fetching)
     React.useEffect(() => {
         if (initialSatellite && !hasInitialized && socket) {
             setValue(initialSatellite);
+            const requestId = ++transmitterRequestIdRef.current;
+            onTransmittersLoadingChange?.(true);
 
             // Fetch the satellite with transmitters using async thunk
             dispatch(fetchSatelliteWithTransmitters({
@@ -235,11 +243,23 @@ const SatelliteSearchAutocomplete = ({ onSatelliteSelect, disabled = false, init
                     if (onSatelliteSelect) {
                         onSatelliteSelect(initialSatellite);
                     }
+                })
+                .finally(() => {
+                    if (requestId === transmitterRequestIdRef.current) {
+                        onTransmittersLoadingChange?.(false);
+                    }
                 });
 
             setHasInitialized(true);
         }
-    }, [initialSatellite, hasInitialized, socket, dispatch, onSatelliteSelect]);
+    }, [
+        initialSatellite,
+        hasInitialized,
+        socket,
+        dispatch,
+        onSatelliteSelect,
+        onTransmittersLoadingChange,
+    ]);
 
     // Reset initialization when initialSatellite norad_id changes
     React.useEffect(() => {
@@ -265,6 +285,8 @@ const SatelliteSearchAutocomplete = ({ onSatelliteSelect, disabled = false, init
 
     const handleOptionSelect = (event, selectedSatellite) => {
         setValue(selectedSatellite);
+        const requestId = ++transmitterRequestIdRef.current;
+        onTransmittersLoadingChange?.(false);
 
         if (selectedSatellite) {
             // If satellite has groups, populate the dropdowns properly
@@ -277,6 +299,7 @@ const SatelliteSearchAutocomplete = ({ onSatelliteSelect, disabled = false, init
 
                 // Step 2: Fetch satellites for that group
                 if (socket) {
+                    onTransmittersLoadingChange?.(true);
                     socket.emit("api.call", {
   cmd: 'get-satellites-for-group-id',
   data: firstGroup.id
@@ -295,6 +318,14 @@ const SatelliteSearchAutocomplete = ({ onSatelliteSelect, disabled = false, init
     if (onSatelliteSelect && satelliteWithGroupId) {
       onSatelliteSelect(satelliteWithGroupId);
     }
+  } else {
+    // Keep the selected search result, which already contains its transmitters.
+    dispatch(setGroupOfSats([selectedSatellite]));
+    dispatch(setSatelliteId(selectedSatellite.norad_id));
+    onSatelliteSelect?.(selectedSatellite);
+  }
+  if (requestId === transmitterRequestIdRef.current) {
+    onTransmittersLoadingChange?.(false);
   }
 });
                 } else {
@@ -654,13 +685,27 @@ const PassSelector = ({ onPassSelect, initialPass, currentObservationId, disable
     );
 };
 
-export const SatelliteSelector = ({ onSatelliteSelect, onPassSelect, showPassSelector = true, initialSatellite = null, initialPass = null, currentObservationId = null, disabled = false }) => {
+export const SatelliteSelector = ({
+    onSatelliteSelect,
+    onTransmittersLoadingChange,
+    onPassSelect,
+    showPassSelector = true,
+    initialSatellite = null,
+    initialPass = null,
+    currentObservationId = null,
+    disabled = false,
+}) => {
     const dispatch = useDispatch();
     const { socket } = useSocket();
 
     return (
         <Stack spacing={2}>
-            <SatelliteSearchAutocomplete onSatelliteSelect={onSatelliteSelect} disabled={disabled} initialSatellite={initialSatellite} />
+            <SatelliteSearchAutocomplete
+                onSatelliteSelect={onSatelliteSelect}
+                onTransmittersLoadingChange={onTransmittersLoadingChange}
+                disabled={disabled}
+                initialSatellite={initialSatellite}
+            />
             {showPassSelector && <PassSelector onPassSelect={onPassSelect} initialPass={initialPass} currentObservationId={currentObservationId} disabled={disabled} />}
         </Stack>
     );

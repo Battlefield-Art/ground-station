@@ -212,6 +212,7 @@
       "enter_center_frequency_hz": "输入中心频率（Hz）",
       "select_from_transmitter_list": "← 从发射机列表中选择",
       "no_transmitters_available": "无可用发射机",
+      "loading_satellite_transmitters": "正在加载所选卫星的发射机...",
       "tasks_title": "任务",
       "task_decoder": "解码器",
       "task_audio_recording": "音频录制",
