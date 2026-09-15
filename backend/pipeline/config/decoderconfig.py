@@ -49,6 +49,9 @@ class DecoderConfig:
     # BPSK-specific parameters
     differential: Optional[bool] = None  # DBPSK mode
 
+    # SSTV-specific parameters
+    sstv_mode: str = "auto"  # 'auto' or a supported forced mode key
+
     # LoRa-specific parameters
     sf: Optional[int] = None  # Spreading factor (7-12)
     bw: Optional[int] = None  # Bandwidth (125000, 250000, 500000)
@@ -105,6 +108,7 @@ class DecoderConfig:
             and self.deviation == other.deviation
             and self.af_carrier == other.af_carrier
             and self.differential == other.differential
+            and self.sstv_mode == other.sstv_mode
             and self.sf == other.sf
             and self.bw == other.bw
             and self.cr == other.cr
@@ -141,6 +145,7 @@ class DecoderConfig:
                 self.deviation,
                 self.af_carrier,
                 self.differential,
+                self.sstv_mode,
                 self.sf,
                 self.bw,
                 self.cr,
@@ -171,6 +176,7 @@ class DecoderConfig:
             "deviation": self.deviation,
             "af_carrier": self.af_carrier,
             "differential": self.differential,
+            "sstv_mode": self.sstv_mode,
             "sf": self.sf,
             "bw": self.bw,
             "cr": self.cr,

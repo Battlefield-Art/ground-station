@@ -441,6 +441,9 @@ class DecoderConfigService:
         if "differential" in overrides:
             config.differential = overrides["differential"]
 
+        if "sstv_mode" in overrides:
+            config.sstv_mode = str(overrides["sstv_mode"] or "auto").strip().lower()
+
         # LoRa-specific overrides
         if "sf" in overrides:
             config.sf = overrides["sf"]

@@ -50,6 +50,7 @@ _BACKEND_OVERRIDE_KEYS = {
     "gnss_enable_beidou",
     "gnss_enable_qzss",
     "packet_size",
+    "sstv_mode",
 }
 
 
@@ -93,6 +94,8 @@ def map_scheduler_decoder_parameters(decoder_type: str, parameters: Any) -> Dict
             "lora_preamble_len": "preamble_len",
             "lora_fldro": "fldro",
         }
+    elif decoder_type == "sstv":
+        frontend_to_backend = {"sstv_mode": "sstv_mode"}
 
     overrides = {
         backend_key: parameters[frontend_key]

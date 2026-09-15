@@ -74,7 +74,6 @@ const DECODER_TYPES = [
     { value: 'bpsk', labelKey: 'decoder_type_bpsk' },
     { value: 'aprs', labelKey: 'decoder_type_aprs' },
     { value: 'sstv', labelKey: 'decoder_type_sstv' },
-    { value: 'geoscanimage', labelKey: 'decoder_type_geoscanimage' },
 ];
 
 const SSTV_DEFAULT_BANDWIDTH = 12500;

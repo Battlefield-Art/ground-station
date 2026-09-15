@@ -69,6 +69,12 @@ def test_ignores_invalid_scheduler_parameter_containers():
     assert map_scheduler_decoder_parameters("aprs", []) == {}
 
 
+def test_maps_forced_sstv_mode_to_decoder_override():
+    assert map_scheduler_decoder_parameters("sstv", {"sstv_mode": "scottie_s2"}) == {
+        "sstv_mode": "scottie_s2"
+    }
+
+
 async def test_scheduled_aprs_parameters_reach_process_manager(monkeypatch):
     captured_kwargs = {}
 

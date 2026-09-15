@@ -91,6 +91,7 @@ async def update_vfo_parameters(
         "af_carrier",
         "pipeline",
         "target_sample_rate",  # Other decoders
+        "sstv_mode",
         "gnss_sample_rate",
         "gnss_total_channels",
         "gnss_output_rate_ms",

@@ -53,3 +53,23 @@ describe('Geoscan image decoder parameters', () => {
         });
     });
 });
+
+describe('SSTV decoder parameters', () => {
+    it('offers only implemented modes and maps a forced mode to the backend', () => {
+        const mode = getDecoderParameters('sstv').sstv_mode;
+
+        expect(mode.options.map((option) => option.value)).toEqual([
+            'auto',
+            'robot36',
+            'martin_m1',
+            'martin_m2',
+            'scottie_s1',
+            'scottie_s2',
+            'scottie_dx',
+            'wraase_sc2_180',
+        ]);
+        expect(mapParametersToBackend('sstv', { sstv_mode: 'scottie_s2' })).toEqual({
+            sstv_mode: 'scottie_s2',
+        });
+    });
+});

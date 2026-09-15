@@ -419,31 +419,23 @@ export const APRS_PARAMETERS = {
 /**
  * SSTV Decoder Parameters
  * SSTV (Slow Scan Television) supports multiple transmission modes.
- * Mode can be auto-detected via VIS code or manually specified.
+ * Mode can be auto-detected via VIS code or explicitly forced.
  */
 export const SSTV_PARAMETERS = {
     sstv_mode: {
         label: 'SSTV Mode',
-        description: 'SSTV transmission mode (auto-detect or manual)',
+        description: 'Use the received VIS code or force a specific SSTV mode',
         type: 'select',
         default: 'auto',
         options: [
             { value: 'auto', label: 'Auto-detect (VIS code)', tooltip: 'Automatically detect mode from VIS signal' },
-            { value: 'robot36', label: 'Robot 36', tooltip: '36 second color mode' },
-            { value: 'robot72', label: 'Robot 72', tooltip: '72 second color mode' },
-            { value: 'martin_m1', label: 'Martin M1', tooltip: '114 second color mode' },
-            { value: 'martin_m2', label: 'Martin M2', tooltip: '58 second color mode' },
-            { value: 'scottie_s1', label: 'Scottie S1', tooltip: '110 second color mode' },
-            { value: 'scottie_s2', label: 'Scottie S2', tooltip: '71 second color mode' },
-            { value: 'scottie_dx', label: 'Scottie DX', tooltip: '269 second color mode' },
-            { value: 'pd50', label: 'PD 50', tooltip: '50 second color mode' },
-            { value: 'pd90', label: 'PD 90', tooltip: '90 second color mode' },
-            { value: 'pd120', label: 'PD 120', tooltip: '126 second color mode' },
-            { value: 'pd160', label: 'PD 160', tooltip: '161 second color mode' },
-            { value: 'pd180', label: 'PD 180', tooltip: '187 second color mode' },
-            { value: 'pd240', label: 'PD 240', tooltip: '248 second color mode' },
-            { value: 'pd290', label: 'PD 290', tooltip: '289 second color mode' },
-            { value: 'wraase_sc2_180', label: 'Wraase SC2-180', tooltip: '180 second color mode' }
+            { value: 'robot36', label: 'Force: Robot 36', tooltip: 'Ignore VIS and decode as Robot 36' },
+            { value: 'martin_m1', label: 'Force: Martin M1', tooltip: 'Ignore VIS and decode as Martin M1' },
+            { value: 'martin_m2', label: 'Force: Martin M2', tooltip: 'Ignore VIS and decode as Martin M2' },
+            { value: 'scottie_s1', label: 'Force: Scottie S1', tooltip: 'Ignore VIS and decode as Scottie S1' },
+            { value: 'scottie_s2', label: 'Force: Scottie S2', tooltip: 'Ignore VIS and decode as Scottie S2' },
+            { value: 'scottie_dx', label: 'Force: Scottie DX', tooltip: 'Ignore VIS and decode as Scottie DX' },
+            { value: 'wraase_sc2_180', label: 'Force: Wraase SC2-180', tooltip: 'Ignore VIS and decode as Wraase SC2-180' }
         ]
     }
 };
@@ -686,6 +678,12 @@ export function mapParametersToBackend(decoder, parameters) {
         };
     }
 
+    if (decoder === 'sstv') {
+        return {
+            sstv_mode: parameters.sstv_mode ?? 'auto'
+        };
+    }
+
     if (decoder === 'gnss') {
         return {
             gnss_sample_rate: parameters.gnss_sample_rate ?? 4000000,
@@ -700,6 +698,6 @@ export function mapParametersToBackend(decoder, parameters) {
         };
     }
 
-    // SSTV and other decoders have no parameters
+    // Other decoders have no parameters
     return {};
 }

@@ -172,6 +172,32 @@ class SSTVMode(Enum):
     }
 
 
+SSTV_FORCED_MODES = {
+    "robot36": SSTVMode.ROBOT_36,
+    "martin_m1": SSTVMode.MARTIN_M1,
+    "martin_m2": SSTVMode.MARTIN_M2,
+    "scottie_s1": SSTVMode.SCOTTIE_S1,
+    "scottie_s2": SSTVMode.SCOTTIE_S2,
+    "scottie_dx": SSTVMode.SCOTTIE_DX,
+    "wraase_sc2_180": SSTVMode.WRAASE_SC2_180,
+}
+
+
+def resolve_forced_mode(configured_mode: Any) -> SSTVMode | None:
+    """Resolve a configured mode key, reserving ``auto`` for VIS detection."""
+    normalized_mode = str(configured_mode or "auto").strip().lower()
+    if normalized_mode == "auto":
+        return None
+
+    forced_mode = SSTV_FORCED_MODES.get(normalized_mode)
+    if forced_mode is None:
+        supported = ", ".join(sorted(SSTV_FORCED_MODES))
+        raise ValueError(
+            f"Unsupported forced SSTV mode '{normalized_mode}'. Supported modes: {supported}"
+        )
+    return forced_mode
+
+
 # VIS code constants
 VIS_BIT_SIZE = 0.030
 BREAK_OFFSET = 0.300
@@ -213,6 +239,9 @@ class SSTVDecoder(BaseDecoderProcess):
         self.audio_sample_rate = sample_rate
         self.audio_buffer = np.array([], dtype=np.float32)
         self.mode = None
+        self.forced_mode: SSTVMode | None = resolve_forced_mode(
+            getattr(config, "sstv_mode", "auto")
+        )
 
         # Extract satellite and transmitter metadata from config (same pattern as FSKDecoder)
         self.satellite = config.satellite or {}
@@ -234,7 +263,14 @@ class SSTVDecoder(BaseDecoderProcess):
         self.sleep_reason = None
 
         os.makedirs(self.output_dir, exist_ok=True)
-        logger.info(f"SSTV decoder v2 initialized for session {session_id}, VFO {vfo}")
+        mode_name = (
+            f"{self.forced_mode.value['name']} (forced)"
+            if self.forced_mode is not None
+            else "Auto-detect (VIS)"
+        )
+        logger.info(
+            f"SSTV decoder v2 initialized for session {session_id}, VFO {vfo}, mode: {mode_name}"
+        )
 
         # Log satellite and transmitter details for testing/debugging
         if self.satellite:
@@ -580,6 +616,15 @@ class SSTVDecoder(BaseDecoderProcess):
 
         logger.error(f"Unsupported VIS: {vis_value}")
         return None
+
+    def _select_mode(self, vis_start):
+        """Use the configured forced mode or detect the transmitted VIS mode."""
+        if self.forced_mode is not None:
+            logger.info(
+                f"Using forced SSTV mode {self.forced_mode.value['name']}; ignoring transmitted VIS"
+            )
+            return self.forced_mode
+        return self._decode_vis(vis_start)
 
     def _align_sync(self, align_start, start_of_sync=True):
         """Find sync pulse position"""
@@ -1234,8 +1279,11 @@ class SSTVDecoder(BaseDecoderProcess):
                     if vis_end > len(self.audio_buffer):
                         continue
 
-                    logger.info("Found SSTV header, decoding VIS...")
-                    self.mode = self._decode_vis(header_end)
+                    if self.forced_mode is None:
+                        logger.info("Found SSTV header, decoding VIS...")
+                    else:
+                        logger.info("Found SSTV header, applying forced mode...")
+                    self.mode = self._select_mode(header_end)
                     if self.mode is None:
                         self.audio_buffer = self.audio_buffer[vis_end:]
                         continue
