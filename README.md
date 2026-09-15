@@ -633,6 +633,13 @@ for device-specific udev rules, USB passthrough, and verification steps.
 
 We welcome contributions! Please see the [CONTRIBUTING.md](CONTRIBUTING.md) file for details on how to get started.
 
+## AI-Assisted Development
+
+Ground Station is developed with the assistance of large language model (LLM) coding agents. They are used for tasks
+such as implementation, debugging, testing, documentation, and code review. The project maintainer directs their work,
+manages architectural decisions, serves as the final reviewer of all changes, and remains responsible for what is
+accepted into the project.
+
 ## Sponsorship
 
 Sponsorship through [GitHub Sponsors](https://github.com/sponsors/sgoudelis) is voluntary support for the continued
