@@ -20,13 +20,11 @@
 import React, { useMemo, useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    Paper,
     Box,
     Typography,
-    IconButton,
     Stack,
     Chip,
-    Tooltip,
+    Divider,
     Select,
     MenuItem,
     FormControl,
@@ -228,6 +226,11 @@ const ObservationsTimeline = () => {
         dispatch(setDialogOpen(true));
     };
 
+    const handleObservationMouseEnter = (event, obs) => {
+        setTooltipPosition({ x: event.clientX, y: event.clientY });
+        setHoveredObservation(obs);
+    };
+
     const getBarColor = (obs) => {
         if (obs.status === 'running') return '#4caf50';
         if (obs.status === 'completed') return '#42a5f5';
@@ -247,6 +250,22 @@ const ObservationsTimeline = () => {
         if (hours > 0) return `${hours}h ${minutes}m`;
         return `${minutes}m`;
     };
+
+    const formatStatus = (status) => {
+        if (!status) return 'Unknown';
+        const label = status.replaceAll('_', ' ');
+        return label.charAt(0).toUpperCase() + label.slice(1);
+    };
+
+    const rawPeakElevation = hoveredObservation?.pass?.peak_altitude;
+    const peakElevation = rawPeakElevation == null || rawPeakElevation === '' ? null : Number(rawPeakElevation);
+    const hasPeakElevation = Number.isFinite(peakElevation);
+    const hoveredBarColor = hoveredObservation ? getBarColor(hoveredObservation) : theme.palette.primary.main;
+    const hoveredTasks = hoveredObservation ? getFlattenedTasks(hoveredObservation) : [];
+    const passStartLabel = formatDateTime(hoveredObservation?.pass?.event_start, { timezone, locale });
+    const passEndLabel = formatDateTime(hoveredObservation?.pass?.event_end, { timezone, locale });
+    const tooltipOnRightEdge = tooltipPosition.x > window.innerWidth - 370;
+    const tooltipOnBottomEdge = tooltipPosition.y > window.innerHeight - 410;
 
     return (
         <Box>
@@ -446,7 +465,7 @@ const ObservationsTimeline = () => {
                                 <g
                                     key={obs.id}
                                     style={{ cursor: 'pointer' }}
-                                    onMouseEnter={() => setHoveredObservation(obs)}
+                                    onMouseEnter={(event) => handleObservationMouseEnter(event, obs)}
                                     onMouseLeave={() => setHoveredObservation(null)}
                                     onClick={() => handleObservationClick(obs)}
                                 >
@@ -483,70 +502,142 @@ const ObservationsTimeline = () => {
                     {/* Tooltip */}
                     {hoveredObservation && (
                         <Box
+                            role="tooltip"
                             sx={{
                                 position: 'fixed',
-                                left: tooltipPosition.x + 10,
-                                top: tooltipPosition.y + 10,
+                                left: tooltipPosition.x + (tooltipOnRightEdge ? -14 : 14),
+                                top: tooltipPosition.y + (tooltipOnBottomEdge ? -14 : 14),
+                                transform: `${tooltipOnRightEdge ? 'translateX(-100%)' : ''} ${tooltipOnBottomEdge ? 'translateY(-100%)' : ''}`.trim() || 'none',
                                 bgcolor: 'background.paper',
                                 border: '1px solid',
                                 borderColor: 'divider',
-                                borderRadius: 1,
-                                p: 1.5,
-                                boxShadow: 3,
+                                borderTop: '3px solid',
+                                borderTopColor: hoveredBarColor,
+                                borderRadius: 2,
+                                boxShadow: theme.shadows[8],
                                 zIndex: 9999,
                                 pointerEvents: 'none',
-                                maxWidth: 300,
+                                width: 340,
+                                maxWidth: 'calc(100vw - 32px)',
+                                overflow: 'hidden',
                             }}
                         >
-                            <Typography variant="subtitle2" fontWeight="bold">
-                                {hoveredObservation.satellite?.name || hoveredObservation.satellite_name || 'Unknown'}
-                            </Typography>
-                            <Typography variant="caption" display="block">
-                                Status: {hoveredObservation.status || 'unknown'}{hoveredObservation.enabled === false ? ' (disabled)' : ''}
-                            </Typography>
-                            <Typography variant="caption" display="block">
-                                Task start: {hoveredObservation.task_start ? formatDateTime(hoveredObservation.task_start, { timezone, locale }) : 'N/A'}
-                            </Typography>
-                            <Typography variant="caption" display="block">
-                                Starts in: {hoveredObservation.task_start ? humanizeFutureDateInMinutes(hoveredObservation.task_start) : 'N/A'}
-                            </Typography>
-                            <Typography variant="caption" display="block">
-                                Task end: {hoveredObservation.task_end ? formatDateTime(hoveredObservation.task_end, { timezone, locale }) : 'N/A'}
-                            </Typography>
-                            <Typography variant="caption" display="block">
-                                Task duration: {formatDuration(hoveredObservation.task_start, hoveredObservation.task_end)}
-                            </Typography>
-                            <Typography variant="caption" display="block">
-                                Pass start: {hoveredObservation.pass?.event_start ? formatDateTime(hoveredObservation.pass.event_start, { timezone, locale }) : 'N/A'}
-                            </Typography>
-                            <Typography variant="caption" display="block">
-                                Pass end: {hoveredObservation.pass?.event_end ? formatDateTime(hoveredObservation.pass.event_end, { timezone, locale }) : 'N/A'}
-                            </Typography>
-                            <Typography variant="caption" display="block">
-                                Pass duration: {formatDuration(hoveredObservation.pass?.event_start, hoveredObservation.pass?.event_end)}
-                            </Typography>
-                            <Typography variant="caption" display="block">
-                                Peak: {hoveredObservation.pass?.peak_altitude != null ? `${hoveredObservation.pass.peak_altitude}°` : 'N/A'}
-                            </Typography>
-                            <Box mt={1}>
-                                {getFlattenedTasks(hoveredObservation).map((task, idx) => (
+                            <Box sx={{ px: 2, py: 1.5 }}>
+                                <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1.5}>
+                                    <Box sx={{ minWidth: 0 }}>
+                                        <Typography variant="subtitle2" sx={{ fontWeight: 700, lineHeight: 1.25 }} noWrap>
+                                            {hoveredObservation.satellite?.name || hoveredObservation.satellite_name || 'Unknown satellite'}
+                                        </Typography>
+                                        <Typography variant="caption" color="text.secondary">
+                                            Scheduled observation
+                                        </Typography>
+                                    </Box>
                                     <Chip
-                                        key={idx}
-                                        label={
-                                            task.type === 'decoder' ? (
-                                                task.config.decoder_type === 'lora' ? 'LoRa' :
-                                                task.config.decoder_type === 'none' ? 'No Decoder' :
-                                                task.config.decoder_type?.toUpperCase()
-                                            ) :
-                                            task.type === 'audio_recording' ? 'Audio' :
-                                            task.type === 'transcription' ? 'Transcription' :
-                                            'IQ'
-                                        }
+                                        label={`${formatStatus(hoveredObservation.status)}${hoveredObservation.enabled === false ? ' · Disabled' : ''}`}
                                         size="small"
-                                        sx={{ mr: 0.5, mb: 0.5 }}
+                                        sx={{
+                                            height: 24,
+                                            flexShrink: 0,
+                                            bgcolor: `${hoveredBarColor}1f`,
+                                            color: hoveredBarColor,
+                                            fontWeight: 700,
+                                            '& .MuiChip-label': { px: 1 },
+                                        }}
                                     />
-                                ))}
+                                </Stack>
                             </Box>
+
+                            <Divider />
+
+                            <Box sx={{ px: 2, py: 1.5 }}>
+                                <Typography variant="overline" sx={{ color: 'text.secondary', fontWeight: 700, lineHeight: 1.5 }}>
+                                    Schedule
+                                </Typography>
+                                <Box sx={{ display: 'grid', gridTemplateColumns: '72px minmax(0, 1fr)', columnGap: 1.5, rowGap: 0.75, mt: 0.75 }}>
+                                    <Typography variant="caption" color="text.secondary">Starts</Typography>
+                                    <Typography variant="caption" sx={{ fontWeight: 600 }}>
+                                        {formatDateTime(hoveredObservation.task_start, { timezone, locale })}
+                                    </Typography>
+                                    <Typography variant="caption" color="text.secondary">Ends</Typography>
+                                    <Typography variant="caption" sx={{ fontWeight: 600 }}>
+                                        {formatDateTime(hoveredObservation.task_end, { timezone, locale })}
+                                    </Typography>
+                                    <Typography variant="caption" color="text.secondary">Duration</Typography>
+                                    <Typography variant="caption" sx={{ fontWeight: 600 }}>
+                                        {formatDuration(hoveredObservation.task_start, hoveredObservation.task_end)}
+                                    </Typography>
+                                    <Typography variant="caption" color="text.secondary">Begins</Typography>
+                                    <Typography variant="caption" sx={{ fontWeight: 600 }}>
+                                        {humanizeFutureDateInMinutes(hoveredObservation.task_start)}
+                                    </Typography>
+                                </Box>
+                            </Box>
+
+                            <Divider />
+
+                            <Box sx={{ px: 2, py: 1.5 }}>
+                                <Stack direction="row" justifyContent="space-between" alignItems="flex-start" spacing={2}>
+                                    <Box sx={{ minWidth: 0, flex: 1 }}>
+                                        <Typography variant="overline" sx={{ color: 'text.secondary', fontWeight: 700, lineHeight: 1.5 }}>
+                                            Satellite pass
+                                        </Typography>
+                                        <Typography variant="caption" display="block" sx={{ mt: 0.75, fontWeight: 600 }}>
+                                            {passStartLabel || 'Timing unavailable'}
+                                        </Typography>
+                                        {passEndLabel && (
+                                            <Typography variant="caption" display="block" color="text.secondary" sx={{ mt: 0.25 }}>
+                                                to {passEndLabel}
+                                                {' · '}{formatDuration(hoveredObservation.pass?.event_start, hoveredObservation.pass?.event_end)}
+                                            </Typography>
+                                        )}
+                                    </Box>
+                                    {hasPeakElevation && (
+                                        <Box
+                                            sx={{
+                                                minWidth: 88,
+                                                px: 1.25,
+                                                py: 1,
+                                                borderRadius: 1.5,
+                                                bgcolor: 'action.hover',
+                                                textAlign: 'right',
+                                            }}
+                                        >
+                                            <Typography variant="caption" color="text.secondary" display="block">
+                                                Peak elevation
+                                            </Typography>
+                                            <Typography variant="h6" sx={{ fontWeight: 700, lineHeight: 1.2, color: 'text.primary' }}>
+                                                {peakElevation.toFixed(1)}°
+                                            </Typography>
+                                        </Box>
+                                    )}
+                                </Stack>
+                            </Box>
+
+                            {hoveredTasks.length > 0 && (
+                                <>
+                                    <Divider />
+                                    <Stack direction="row" spacing={0.75} useFlexGap flexWrap="wrap" sx={{ px: 2, py: 1.25 }}>
+                                        {hoveredTasks.map((task, idx) => (
+                                            <Chip
+                                                key={idx}
+                                                label={
+                                                    task.type === 'decoder' ? (
+                                                        task.config?.decoder_type === 'lora' ? 'LoRa' :
+                                                        task.config?.decoder_type === 'none' ? 'No Decoder' :
+                                                        task.config?.decoder_type?.toUpperCase() || 'Decoder'
+                                                    ) :
+                                                    task.type === 'audio_recording' ? 'Audio' :
+                                                    task.type === 'transcription' ? 'Transcription' :
+                                                    'IQ'
+                                                }
+                                                size="small"
+                                                variant="outlined"
+                                                sx={{ height: 24, fontSize: '0.7rem' }}
+                                            />
+                                        ))}
+                                    </Stack>
+                                </>
+                            )}
                         </Box>
                     )}
                 </Box>
