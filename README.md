@@ -11,6 +11,7 @@ single web interface.
 
 ## Recent Releases
 
+* **v0.8.9 (2026-09-15):** Added configurable SSTV mode overrides with improved VIS detection handling; optimized satellite transmitter loading with batched lookups and indexed fields; and improved scheduler usability with clearer SDR session state, transmitter loading feedback, expandable task configuration, richer observation tooltips, and better task-list layout and overflow handling.
 * **v0.8.8 (2026-09-14):** Added complete Simplified Chinese localization across all interface namespaces, including previously inline fallback text; the new language is available under **account menu → Preferences → Regional & Language → Language**.
 * **v0.8.7 (2026-09-12):** Added station-coordinate timezone detection with a manual setup override and station-based defaults for additional accounts; added recoverable map-load error handling; improved manual rotator control, stop recovery, and tracker command feedback; and added the station name and version to the browser title. Existing timezone preferences are preserved when upgrading from v0.8.6 or earlier; users with an incorrect clock can select their timezone under **account menu → Preferences → Regional & Language → Timezone**. Daylight saving time is handled automatically.
 * **v0.8.6 (2026-09-06):** Added MiriSDR support through SoapyMiri; kept dashboard grid resize handles visible while editing; centralized observation-status notification placement; and made setup-wizard tests more reliable after post-login socket hydration.
@@ -20,7 +21,6 @@ single web interface.
 * **v0.7.19 (2026-08-01):** Added a dedicated raw-IQ APRS decoder with integrated NBFM/Bell 202 demodulation, AX.25 parsing, batch-boundary recovery, and decoded packet/metadata output files; added automatic-observation indicators with localized tooltips to next-pass tables; and enhanced rotator overlap mode with pass-geometry predictions and high-lane prepositioning.
 * **v0.7.17 (2026-07-16):** Added east-west pass direction classification with updated pass/elevation labels, improved rotator overlap tracking for `0_450` mode with a high-lane lock, introduced custom waterfall colormap selection with better progress tracking, and refined EarthView selector behavior for very large groups.
 * **v0.7.16 (2026-07-09):** Added pass geometry classification with extended azimuth mode support in pass/rotator flows, improved satellite transmitters table performance and column handling, and removed the legacy pass-direction column logic.
-* **v0.7.15 (2026-07-09):** Added SDR takeover confirmation dialogs with structured conflict/session details and forced-takeover handling across frontend/backend streaming flows, and introduced satellite catalog statistics retrieval with frontend UI integration.
 
 ## Screenshots
 
