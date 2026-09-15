@@ -471,45 +471,60 @@ const ObservationsTable = () => {
             headerName: t('scheduler_tables.shared.columns.tasks'),
             flex: 1.2,
             minWidth: 180,
+            cellClassName: 'scheduler-tasks-cell',
             renderCell: (params) => {
                 const tasks = getFlattenedTasks(params.row);
                 if (tasks.length === 0) return '-';
                 return (
-                    <Stack direction="row" spacing={0.5} flexWrap="wrap" sx={{ py: 0.5 }}>
-                        {tasks.map((task, idx) => {
-                            let label = '';
-                            let color = 'default';
+                    <Box sx={{ display: 'flex', width: '100%', height: '100%', alignItems: 'center' }}>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                width: '100%',
+                                minWidth: 0,
+                                gap: 0.5,
+                                flexWrap: 'nowrap',
+                                overflow: 'hidden',
+                                WebkitMaskImage: 'linear-gradient(to right, black 0%, black 88%, transparent 100%)',
+                                maskImage: 'linear-gradient(to right, black 0%, black 88%, transparent 100%)',
+                            }}
+                        >
+                            {tasks.map((task, idx) => {
+                                let label = '';
+                                let color = 'default';
 
-                            if (task.type === 'decoder') {
-                                const decoderType = task.config.decoder_type || 'unknown';
-                                const typeMap = {
-                                    lora: t('scheduler_tables.shared.tasks.lora'),
-                                    none: t('scheduler_tables.shared.tasks.no_decoder'),
-                                };
-                                label = typeMap[decoderType] || decoderType.toUpperCase();
-                                color = 'primary';
-                            } else if (task.type === 'audio_recording') {
-                                label = t('scheduler_tables.shared.tasks.audio');
-                                color = 'secondary';
-                            } else if (task.type === 'transcription') {
-                                label = t('scheduler_tables.shared.tasks.transcription');
-                                color = 'info';
-                            } else if (task.type === 'iq_recording') {
-                                label = t('scheduler_tables.shared.tasks.iq');
-                                color = 'default';
-                            }
+                                if (task.type === 'decoder') {
+                                    const decoderType = task.config.decoder_type || 'unknown';
+                                    const typeMap = {
+                                        lora: t('scheduler_tables.shared.tasks.lora'),
+                                        none: t('scheduler_tables.shared.tasks.no_decoder'),
+                                    };
+                                    label = typeMap[decoderType] || decoderType.toUpperCase();
+                                    color = 'primary';
+                                } else if (task.type === 'audio_recording') {
+                                    label = t('scheduler_tables.shared.tasks.audio');
+                                    color = 'secondary';
+                                } else if (task.type === 'transcription') {
+                                    label = t('scheduler_tables.shared.tasks.transcription');
+                                    color = 'info';
+                                } else if (task.type === 'iq_recording') {
+                                    label = t('scheduler_tables.shared.tasks.iq');
+                                    color = 'default';
+                                }
 
-                            return (
-                                <Chip
-                                    key={idx}
-                                    label={label}
-                                    size="small"
-                                    color={color}
-                                    variant="filled"
-                                />
-                            );
-                        })}
-                    </Stack>
+                                return (
+                                    <Chip
+                                        key={idx}
+                                        label={label}
+                                        size="small"
+                                        color={color}
+                                        variant="filled"
+                                        sx={{ flexShrink: 0 }}
+                                    />
+                                );
+                            })}
+                        </Box>
+                    </Box>
                 );
             },
         },
@@ -694,6 +709,9 @@ const ObservationsTable = () => {
                         },
                         '& .MuiDataGrid-cell': {
                             display: 'flex',
+                            alignItems: 'center',
+                        },
+                        '& .scheduler-tasks-cell': {
                             alignItems: 'center',
                         },
                         '& .observation-row-terminal .MuiDataGrid-cell': {

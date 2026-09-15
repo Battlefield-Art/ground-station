@@ -340,29 +340,44 @@ const MonitoredSatellitesTable = () => {
             headerName: t('scheduler_tables.shared.columns.tasks'),
             flex: 1,
             minWidth: 180,
+            cellClassName: 'scheduler-tasks-cell',
             renderCell: (params) => {
                 const tasks = getFlattenedTasks(params.row);
                 if (!tasks.length) return '-';
                 return (
-                    <Stack direction="row" spacing={0.5} flexWrap="wrap" sx={{ py: 0.5 }}>
-                        {tasks.map((task, idx) => {
-                            let label = getTaskLabel(task);
-                            let color = 'default';
-                            if (task.type === 'decoder') color = 'primary';
-                            else if (task.type === 'audio_recording') color = 'secondary';
-                            else if (task.type === 'transcription') color = 'info';
+                    <Box sx={{ display: 'flex', width: '100%', height: '100%', alignItems: 'center' }}>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                width: '100%',
+                                minWidth: 0,
+                                gap: 0.5,
+                                flexWrap: 'nowrap',
+                                overflow: 'hidden',
+                                WebkitMaskImage: 'linear-gradient(to right, black 0%, black 88%, transparent 100%)',
+                                maskImage: 'linear-gradient(to right, black 0%, black 88%, transparent 100%)',
+                            }}
+                        >
+                            {tasks.map((task, idx) => {
+                                let label = getTaskLabel(task);
+                                let color = 'default';
+                                if (task.type === 'decoder') color = 'primary';
+                                else if (task.type === 'audio_recording') color = 'secondary';
+                                else if (task.type === 'transcription') color = 'info';
 
-                            return (
-                                <Chip
-                                    key={idx}
-                                    label={label}
-                                    size="small"
-                                    color={color}
-                                    variant="filled"
-                                />
-                            );
-                        })}
-                    </Stack>
+                                return (
+                                    <Chip
+                                        key={idx}
+                                        label={label}
+                                        size="small"
+                                        color={color}
+                                        variant="filled"
+                                        sx={{ flexShrink: 0 }}
+                                    />
+                                );
+                            })}
+                        </Box>
+                    </Box>
                 );
             },
         },
@@ -463,6 +478,9 @@ const MonitoredSatellitesTable = () => {
                         },
                         '& .MuiDataGrid-cell': {
                             display: 'flex',
+                            alignItems: 'center',
+                        },
+                        '& .scheduler-tasks-cell': {
                             alignItems: 'center',
                         },
                         '& .target-rotator-nowrap-cell': {
