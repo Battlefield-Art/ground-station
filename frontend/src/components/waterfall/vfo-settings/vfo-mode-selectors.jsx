@@ -346,7 +346,6 @@ export const DataDecoderSelector = ({
                 {[
                     { value: 'none', label: t('vfo.decoders_modes.none', 'None') },
                     { value: 'sstv', label: t('vfo.decoders_modes.sstv', 'SSTV') },
-                    { value: 'geoscanimage', label: t('vfo.decoders_modes.geoscanimage', 'Geoscan Image') },
                     { value: 'morse', label: t('vfo.decoders_modes.morse', 'Morse') },
                     { value: 'lora', label: t('vfo.decoders_modes.lora', 'LoRa') },
                     { value: 'fsk', label: t('vfo.decoders_modes.fsk', 'FSK') },
