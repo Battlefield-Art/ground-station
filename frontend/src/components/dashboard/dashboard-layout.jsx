@@ -82,6 +82,7 @@ import SatelliteInfoPopover from "./target-popover.jsx";
 import VersionInfo from "./version-info.jsx";
 import VersionUpdateOverlay from "./version-update-overlay.jsx";
 import UpdateIndicator from "./update-indicator.jsx";
+import ApplicationFooter from "./application-footer.jsx";
 import PerformanceMetricsDialog from "../performance/performance-metrics-dialog.jsx";
 import ObservationFormDialog from "../scheduler/observation-form-dialog.jsx";
 import MonitoredSatelliteDialog from "../scheduler/monitored-satellite-dialog.jsx";
@@ -1533,9 +1534,14 @@ export default function Layout() {
                     flexGrow: 1,
                     mt: '52px',
                     minWidth: 0,
+                    display: 'flex',
+                    flexDirection: 'column',
                 }}
             >
-                {connected && !initialDataLoading ? <Outlet /> : <ConnectionOverlay />}
+                <Box sx={{ flexGrow: 1, minHeight: 0 }}>
+                    {connected && !initialDataLoading ? <Outlet /> : <ConnectionOverlay />}
+                </Box>
+                <ApplicationFooter />
                 {hasVersionChanged && <VersionUpdateOverlay />}
                 <PerformanceMetricsDialog />
                 {/* Keep scheduler dialogs mounted at app-layout scope so other pages

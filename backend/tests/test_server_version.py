@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from server.version import get_full_version_info
+from server.version import get_full_version_info, get_system_info
 
 
 def test_get_full_version_info_includes_server_time_fields():
@@ -16,3 +16,12 @@ def test_get_full_version_info_includes_server_time_fields():
 
     # Allow small drift between independently generated values.
     assert abs(parsed_iso_epoch_ms - info["serverTimeEpochMs"]) < 5000
+
+
+def test_get_system_info_includes_footer_host_details():
+    info = get_system_info(nonblocking_cpu=True)
+
+    assert isinstance(info["hostname"], str)
+    assert isinstance(info["uptime_seconds"], int)
+    assert info["uptime_seconds"] >= 0
+    assert "pretty_name" in info["os"]

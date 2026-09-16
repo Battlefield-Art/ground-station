@@ -20,6 +20,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+    hostname: null,
+    uptime_seconds: null,
     cpu: {
         architecture: null,
         processor: null,
@@ -42,6 +44,7 @@ const initialState = {
         system: null,
         release: null,
         version: null,
+        pretty_name: null,
     },
     load_avg: null,
     cpu_temp_c: null,

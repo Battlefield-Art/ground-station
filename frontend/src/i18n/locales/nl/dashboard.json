@@ -1,4 +1,10 @@
 {
+  "footer": {
+    "label": "Applicatie- en serverinformatie",
+    "open_source": "Open source",
+    "made_by": "Gemaakt door",
+    "sponsor": "Sponsoren"
+  },
   "layout": {
     "done_editing": "Klaar met bewerken",
     "edit_layout": "Indeling bewerken"

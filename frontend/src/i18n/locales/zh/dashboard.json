@@ -1,4 +1,10 @@
 {
+  "footer": {
+    "label": "应用和服务器信息",
+    "open_source": "开源",
+    "made_by": "制作人",
+    "sponsor": "赞助"
+  },
   "layout": {
     "done_editing": "完成编辑",
     "edit_layout": "编辑布局"

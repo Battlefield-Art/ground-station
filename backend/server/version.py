@@ -271,13 +271,24 @@ def get_system_info(
             "usage_percent": disk.percent,
         }
 
+        # Prefer the distribution's human-readable name on Linux while keeping
+        # the existing kernel fields for diagnostics and non-Linux platforms.
+        os_pretty_name = None
+        try:
+            os_pretty_name = platform.freedesktop_os_release().get("PRETTY_NAME")
+        except (AttributeError, OSError):
+            pass
+
         # OS information
         os_info = {
             "system": platform.system(),  # e.g., 'Linux', 'Darwin', 'Windows'
             "release": platform.release(),
             "version": platform.version(),
+            "pretty_name": os_pretty_name,
         }
         result = {
+            "hostname": platform.node(),
+            "uptime_seconds": max(0, int(time.time() - psutil.boot_time())),
             "cpu": cpu_info,
             "memory": memory_info,
             "disk": disk_info,

@@ -1,4 +1,10 @@
 {
+  "footer": {
+    "label": "Anwendungs- und Serverinformationen",
+    "open_source": "Open Source",
+    "made_by": "Erstellt von",
+    "sponsor": "Unterstützen"
+  },
   "layout": {
     "done_editing": "Bearbeitung Abgeschlossen",
     "edit_layout": "Layout Bearbeiten"
