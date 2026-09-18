@@ -238,6 +238,12 @@ const getApplyModeMeta = (applyMode, t) => {
 const AppSettingsForm = () => {
     const { socket } = useSocket();
     const { t } = useTranslation('settings');
+
+    // Field descriptions come from the backend schema as plain English strings with no
+    // i18n field. Derive a locale key from the field key and fall back to the backend
+    // text, so no backend change is needed and other locales keep working.
+    const fieldDescription = (field) =>
+        t(`app_settings.field_${field.key}`, { defaultValue: field.description });
     const navigate = useNavigate();
 
     const [payload, setPayload] = useState(null);
@@ -468,7 +474,7 @@ const AppSettingsForm = () => {
                         label={
                             <Stack spacing={0.25} sx={{ pr: 1 }}>
                                 <Typography variant="body2" color="text.secondary">
-                                    {field.description}
+                                    {fieldDescription(field)}
                                 </Typography>
                             </Stack>
                         }
@@ -697,7 +703,7 @@ const AppSettingsForm = () => {
                                         >
                                             <Typography
                                                 variant="body2"
-                                                title={`${formatFieldName(field.key)} (${field.key}) ${field.description}`}
+                                                title={`${formatFieldName(field.key)} (${field.key}) ${fieldDescription(field)}`}
                                                 sx={{
                                                     fontSize: { xs: '0.68rem', sm: '0.78rem', md: '0.82rem' },
                                                     lineHeight: 1.2,
@@ -714,7 +720,7 @@ const AppSettingsForm = () => {
                                                     ({field.key})
                                                 </Box>
                                                 <Box component="span" sx={{ ml: 0.75, color: 'text.secondary' }}>
-                                                    {field.description}
+                                                    {fieldDescription(field)}
                                                 </Box>
                                             </Typography>
 
