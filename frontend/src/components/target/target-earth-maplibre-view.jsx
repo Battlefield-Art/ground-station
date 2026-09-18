@@ -509,6 +509,8 @@ const TargetEarthMapLibreView = ({projection = MAPLIBRE_PROJECTION_MERCATOR, eff
 
     const satelliteLat = Number(satellitePosition?.lat);
     const satelliteLon = Number(satellitePosition?.lon);
+    const satelliteName = satelliteDetails?.name
+        || (satelliteDetails?.norad_id != null ? `NORAD ${satelliteDetails.norad_id}` : '-');
     // The tracking slice starts with 0°, 0° placeholder coordinates. Do not
     // treat them as target telemetry until a satellite identity has arrived.
     const hasSatellitePosition = hasSatelliteIdentity(satelliteDetails)
@@ -1000,10 +1002,10 @@ const TargetEarthMapLibreView = ({projection = MAPLIBRE_PROJECTION_MERCATOR, eff
                                 ) : null}
                                 <Box
                                     component="span"
-                                    title={satelliteDetails?.name || '-'}
+                                    title={satelliteName}
                                     sx={{minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis'}}
                                 >
-                                    {satelliteDetails?.name || '-'}
+                                    {satelliteName}
                                 </Box>
                             </Box>
                         </Popup>

@@ -111,9 +111,8 @@ const SatelliteMarker = ({
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
                     {isTracking ? (
                         <Box sx={{
-                            display: 'grid',
-                            gridTemplateColumns: '15px minmax(0, 1fr)',
-                            columnGap: 0.4,
+                            display: 'inline-flex',
+                            gap: 0.4,
                             alignItems: 'center',
                             maxWidth: 180,
                             fontSize: '0.75rem',
@@ -124,12 +123,12 @@ const SatelliteMarker = ({
                                 targetNumber={targetNumber}
                                 prefix="T"
                                 size={15}
-                                sx={{ gridColumn: 1 }}
+                                sx={{ flexShrink: 0 }}
                             />
                             <Box
                                 component="span"
                                 title={satellite.name || '-'}
-                                sx={{ gridColumn: 2, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', textAlign: 'center' }}
+                                sx={{ minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis' }}
                             >
                                 {satellite.name || '-'}
                             </Box>

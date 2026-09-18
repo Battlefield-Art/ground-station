@@ -1208,9 +1208,8 @@ const MapLibreEarthViewMapRenderer = ({
                                         <Box sx={{display: 'flex', flexDirection: 'column', gap: 0.5}}>
                                             {marker.isTracked ? (
                                                 <Box sx={{
-                                                    display: 'grid',
-                                                    gridTemplateColumns: '15px minmax(0, 1fr)',
-                                                    columnGap: 0.4,
+                                                    display: 'inline-flex',
+                                                    gap: 0.4,
                                                     alignItems: 'center',
                                                     maxWidth: 180,
                                                     fontSize: '0.75rem',
@@ -1221,12 +1220,12 @@ const MapLibreEarthViewMapRenderer = ({
                                                         targetNumber={marker.targetNumber}
                                                         prefix="T"
                                                         size={15}
-                                                        sx={{gridColumn: 1}}
+                                                        sx={{flexShrink: 0}}
                                                     />
                                                     <Box
                                                         component="span"
                                                         title={marker.name || '-'}
-                                                        sx={{gridColumn: 2, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', textAlign: 'center'}}
+                                                        sx={{minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis'}}
                                                     >
                                                         {marker.name || '-'}
                                                     </Box>
