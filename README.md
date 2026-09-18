@@ -11,6 +11,7 @@ single web interface.
 
 ## Recent Releases
 
+* **v0.8.11 (2026-09-18):** Added an application footer with the Ground Station version, host operating system, server uptime, project, maintainer, and sponsorship links; improved satellite tracking labels and map tooltips; prevented new trackers from using local defaults as backend state preconditions; and completed Simplified Chinese translations for application settings.
 * **v0.8.10 (2026-09-15):** Completed and reviewed Greek, Dutch, German, Spanish, and French localization across the interface, including setup, connection and reconnection overlays, and previously inline fallback text; corrected Greek capitalization and character encoding; and removed the unused Geoscan Image decoder option from VFO settings.
 * **v0.8.9 (2026-09-15):** Added configurable SSTV mode overrides with improved VIS detection handling; optimized satellite transmitter loading with batched lookups and indexed fields; and improved scheduler usability with clearer SDR session state, transmitter loading feedback, expandable task configuration, richer observation tooltips, and better task-list layout and overflow handling.
 * **v0.8.8 (2026-09-14):** Added complete Simplified Chinese localization across all interface namespaces, including previously inline fallback text; the new language is available under **account menu → Preferences → Regional & Language → Language**.
@@ -20,7 +21,6 @@ single web interface.
 * **v0.8.4 (2026-09-01):** **Major bug fix:** Corrected OMM epoch normalization that could interpret naive timestamps in the wrong timezone; improved satellite-data synchronization by allowing independent providers to continue when CelesTrak fails and scheduling updates every 12 hours; corrected azimuth-gauge visibility; and refined future-pass curve dashing for clearer visual distinction.
 * **v0.8.3 (2026-08-29):** Added observation bundles with grouped recording cards and in-bundle playback; added configurable IQ recording formats, decimation, recording-band selection, and draggable frequency offsets; improved CelesTrak/TLE synchronization, pass transmitter-link summaries, and target/celestial views; added cancellable sync and backup operations plus streamed database restore for files up to 1 GB; refreshed satellite imagery; and improved Docker support for SDRplay RSP API v3.15 and reliable frontend builds.
 * **v0.7.19 (2026-08-01):** Added a dedicated raw-IQ APRS decoder with integrated NBFM/Bell 202 demodulation, AX.25 parsing, batch-boundary recovery, and decoded packet/metadata output files; added automatic-observation indicators with localized tooltips to next-pass tables; and enhanced rotator overlap mode with pass-geometry predictions and high-lane prepositioning.
-* **v0.7.17 (2026-07-16):** Added east-west pass direction classification with updated pass/elevation labels, improved rotator overlap tracking for `0_450` mode with a high-lane lock, introduced custom waterfall colormap selection with better progress tracking, and refined EarthView selector behavior for very large groups.
 
 ## Screenshots
 
