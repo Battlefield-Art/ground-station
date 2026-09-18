@@ -759,8 +759,8 @@ const TargetMapCompositeView = ({}) => {
         }
         if (hasSatelliteIdentity(satelliteDetails)) {
 
-            const satelliteName = satelliteDetails?.name || '';
             const satelliteId = satelliteDetails?.norad_id || noradId;
+            const satelliteName = satelliteDetails?.name || `NORAD ${satelliteId}`;
             const latitude = satellitePosition?.lat;
             const longitude = satellitePosition?.lon;
             const altitude = satellitePosition?.alt;
