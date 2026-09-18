@@ -76,6 +76,25 @@ export function resolveCompatibleTileLayerId(id, mapEngine) {
     return (defaultLayer || compatibleLayers[0]).id;
 }
 
+const nasaGibsEpsg4326Url = 'https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi';
+
+const createNasaGibsEpsg4326Layer = ({ id, name, description, layers, format = 'image/jpeg' }) => ({
+    id,
+    name: `${name} (EPSG:4326)`,
+    description,
+    engines: [MAP_ENGINE_LEAFLET],
+    type: 'wms',
+    projection: 'EPSG4326',
+    url: nasaGibsEpsg4326Url,
+    wmsOptions: {
+        layers,
+        format,
+        transparent: false,
+        version: '1.1.1',
+    },
+    attribution: 'Imagery courtesy NASA GIBS',
+});
+
 
 // Tile layers
 export const tileLayers = [
@@ -142,54 +161,102 @@ export const tileLayers = [
         url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     },
-    {
+    createNasaGibsEpsg4326Layer({
         id: 'nasa_blue_marble_4326',
-        name: 'NASA Blue Marble (EPSG:4326)',
+        name: 'NASA Blue Marble',
         description: 'Global shaded relief and bathymetry.',
-        engines: [MAP_ENGINE_LEAFLET],
-        type: 'wms',
-        projection: 'EPSG4326',
-        url: 'https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi',
-        wmsOptions: {
-            layers: 'BlueMarble_ShadedRelief_Bathymetry',
-            format: 'image/jpeg',
-            transparent: false,
-            version: '1.1.1',
-        },
-        attribution: 'Imagery courtesy NASA GIBS',
-    },
-    {
+        layers: 'BlueMarble_ShadedRelief_Bathymetry',
+    }),
+    createNasaGibsEpsg4326Layer({
+        id: 'nasa_blue_marble_next_generation_4326',
+        name: 'NASA Blue Marble Next Generation',
+        description: 'Cloud-free global imagery assembled from MODIS observations.',
+        layers: 'BlueMarble_NextGeneration',
+    }),
+    createNasaGibsEpsg4326Layer({
+        id: 'nasa_blue_marble_shaded_relief_4326',
+        name: 'NASA Blue Marble Shaded Relief',
+        description: 'Global shaded relief without bathymetry.',
+        layers: 'BlueMarble_ShadedRelief',
+    }),
+    createNasaGibsEpsg4326Layer({
+        id: 'nasa_blue_marble_reference_4326',
+        name: 'NASA Blue Marble Reference',
+        description: 'Blue Marble with coastlines, boundaries, roads, and labels.',
+        layers: 'BlueMarble_ShadedRelief_Bathymetry,Reference_Features,Reference_Labels',
+        format: 'image/png',
+    }),
+    createNasaGibsEpsg4326Layer({
         id: 'nasa_osm_land_mask_4326',
-        name: 'NASA OSM Land Mask (EPSG:4326)',
+        name: 'NASA OSM Land Mask',
         description: 'Land mask layer derived from OSM features.',
-        engines: [MAP_ENGINE_LEAFLET],
-        type: 'wms',
-        projection: 'EPSG4326',
-        url: 'https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi',
-        wmsOptions: {
-            layers: 'OSM_Land_Mask',
-            format: 'image/png',
-            transparent: false,
-            version: '1.1.1',
-        },
-        attribution: 'Data courtesy NASA GIBS',
-    },
-    {
+        layers: 'OSM_Land_Mask',
+        format: 'image/png',
+    }),
+    createNasaGibsEpsg4326Layer({
         id: 'nasa_osm_land_water_map_4326',
-        name: 'NASA OSM Land/Water Map (EPSG:4326)',
+        name: 'NASA OSM Land/Water Map',
         description: 'Land and water reference map in geographic CRS.',
-        engines: [MAP_ENGINE_LEAFLET],
-        type: 'wms',
-        projection: 'EPSG4326',
-        url: 'https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi',
-        wmsOptions: {
-            layers: 'OSM_Land_Water_Map',
-            format: 'image/png',
-            transparent: false,
-            version: '1.1.1',
-        },
-        attribution: 'Data courtesy NASA GIBS',
-    }
+        layers: 'OSM_Land_Water_Map',
+        format: 'image/png',
+    }),
+    createNasaGibsEpsg4326Layer({
+        id: 'nasa_viirs_city_lights_2012_4326',
+        name: 'NASA VIIRS City Lights 2012',
+        description: 'Global night-time city lights composite.',
+        layers: 'VIIRS_CityLights_2012',
+        format: 'image/png',
+    }),
+    createNasaGibsEpsg4326Layer({
+        id: 'nasa_aster_color_relief_4326',
+        name: 'NASA ASTER Color Shaded Relief',
+        description: 'Global color terrain relief derived from ASTER elevation data.',
+        layers: 'ASTER_GDEM_Color_Shaded_Relief',
+        format: 'image/png',
+    }),
+    createNasaGibsEpsg4326Layer({
+        id: 'nasa_aster_greyscale_relief_4326',
+        name: 'NASA ASTER Greyscale Shaded Relief',
+        description: 'Global grayscale terrain relief derived from ASTER elevation data.',
+        layers: 'ASTER_GDEM_Greyscale_Shaded_Relief',
+        format: 'image/png',
+    }),
+    // GIBS supplies its advertised default date when the WMS request omits TIME.
+    createNasaGibsEpsg4326Layer({
+        id: 'nasa_modis_aqua_true_color_4326',
+        name: 'NASA MODIS Aqua True Color',
+        description: 'Daily global true-color imagery from MODIS Aqua.',
+        layers: 'MODIS_Aqua_CorrectedReflectance_TrueColor',
+        format: 'image/png',
+    }),
+    createNasaGibsEpsg4326Layer({
+        id: 'nasa_modis_terra_true_color_4326',
+        name: 'NASA MODIS Terra True Color',
+        description: 'Daily global true-color imagery from MODIS Terra.',
+        layers: 'MODIS_Terra_CorrectedReflectance_TrueColor',
+        format: 'image/png',
+    }),
+    createNasaGibsEpsg4326Layer({
+        id: 'nasa_viirs_noaa20_true_color_4326',
+        name: 'NASA VIIRS NOAA-20 True Color',
+        description: 'Daily global true-color imagery from VIIRS NOAA-20.',
+        layers: 'VIIRS_NOAA20_CorrectedReflectance_TrueColor',
+        format: 'image/png',
+    }),
+    createNasaGibsEpsg4326Layer({
+        id: 'nasa_viirs_noaa21_true_color_4326',
+        name: 'NASA VIIRS NOAA-21 True Color',
+        description: 'Daily global true-color imagery from VIIRS NOAA-21.',
+        layers: 'VIIRS_NOAA21_CorrectedReflectance_TrueColor',
+        format: 'image/png',
+    }),
+    createNasaGibsEpsg4326Layer({
+        id: 'nasa_viirs_snpp_true_color_4326',
+        name: 'NASA VIIRS Suomi NPP True Color',
+        description: 'Daily global true-color imagery from VIIRS Suomi NPP.',
+        layers: 'VIIRS_SNPP_CorrectedReflectance_TrueColor',
+        format: 'image/png',
+    }),
 ];
 
 /**

@@ -50,9 +50,20 @@ const MAPLIBRE_MIN_ZOOM = -6;
 const MAP_MAX_ZOOM = 10;
 const MAPLIBRE_TO_LEAFLET_ZOOM_OFFSET = 1;
 const MAPLIBRE_UNSUPPORTED_TILE_LAYER_IDS = new Set([
+    'nasa_aster_color_relief_4326',
+    'nasa_aster_greyscale_relief_4326',
     'nasa_blue_marble_4326',
+    'nasa_blue_marble_next_generation_4326',
+    'nasa_blue_marble_reference_4326',
+    'nasa_blue_marble_shaded_relief_4326',
+    'nasa_modis_aqua_true_color_4326',
+    'nasa_modis_terra_true_color_4326',
     'nasa_osm_land_mask_4326',
     'nasa_osm_land_water_map_4326',
+    'nasa_viirs_city_lights_2012_4326',
+    'nasa_viirs_noaa20_true_color_4326',
+    'nasa_viirs_noaa21_true_color_4326',
+    'nasa_viirs_snpp_true_color_4326',
 ]);
 
 const normalizeMapEngine = (mapEngine) => {
