@@ -7,8 +7,8 @@ one annotated tag, and pushes only that tag.
 ## Before starting
 
 Run the script from a clean `main` branch after the current branch has been
-pushed to both `origin/main` and `github/main`. The current commit must have a
-successful GitHub `Tests` workflow run.
+pushed to both `origin/main` and `github/main`. If the GitHub `Tests` workflow
+for the current commit is queued or running, the script waits for it to finish.
 
 Do not edit `backend/server/version.json` before running the script. Pass the
 new version on the command line; the script updates and commits it together with
@@ -38,6 +38,7 @@ entry without committing, tagging, pushing, or starting Drone:
 Representative output:
 
 ```text
+[release] Waiting for GitHub Tests (3599s remaining): latest Tests run is in_progress
 [release] GitHub Tests passed for ab12cd34 (...)
 [release] Current version: 0.8.11; target: 0.8.12; tag: v0.8.12
 [release] README entry: v0.8.12 (2026-09-18): Added automated release validation; ...
@@ -122,12 +123,14 @@ script; it does not cancel Drone or remove completed images.
 
 ## Change waiting behavior
 
-Drone/GHCR waits up to six hours by default, and GitHub Actions waits up to 15
-minutes. The registry is checked every 30 seconds. For example:
+GitHub Tests waits up to one hour by default, Drone/GHCR waits up to six hours,
+and release-page creation waits up to 15 minutes. All three are checked every
+30 seconds. For example:
 
 ```bash
 ./scripts/release.py 0.8.12 \
   --notes-file /tmp/ground-station-v0.8.12.txt \
+  --ci-timeout 5400 \
   --image-timeout 14400 \
   --release-timeout 1200 \
   --poll-interval 60 \
@@ -135,7 +138,9 @@ minutes. The registry is checked every 30 seconds. For example:
 ```
 
 Timeouts do not roll back commits, tags, or images. Fix the reported problem and
-rerun the same version to continue.
+rerun the same version to continue. A queued or running Tests workflow is polled
+until it succeeds or the CI timeout expires; a completed failure stops the
+release immediately.
 
 ## Exceptional CI bypass
 
@@ -148,7 +153,7 @@ the pre-release CI check can be bypassed explicitly:
   --skip-ci-check
 ```
 
-This option affects only the initial GitHub Tests check. All version, tag,
+This option affects only the initial GitHub Tests wait. All version, tag,
 remote, changelog, and image checks still run.
 
 ## Common preflight failures

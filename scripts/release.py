@@ -344,7 +344,7 @@ def latest_github_release_tag(repo: str) -> str | None:
     raise ReleaseError(f"Could not inspect the latest GitHub release: {result.stderr.strip()}")
 
 
-def require_successful_tests(repo: str, commit: str) -> None:
+def github_test_runs(repo: str, commit: str) -> list[dict[str, Any]]:
     result = run(
         (
             "gh",
@@ -367,14 +367,44 @@ def require_successful_tests(repo: str, commit: str) -> None:
         runs = json.loads(result.stdout)
     except json.JSONDecodeError as exc:
         raise ReleaseError("GitHub returned invalid workflow-run data") from exc
-    latest_run = runs[0] if runs else None
-    if latest_run is None or latest_run.get("conclusion") != "success":
-        states = ", ".join(
-            f"{run_data.get('status')}/{run_data.get('conclusion') or '-'}" for run_data in runs
-        )
-        suffix = f" Found: {states}." if states else " No Tests workflow run was found."
-        raise ReleaseError(f"The latest GitHub Tests run for {commit[:8]} did not pass.{suffix}")
-    log(f"GitHub Tests passed for {commit[:8]} ({latest_run.get('url')})")
+    if not isinstance(runs, list) or any(not isinstance(run_data, dict) for run_data in runs):
+        raise ReleaseError("GitHub returned unexpected workflow-run data")
+    return runs
+
+
+def wait_for_successful_tests(repo: str, commit: str, timeout: int, poll_interval: int) -> None:
+    """Wait for the newest Tests run, including the delay before a run appears."""
+    deadline = time.monotonic() + timeout
+    last_report = 0.0
+    last_state: str | None = None
+    while True:
+        runs = github_test_runs(repo, commit)
+        latest_run = runs[0] if runs else None
+        if latest_run is not None and latest_run.get("conclusion") == "success":
+            log(f"GitHub Tests passed for {commit[:8]} ({latest_run.get('url')})")
+            return
+
+        if latest_run is None:
+            state = "no matching Tests run has appeared yet"
+        else:
+            status = str(latest_run.get("status") or "unknown")
+            conclusion = str(latest_run.get("conclusion") or "")
+            if status == "completed" and conclusion:
+                raise ReleaseError(
+                    f"GitHub Tests completed with {conclusion} for {commit[:8]} "
+                    f"({latest_run.get('url')})"
+                )
+            state = f"latest Tests run is {status}"
+
+        now = time.monotonic()
+        if now >= deadline:
+            raise ReleaseError(f"Timed out after {timeout} seconds waiting for GitHub Tests: {state}")
+        if state != last_state or now - last_report >= 60:
+            remaining = int(deadline - now)
+            log(f"Waiting for GitHub Tests ({remaining}s remaining): {state}")
+            last_report = now
+            last_state = state
+        time.sleep(min(poll_interval, max(1, int(deadline - now))))
 
 
 def inspect_manifest(reference: str, *, verbose: bool = False) -> dict[str, Any] | None:
@@ -652,6 +682,12 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument("--image", default=DEFAULT_IMAGE)
     parser.add_argument("--github-repo", default=DEFAULT_GITHUB_REPO)
     parser.add_argument(
+        "--ci-timeout",
+        type=int,
+        default=3600,
+        help="seconds to wait for GitHub Tests (default: 3600)",
+    )
+    parser.add_argument(
         "--image-timeout",
         type=int,
         default=21600,
@@ -680,7 +716,12 @@ def main() -> int:
         version, target_parts = normalize_version(args.version)
         tag = f"v{version}"
         release_date = normalize_release_date(args.release_date)
-        if args.image_timeout <= 0 or args.release_timeout <= 0 or args.poll_interval <= 0:
+        if (
+            args.ci_timeout <= 0
+            or args.image_timeout <= 0
+            or args.release_timeout <= 0
+            or args.poll_interval <= 0
+        ):
             raise ReleaseError("Timeouts and poll interval must be positive")
         if args.build_remote == args.publish_remote:
             raise ReleaseError("Build and publish remotes must be different")
@@ -733,7 +774,9 @@ def main() -> int:
                     f"Latest GitHub release is {latest_tag or '(none)'}, expected {expected_latest}"
                 )
             if not args.skip_ci_check:
-                require_successful_tests(args.github_repo, head)
+                wait_for_successful_tests(
+                    args.github_repo, head, args.ci_timeout, args.poll_interval
+                )
             ensure_initial_state(
                 version=version,
                 tag=tag,
