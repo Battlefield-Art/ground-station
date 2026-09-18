@@ -26,9 +26,12 @@ vi.mock('../../../utils/toast-with-timestamp.jsx', () => ({
     },
 }));
 
+// Injected by tests to verify translated values win and missing ones fall back to defaultValue.
+let translations = {};
+
 vi.mock('react-i18next', () => ({
     useTranslation: () => ({
-        t: (key, options) => options?.defaultValue ?? key,
+        t: (key, options) => translations[key] ?? options?.defaultValue ?? key,
     }),
 }));
 
@@ -92,6 +95,7 @@ function buildPayload({
 describe('app-settings-form', () => {
     beforeEach(() => {
         socketValue = null;
+        translations = {};
         navigateMock.mockReset();
         toastSuccessMock.mockReset();
         toastErrorMock.mockReset();
@@ -203,5 +207,23 @@ describe('app-settings-form', () => {
         await screen.findByLabelText('Host');
         expect(screen.getByRole('heading', { name: 'Network' })).toBeInTheDocument();
         expect(screen.getAllByText('Saved').length).toBeGreaterThan(0);
+    });
+    it('translates backend-provided field descriptions and falls back to the backend text', async () => {
+        // The backend schema only provides an English description, with no i18n field.
+        translations = { 'app_settings.field_host': 'Translated host description.' };
+        socketValue = {
+            emit: vi.fn((event, payload, callback) => {
+                if (event === 'api.call' && payload?.cmd === 'get-app-config') {
+                    callback({ success: true, data: buildPayload() });
+                }
+            }),
+        };
+
+        render(<AppSettingsForm />);
+
+        // Present in the locale bundle -> renders the translation.
+        expect(await screen.findByText('Translated host description.')).toBeInTheDocument();
+        // Missing from the locale bundle -> falls back to the backend text, not a raw key.
+        expect(screen.getByText('TCP port used by the backend web server.')).toBeInTheDocument();
     });
 });
