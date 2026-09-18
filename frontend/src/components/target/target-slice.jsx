@@ -580,15 +580,19 @@ export const setTrackingStateInBackend = createAsyncThunk(
         const scopes = commandScopes(changes);
         const desired = changes.rotator_state || changes.rig_state;
         const action = explicitAction || ({connected: 'connect', disconnected: 'disconnect', tracking: 'track', stopped: 'stop', parked: 'park'})[desired] || 'configure';
+        const exists = state.trackerInstances?.instances?.some(item => item.tracker_id === trackerId);
         const operation = {command_id: requestId, tracker_id: trackerId, action, scopes,
             scope: scopes.length === 1 ? scopes[0] : 'tracking', requested_state: changes,
             supersedes: action === 'stop' ? Object.values(state.targetSatTrack.trackerCommandsById || {})
                 .filter(command => command.trackerId === trackerId && command.scopes?.some(scope => scopes.includes(scope)) && isCommandOutstanding(command))
                 .map(command => command.commandId) : [],
-            expected_state: Object.fromEntries(Object.keys(changes).filter(key => current[key] !== undefined).map(key => [key, current[key]])),
+            // Local defaults describe a slot before it exists on the server, so
+            // they cannot be used as optimistic-concurrency preconditions.
+            expected_state: exists
+                ? Object.fromEntries(Object.keys(changes).filter(key => current[key] !== undefined).map(key => [key, current[key]]))
+                : {},
             device_ids: Object.fromEntries(scopes.filter(scope => scope !== 'target' && !(`${scope}_id` in changes)).map(scope => [scope, current[`${scope}_id`]]))};
         // A brand new tracker still needs its complete initial state.
-        const exists = state.trackerInstances?.instances?.some(item => item.tracker_id === trackerId);
         const value = exists ? {...changes} : {...data, ...changes};
         delete value.tracker_id;
         const response = await submitCommand(socket, 'set-tracking-state', {tracker_id: trackerId, value, operation}, operation, dispatch, rejectWithValue, getState().targetSatTrack.trackerServerOffset || 0);

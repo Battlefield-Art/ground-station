@@ -117,6 +117,52 @@ describe('tracker command lifecycle', () => {
         await result;
     });
 
+    it('creates a new tracker without applying local defaults as state preconditions', async () => {
+        const initial = reducer(undefined, {type: '@@init'});
+        const store = configureStore({
+            reducer: {
+                targetSatTrack: reducer,
+                trackerInstances: () => ({instances: []}),
+            },
+            preloadedState: {
+                targetSatTrack: {...initial, trackerId: 'target-1'},
+            },
+            middleware: getDefault => getDefault({serializableCheck: false}),
+        });
+        const requests = [];
+        const socket = {
+            connected: true,
+            timeout: () => ({emit: (event, request, ack) => requests.push({request, ack})}),
+        };
+        const data = {
+            tracker_id: 'target-1',
+            target_type: 'satellite',
+            target_name: 'ISS (ZARYA)',
+            norad_id: 25544,
+            group_id: 'group-1',
+            rig_id: 'none',
+            rotator_id: 'none',
+            transmitter_id: 'none',
+            rig_state: 'disconnected',
+            rotator_state: 'disconnected',
+            rig_vfo: 'none',
+            vfo1: 'uplink',
+            vfo2: 'downlink',
+        };
+
+        const result = store.dispatch(setTrackingStateInBackend({socket, data}));
+
+        expect(requests[0].request.data.operation.expected_state).toEqual({});
+        expect(requests[0].request.data.value).toEqual(expect.objectContaining({
+            target_name: 'ISS (ZARYA)',
+            norad_id: 25544,
+            rotator_state: 'disconnected',
+            rig_state: 'disconnected',
+        }));
+        requests[0].ack(null, {success: true, data: {}});
+        await result;
+    });
+
     it('Stop identifies a Move before its acknowledgement arrives', async () => {
         const {store, socket, requests} = setup();
         const moving = store.dispatch(moveRotatorToPosition({socket, trackerId: 'target-1', rotatorId: 'mount', az: 120, el: 45}));
