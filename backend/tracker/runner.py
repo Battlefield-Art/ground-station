@@ -233,7 +233,7 @@ class TrackerSupervisor:
         runtime = self.runtimes.get(normalized_id)
         if not runtime:
             # Keep ownership maps consistent even when runtime is already gone.
-            self.assign_rotator(normalized_id, None)
+            self._release_rotator_ownership(normalized_id)
             return
 
         try:
@@ -270,7 +270,7 @@ class TrackerSupervisor:
                 pass
         finally:
             self.runtimes.pop(normalized_id, None)
-            self.assign_rotator(normalized_id, None)
+            self._release_rotator_ownership(normalized_id)
 
     def stop_all(self, timeout: float = 3.0) -> None:
         for tracker_id in list(self.runtimes.keys()):
@@ -280,7 +280,9 @@ class TrackerSupervisor:
         normalized_id = require_tracker_id(tracker_id)
         self.stop_tracker(normalized_id, timeout=timeout)
         self.managers.pop(normalized_id, None)
-        self.tracker_rotator_map.pop(normalized_id, None)
+        # Repeat the repair after manager removal so partially inconsistent maps
+        # cannot leave hardware reserved by a tracker that no longer exists.
+        self._release_rotator_ownership(normalized_id)
         return {"success": True, "tracker_id": normalized_id}
 
     def get_runtime(self, tracker_id: str) -> Optional[TrackerRuntime]:
@@ -313,6 +315,39 @@ class TrackerSupervisor:
     def get_managers(self) -> Dict[str, TrackerManager]:
         return dict(self.managers)
 
+    def _release_rotator_ownership(self, tracker_id: str) -> None:
+        """Remove both sides of every rotator assignment owned by a tracker."""
+        normalized_tracker_id = require_tracker_id(tracker_id)
+        assigned_rotator_id = self.tracker_rotator_map.pop(normalized_tracker_id, None)
+        if (
+            assigned_rotator_id
+            and self.rotator_tracker_map.get(assigned_rotator_id) == normalized_tracker_id
+        ):
+            self.rotator_tracker_map.pop(assigned_rotator_id, None)
+
+        # Repair orphaned reverse entries too. These entries are invisible in the
+        # tracker list but otherwise keep rejecting a rotator as already in use.
+        orphaned_rotator_ids = [
+            rotator_id
+            for rotator_id, owner_tracker_id in self.rotator_tracker_map.items()
+            if owner_tracker_id == normalized_tracker_id
+        ]
+        for rotator_id in orphaned_rotator_ids:
+            self.rotator_tracker_map.pop(rotator_id, None)
+
+    def _get_consistent_rotator_owner(self, rotator_id: str) -> Optional[str]:
+        """Return the owner after discarding an orphaned reverse assignment."""
+        owner_tracker_id = self.rotator_tracker_map.get(rotator_id)
+        if owner_tracker_id and self.tracker_rotator_map.get(owner_tracker_id) != rotator_id:
+            logger.warning(
+                "Discarding stale rotator ownership: rotator '%s' references removed tracker '%s'",
+                rotator_id,
+                owner_tracker_id,
+            )
+            self.rotator_tracker_map.pop(rotator_id, None)
+            return None
+        return owner_tracker_id
+
     def assign_rotator(self, tracker_id: str, rotator_id: Optional[str]) -> Dict[str, Any]:
         normalized_tracker_id = require_tracker_id(tracker_id)
         normalized_rotator_id = self._normalize_rotator_id(rotator_id)
@@ -327,7 +362,7 @@ class TrackerSupervisor:
             }
 
         if normalized_rotator_id:
-            owner_tracker_id = self.rotator_tracker_map.get(normalized_rotator_id)
+            owner_tracker_id = self._get_consistent_rotator_owner(normalized_rotator_id)
             if owner_tracker_id and owner_tracker_id != normalized_tracker_id:
                 return {
                     "success": False,
@@ -402,7 +437,7 @@ class TrackerSupervisor:
         normalized_rotator_id = self._normalize_rotator_id(rotator_id)
         if not normalized_rotator_id:
             return None
-        return self.rotator_tracker_map.get(normalized_rotator_id)
+        return self._get_consistent_rotator_owner(normalized_rotator_id)
 
     def ensure_tracker_for_rotator(self, rotator_id: Optional[str]) -> Dict[str, Any]:
         """Resolve owner tracker for rotator, creating a new target-N slot when missing."""
@@ -414,7 +449,7 @@ class TrackerSupervisor:
                 "message": "rotator_id is required to resolve tracker ownership",
             }
 
-        owner_tracker_id = self.rotator_tracker_map.get(normalized_rotator_id)
+        owner_tracker_id = self._get_consistent_rotator_owner(normalized_rotator_id)
         if owner_tracker_id:
             return {
                 "success": True,

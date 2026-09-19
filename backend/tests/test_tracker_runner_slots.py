@@ -61,6 +61,34 @@ def test_observation_slots_do_not_consume_target_slot_limit(monkeypatch):
     assert target_reply["tracker_id"] == "target-1"
 
 
+def test_removing_observation_tracker_purges_orphaned_rotator_owner(monkeypatch):
+    _set_target_limit(monkeypatch, 2)
+    supervisor = TrackerSupervisor()
+    observation_tracker_id = "obs-finished-pass"
+
+    # Reproduce the one-way ownership state seen after the finished observation:
+    # the reverse lookup reserves the rotator, while the tracker lookup is empty.
+    supervisor.rotator_tracker_map["rot-hamlib"] = observation_tracker_id
+
+    remove_reply = supervisor.remove_tracker(observation_tracker_id)
+    assign_reply = supervisor.assign_rotator("target-1", "rot-hamlib")
+
+    assert remove_reply["success"] is True
+    assert supervisor.get_assigned_tracker_for_rotator("rot-hamlib") == "target-1"
+    assert assign_reply["success"] is True
+
+
+def test_assignment_repairs_orphaned_rotator_owner(monkeypatch):
+    _set_target_limit(monkeypatch, 2)
+    supervisor = TrackerSupervisor()
+    supervisor.rotator_tracker_map["rot-hamlib"] = "obs-already-removed"
+
+    assign_reply = supervisor.assign_rotator("target-1", "rot-hamlib")
+
+    assert assign_reply["success"] is True
+    assert supervisor.get_assigned_tracker_for_rotator("rot-hamlib") == "target-1"
+
+
 def test_instances_payload_uses_target_number_only_for_target_slots(monkeypatch):
     _set_target_limit(monkeypatch, 5)
     supervisor = TrackerSupervisor()

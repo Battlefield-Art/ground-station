@@ -27,7 +27,6 @@ import {
     moveRotatorToPosition,
     stopRotator,
 } from "../target/target-slice.jsx";
-import { toast } from "../../utils/toast-with-timestamp.jsx";
 import {getClassNamesBasedOnGridEditing, TitleBar} from "../common/common.jsx";
 import { useTranslation } from 'react-i18next';
 import Grid from "@mui/material/Grid";
@@ -52,6 +51,7 @@ import {
 
 import {useHardwareCommand} from '../target/use-hardware-command.js';
 import HardwareControlHeader from './hardware-control-header.jsx';
+import ErrorDialog from '../common/error-dialog.jsx';
 
 const finiteOrNull = (value) => {
     const parsed = Number(value);
@@ -153,7 +153,14 @@ const RotatorControl = React.memo(function RotatorControl({ trackerId: trackerId
     const retryStop = activeRotatorCommand?.action === 'stop' && ['failed', 'unknown'].includes(activeRotatorCommand.status);
     const [openQuickEditDialog, setOpenQuickEditDialog] = React.useState(false);
     const [openManualControlDialog, setOpenManualControlDialog] = React.useState(false);
+    const [rotatorErrorMessage, setRotatorErrorMessage] = React.useState('');
     const confirmedTrackingState = scopedTrackerView?.confirmedTrackingState || {};
+
+    const showRotatorError = React.useCallback((error, fallbackMessage) => {
+        const errorText = typeof error === 'string' ? error : error?.message || error?.error;
+        const message = String(errorText || fallbackMessage).trim();
+        setRotatorErrorMessage(message || fallbackMessage);
+    }, []);
 
     const effectiveSelectedRotatorValue = hasTargets ? effectiveSelectedRotator : "none";
     const selectedRotatorDevice = React.useMemo(
@@ -355,7 +362,10 @@ const RotatorControl = React.memo(function RotatorControl({ trackerId: trackerId
             const ownerDisconnected = ownerRotatorState === ROTATOR_STATES.DISCONNECTED;
             const requesterDisconnected = requesterRotatorState === ROTATOR_STATES.DISCONNECTED;
             if (!ownerDisconnected || !requesterDisconnected) {
-                toast.error('Swap requires both targets to have rotators disconnected');
+                showRotatorError(
+                    'Swap requires both targets to have rotators disconnected',
+                    'Failed selecting rotator'
+                );
                 return;
             }
 
@@ -371,7 +381,7 @@ const RotatorControl = React.memo(function RotatorControl({ trackerId: trackerId
                     dispatch(setRotator({ value: newRotatorId, trackerId: scopedTrackerId }));
                 })
                 .catch((error) => {
-                    toast.error(error?.message || 'Failed swapping rotators');
+                    showRotatorError(error, 'Failed swapping rotators');
                 });
             return;
         }
@@ -388,7 +398,11 @@ const RotatorControl = React.memo(function RotatorControl({ trackerId: trackerId
             transmitter_id: effectiveSelectedTransmitter,
         };
         dispatch(setTrackingStateInBackend({socket, data: newTrackingState, changes: {rotator_id: newRotatorId}}))
-            .unwrap().catch(() => dispatch(setRotator({value: effectiveSelectedRotator, trackerId: scopedTrackerId})));
+            .unwrap()
+            .catch((error) => {
+                dispatch(setRotator({value: effectiveSelectedRotator, trackerId: scopedTrackerId}));
+                showRotatorError(error, 'Failed selecting rotator');
+            });
     }
 
     function handleManualMove(az, el) {
@@ -791,6 +805,11 @@ const RotatorControl = React.memo(function RotatorControl({ trackerId: trackerId
                 disabled={manualControlDisabled}
                 command={activeRotatorCommand}
                 canStop={!stopDisabled}
+            />
+            <ErrorDialog
+                open={Boolean(rotatorErrorMessage)}
+                message={rotatorErrorMessage}
+                onClose={() => setRotatorErrorMessage('')}
             />
         </>
     );
