@@ -7,7 +7,7 @@ aiozeroconf==0.1.8
 alembic==1.14.0
 apscheduler==3.10.4
 annotated-types==0.7.0
-anyio==4.8.0
+anyio==4.14.2
 attrs==25.3.0
 bcrypt==4.3.0
 bidict==0.23.1
